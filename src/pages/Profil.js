@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import '../css/profil.css';
-
 import NavBar from '../components/NavBar';
-
-import ProfilCaseRadio, { soumissionsFormulaire } from '../components/ProfilCaseRadio';
+import ProfilCaseRadio from '../components/profil/test';
+import Button from '../components/Button';
+import Strategie from '../components/strategie/Strategie';
 
 const Profil = () => {
-
-  //initialisation des variables
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [data, setData] = useState([]);
+  const [affichageFenetre, setAffichageFenetre] = useState('journal');
 
-  //recupere les sessions pour afficher les données
+  const journalAffichage = () => {
+    setAffichageFenetre('journal');
+  };
+
+  const strategieAffichage = () => {
+    setAffichageFenetre('strategie');
+  };
+
   useEffect(() => {
     try {
       const userDataFromSession = JSON.parse(sessionStorage.getItem('userData'));
-      const auth = sessionStorage.getItem('auth');
-
-      //console.log("auth : " + auth);
 
       if (userDataFromSession && userDataFromSession.username && userDataFromSession.email) {
         setUsername(userDataFromSession.username);
@@ -35,15 +36,11 @@ const Profil = () => {
     }
   }, []);
 
-  //systeme de deconnexion et suppression des variables
   const deconnexion = () => {
     sessionStorage.setItem('auth', 'false');
     sessionStorage.removeItem('userData');
     navigate('/login');
-  };
-
-  //initialisation des options du selecteur
-  
+  };  
 
   return (
     <>
@@ -54,23 +51,21 @@ const Profil = () => {
             <h1>{username}</h1>
             <p>{email}</p>
             <button className='deconnexion' onClick={deconnexion}>Se déconnecter</button>
+            <Button label="Journal" onClick={journalAffichage} />
+            <Button label="Stratégie" onClick={strategieAffichage} />
             <div className="selecteur">
               <div className='toutesLesCoches'>
-                <ProfilCaseRadio />
+                {affichageFenetre === "journal" ? (
+                  <ProfilCaseRadio />
+                ) : null}
+                {affichageFenetre === "strategie" ? (
+                  <Strategie />
+                ) : null}
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Utilisez les données renvoyées dans votre interface utilisateur */}
-      {data.map((item) => (
-        <div key={item._id}>
-          {/* Affichez les propriétés pertinentes de chaque élément */}
-          <p>Date: {item.date}</p>
-          <p>Autre propriété: {item.autrePropriete}</p>
-        </div>
-      ))}
     </>
   );
 };

@@ -53,6 +53,7 @@ nav {
     padding: 1.5vh 2vw;
     background-color: transparent;
     color: white;
+    cursor: pointer;
 }
 
 .login:hover {

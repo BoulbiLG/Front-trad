@@ -35,6 +35,7 @@ form input {
 }
 
 form button {
+    cursor: pointer;
     border: 1px solid white;
     border-radius: 5px;
     padding: 1.5vh 2vw;

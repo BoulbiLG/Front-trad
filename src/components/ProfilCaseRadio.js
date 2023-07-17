@@ -24,7 +24,7 @@ const ProfilCaseRadio = ({ selectedOption }) => {
     { value: '1an', label: '1 an' }, { value: '2ans', label: '2 ans' }, { value: 'tout', label: 'Tout' }, { value: 'choixLibre', label: 'Choix libre' },
   ];
   const secondOptions = [
-    { value: "DowJonesIndustrialAverage", label: "Dow Jones Industrial Average" }, { value: 'NasdaqComposite', label: 'Nasdaq Composite' }, { value: 'FTSE100', label: 'FTSE 100' },
+    { value: "DowJonesIndustrialAverage", label: "Dow Jones Industrial Average" }, { value: 'NAS', label: 'Nasdaq Composite' }, { value: 'FTSE100', label: 'FTSE 100' },
     { value: 'DAX30', label: 'DAX 30' }, { value: 'CAC40', label: 'CAC 40' }, { value: 'Nikkei225', label: 'Nikkei 225' },
     { value: 'ShangaiComposite', label: 'Shangai Composite' }, { value: 'HangSengIndex', label: 'Hang Seng Index' }, { value: 'S&P/ASX200', label: 'S&P/ASX 200' },
     { value: 'Bovespa', label: 'Bovespa' }, { value: 'Nifty50', label: 'Nifty 50' }, { value: 'TAIEX', label: 'TAIEX' },
@@ -75,8 +75,8 @@ const ProfilCaseRadio = ({ selectedOption }) => {
     let argumentFiltre = "";
     if (secondSelectedOption === "DowJonesIndustrialAverage") {
       argumentFiltre = "Dow Jones Industrial Average";
-    } else if (secondSelectedOption === "NasdaqComposite") {
-      argumentFiltre = "Nasdaq Composite";
+    } else if (secondSelectedOption === "NAS") {
+      argumentFiltre = "nas";
     } else if (secondSelectedOption === "FTSE100") {
       argumentFiltre = "FTSE 100";
     } else if (secondSelectedOption === "DAX30") {

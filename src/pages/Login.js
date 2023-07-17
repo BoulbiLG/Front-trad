@@ -4,9 +4,7 @@ import axios from 'axios';
 import NavBar from '../components/NavBar';
 import '../css/login.css';
 
-//création du composant
 const Login = () => {
-  //initialisation de la fonction de redirection
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
@@ -14,7 +12,6 @@ const Login = () => {
     password: ''
   });
 
-  //fonction exécutée à chaque caractère rentré dans un champ
   const handleChange = (e) => {
     setUserData({
       ...userData,
@@ -22,11 +19,9 @@ const Login = () => {
     });
   };
 
-  //fonction exécutée à l'envoi du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //vérification si l'utilisateur existe
     try {
       const response = await axios.post('https://trad-back.onrender.com/api/auth/login', {
         email: userData.email,
@@ -38,36 +33,30 @@ const Login = () => {
       //console.log('User ID:', userId);
       //console.log('Token:', token);
 
-      //requête pour récupérer les informations d'un utilisateur spécifique depuis l'API back-end
       const userResponse = await axios.get(`https://trad-back.onrender.com/api/auth/getUser/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
+      console.log(userResponse);
 
-      const user = userResponse.data.user;
+      //const user = userResponse.data.user;
 
-      //stocker les informations de l'utilisateur dans des sessions
-      sessionStorage.setItem('auth', 'true');
-      sessionStorage.setItem('userData', JSON.stringify(user));
-
-      const userDataFromSession = JSON.parse(sessionStorage.getItem('userData'));
-      const auth = sessionStorage.getItem('auth');
+      const userDataFromSession = getUserDataFromSession();
+      const auth = getAuthFromSession();
 
       console.log("Session username:", userDataFromSession.username);
       console.log("Session email:", userDataFromSession.email);
       console.log("auth : " + auth);
 
-      //redirection de l'utilisateur
       navigate('/profil');
     } catch (error) {
       console.log('Error:', error);
-      //gestion de l'erreur
       setError('Erreur de connexion. Veuillez vérifier vos informations.');
     }
   };
 
-  const [error, setError] = useState(null); // État pour stocker l'erreur
+  const [error, setError] = useState(null);
 
   return (
     <div className="tout">
@@ -90,5 +79,21 @@ const Login = () => {
     </div>
   );
 };
+
+const setAuthAndUserDataInSession = (user) => {
+  sessionStorage.setItem('auth', 'true');
+  sessionStorage.setItem('userData', JSON.stringify(user));
+};
+
+const getUserDataFromSession = () => {
+  const userData = sessionStorage.getItem('userData');
+  return userData ? JSON.parse(userData) : null;
+};
+
+const getAuthFromSession = () => {
+  return sessionStorage.getItem('auth');
+};
+
+export { setAuthAndUserDataInSession, getUserDataFromSession, getAuthFromSession };
 
 export default Login;
