@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const fetchStrategie = async (username, setStrategies) => {
     try {
-      const response = await axios.get(`https://trad-back.onrender.com/api/strategie/recuperationStrategie?username=${username}`);
+      const response = await axios.get(`https://apipython2.onrender.com/recuperationStrategie?username=${username}`);
       const data = response.data;
       setStrategies(data);
     } catch (error) {
@@ -13,7 +13,7 @@ export const fetchStrategie = async (username, setStrategies) => {
 
 export const createStrategie = async (username, nomStrategie, fetchStrategie) => {
   try {
-    await axios.post('https://trad-back.onrender.com/api/strategie/createStrategie', { username, nomStrategie });
+    await axios.post('https://https://apipython2.onrender.com/createStrategie', { username, nomStrategie });
     fetchStrategie(username);
   } catch (error) {
     console.error(error);
@@ -22,7 +22,7 @@ export const createStrategie = async (username, nomStrategie, fetchStrategie) =>
 
 export const deleteStrategie = async (username, nomStrategie, fetchStrategie) => {
   try {
-    await axios.delete(`https://trad-back.onrender.com/api/strategie/suppressionStrategie?username=${username}&nomStrategie=${nomStrategie}`);
+    await axios.delete(`https://apipython2.onrender.com/suppressionStrategie?username=${username}&nomStrategie=${nomStrategie}`);
     fetchStrategie(username);
   } catch (error) {
     console.error(error);

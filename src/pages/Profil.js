@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/profil.css';
 import NavBar from '../components/NavBar';
-import ProfilCaseRadio from '../components/profil/test';
 import Button from '../components/Button';
+
+import ProfilCaseRadio from '../components/profil/test';
 import Strategie from '../components/strategie/Strategie';
+import Journal from '../components/journal/test2';
 
 const Profil = () => {
   const navigate = useNavigate();
@@ -12,29 +14,30 @@ const Profil = () => {
   const [email, setEmail] = useState('');
   const [affichageFenetre, setAffichageFenetre] = useState('journal');
 
-  const journalAffichage = () => {
-    setAffichageFenetre('journal');
+  const statAffichage = () => {
+    setAffichageFenetre('stat');
   };
 
   const strategieAffichage = () => {
     setAffichageFenetre('strategie');
   };
 
-  useEffect(() => {
-    try {
-      const userDataFromSession = JSON.parse(sessionStorage.getItem('userData'));
+  const journalAffichage = () => {
+    setAffichageFenetre('journal');
+  };
 
-      if (userDataFromSession && userDataFromSession.username && userDataFromSession.email) {
-        setUsername(userDataFromSession.username);
-        setEmail(userDataFromSession.email);
-      } else {
-        setUsername('Username non trouvé');
-        setEmail('Email non trouvé');
-      }
-    } catch (error) {
-      console.log('Error:', error);
+  useEffect(() => {
+    const usernameFromSession = sessionStorage.getItem('username');
+    const emailFromSession = sessionStorage.getItem('email');
+
+    if (usernameFromSession && emailFromSession) {
+      setUsername(usernameFromSession);
+      setEmail(emailFromSession);
+    } else {
+      // Rediriger vers la page d'accueil si les sessions n'existent pas
+      navigate('/');
     }
-  }, []);
+  }, [navigate]);
 
   const deconnexion = () => {
     sessionStorage.setItem('auth', 'false');
@@ -51,15 +54,19 @@ const Profil = () => {
             <h1>{username}</h1>
             <p>{email}</p>
             <button className='deconnexion' onClick={deconnexion}>Se déconnecter</button>
-            <Button label="Journal" onClick={journalAffichage} />
+            <Button label="Statistiques" onClick={statAffichage} />
             <Button label="Stratégie" onClick={strategieAffichage} />
+            <Button label="Journal" onClick={journalAffichage} />
             <div className="selecteur">
               <div className='toutesLesCoches'>
-                {affichageFenetre === "journal" ? (
+                {affichageFenetre === "stat" ? (
                   <ProfilCaseRadio />
                 ) : null}
                 {affichageFenetre === "strategie" ? (
                   <Strategie />
+                ) : null}
+                {affichageFenetre === "journal" ? (
+                  <Journal />
                 ) : null}
               </div>
             </div>

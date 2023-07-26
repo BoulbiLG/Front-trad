@@ -12,7 +12,7 @@ const Strategie = ({ selectedOption }) => {
 
   const fetchStrategie = useCallback(async () => {
     try {
-      const response = await axios.get(`https://trad-back.onrender.com/api/strategie/recuperationStrategie?username=${username}`);
+      const response = await axios.get(`http://0.0.0.0:1234/recuperationStrategie?username=${username}`);
       const data = response.data;
       setStrategies(data);
     } catch (error) {
@@ -27,7 +27,7 @@ const Strategie = ({ selectedOption }) => {
   const createStrategie = async () => {
     try {
       console.log(nomStrategie);
-      await axios.post('https://trad-back.onrender.com/api/strategie/createStrategie', { username: username, nomStrategie: nomStrategie });
+      await axios.post('https://trad-back.onrender.com/createStrategie', { username: username, nomStrategie: nomStrategie });
       fetchStrategie();
     } catch (error) {
       console.error(error);
@@ -38,7 +38,7 @@ const Strategie = ({ selectedOption }) => {
     try {
       console.log(nomStrategie);
       console.log(username);
-      await axios.delete(`https://trad-back.onrender.com/api/strategie/suppressionStrategie?username=${username}&nomStrategie=${nomStrategie}`);
+      await axios.delete(`https://trad-back.onrender.com/suppressionStrategie?username=${username}&nomStrategie=${nomStrategie}`);
       fetchStrategie();
     } catch (error) {
       console.error(error);

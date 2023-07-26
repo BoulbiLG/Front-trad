@@ -1,0 +1,19 @@
+.tradConteneur {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.donnee {
+    display: flex;
+}
+
+.donnee .valeur {
+    margin: 10px;
+}
+
+.filtreInput {
+    display: flex;
+}

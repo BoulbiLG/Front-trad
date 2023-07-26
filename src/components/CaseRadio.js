@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const CaseRadio = ({ titre, nomOption1, nomOption2, nomOption3, selectedCaseOption, onChange }) => {
   const cocheStyle = {
@@ -7,17 +7,17 @@ const CaseRadio = ({ titre, nomOption1, nomOption2, nomOption3, selectedCaseOpti
   };
 
   const h1Style = {
-    padding: '10px'
+    padding: '5px'
   };
 
   const espaceCoche = {
-    margin: '10px'
+    margin: '5px'
   };
 
   const cocheTout = {
     padding: '5px',
     border: '1px solid black',
-    width: '305px'
+    display: 'flex'
   };
 
   const changementValeurCase = (event) => {

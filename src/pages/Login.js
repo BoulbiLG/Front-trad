@@ -23,31 +23,20 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://trad-back.onrender.com/api/auth/login', {
+      const response = await axios.post('https://apipython2.onrender.com/login', {
         email: userData.email,
         password: userData.password
       });
 
-      const { token, userId } = response.data;
+      const { token, userId, user_data } = response.data;
       localStorage.setItem('authToken', token);
-      //console.log('User ID:', userId);
-      //console.log('Token:', token);
+      console.log('User ID:', userId);
 
-      const userResponse = await axios.get(`https://trad-back.onrender.com/api/auth/getUser/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      console.log(userResponse);
+      console.log('Email:', user_data.email);
+      console.log('Username:', user_data.username);
 
-      //const user = userResponse.data.user;
-
-      const userDataFromSession = getUserDataFromSession();
-      const auth = getAuthFromSession();
-
-      console.log("Session username:", userDataFromSession.username);
-      console.log("Session email:", userDataFromSession.email);
-      console.log("auth : " + auth);
+      sessionStorage.setItem('username', user_data.username);
+      sessionStorage.setItem('email', user_data.email);
 
       navigate('/profil');
     } catch (error) {

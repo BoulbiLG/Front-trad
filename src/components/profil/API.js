@@ -18,11 +18,11 @@ export const soumissionsFormulaire = async (argumentDate, argumentIndice, startD
           const formattedEndDate = new Date(endDate).toISOString();
           let argSD = formattedStartDate;
           let argED = formattedEndDate;
-          response = await axios.get(`http://127.0.0.1:5000/envoie?argD=${argD}&argSD=${argSD}&argED=${argED}&argI=${argI}&argTPR=${argTPR}&argSL=${argSL}&argBE=${argBE}&argPsy=${argPsy}&argStrat=${argStrat}&argAnnEco=${argAnnEco}&argPos=${argPos}&argTypOrd=${argTypOrd}`);
+          response = await axios.get(`https://apipython2.onrender.com/envoie?argD=${argD}&argSD=${argSD}&argED=${argED}&argI=${argI}&argTPR=${argTPR}&argSL=${argSL}&argBE=${argBE}&argPsy=${argPsy}&argStrat=${argStrat}&argAnnEco=${argAnnEco}&argPos=${argPos}&argTypOrd=${argTypOrd}`);
           console.log(response.data);
           return response.data;
         } else {
-          response = await axios.get(`http://127.0.0.1:5000/envoie?argD=${argD}&argI=${argI}&argTPR=${argTPR}&argSL=${argSL}&argBE=${argBE}&argPsy=${argPsy}&argStrat=${argStrat}&argAnnEco=${argAnnEco}&argPos=${argPos}&argTypOrd=${argTypOrd}`);
+          response = await axios.get(`https://apipython2.onrender.com/envoie?argD=${argD}&argI=${argI}&argTPR=${argTPR}&argSL=${argSL}&argBE=${argBE}&argPsy=${argPsy}&argStrat=${argStrat}&argAnnEco=${argAnnEco}&argPos=${argPos}&argTypOrd=${argTypOrd}`);
           console.log(response.data);
           return response.data;
         }

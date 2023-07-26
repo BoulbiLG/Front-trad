@@ -33,7 +33,7 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axios.post('https://trad-back.onrender.com/api/auth/signup', userData); // Assurez-vous d'utiliser la bonne URL de l'API pour l'inscription
+      const response = await axios.post('https://apipython2.onrender.com/signup', userData); // Assurez-vous d'utiliser la bonne URL de l'API pour l'inscription
   
       console.log(response.data.message);
       navigate("/login");
