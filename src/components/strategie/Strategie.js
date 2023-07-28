@@ -1,24 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { getUserDataFromSession } from '../../pages/Login';
 import Button from '../Button';
 import Input from '../Input';
+import '../../css/strategie.css';
 
 const Strategie = ({ selectedOption }) => {
   const [nomStrategie, setNomStrategie] = useState('');
   const [strategies, setStrategies] = useState([]);
-  const userData = getUserDataFromSession();
-  const username = userData?.username;
+  const [nomIndicateur, setNomIndicateur] = useState('');
+  const [indicateur, setIndicateur] = useState([]);
+  const usernameSession = sessionStorage.getItem('username');
 
+  // Strategie
   const fetchStrategie = useCallback(async () => {
     try {
-      const response = await axios.get(`http://0.0.0.0:1234/recuperationStrategie?username=${username}`);
+      const response = await axios.get(`https://apipython2.onrender.com/recuperationStrategie?username=${usernameSession}`);
       const data = response.data;
       setStrategies(data);
     } catch (error) {
       console.error(error);
     }
-  }, [username]);
+  }, [usernameSession]);
 
   useEffect(() => {
     fetchStrategie();
@@ -27,7 +29,7 @@ const Strategie = ({ selectedOption }) => {
   const createStrategie = async () => {
     try {
       console.log(nomStrategie);
-      await axios.post('https://trad-back.onrender.com/createStrategie', { username: username, nomStrategie: nomStrategie });
+      await axios.post('https://apipython2.onrender.com/createStrategie', { username: usernameSession, nomStrategie: nomStrategie });
       fetchStrategie();
     } catch (error) {
       console.error(error);
@@ -37,8 +39,9 @@ const Strategie = ({ selectedOption }) => {
   const deleteStrategie = async (nomStrategie) => {
     try {
       console.log(nomStrategie);
-      console.log(username);
-      await axios.delete(`https://trad-back.onrender.com/suppressionStrategie?username=${username}&nomStrategie=${nomStrategie}`);
+      await axios.delete('https://apipython2.onrender.com/suppressionStrategie', {
+        data: { username: usernameSession, nomStrategie: nomStrategie }
+      });
       fetchStrategie();
     } catch (error) {
       console.error(error);
@@ -47,20 +50,75 @@ const Strategie = ({ selectedOption }) => {
 
   const handleNomStrategieChange = (event) => {
     setNomStrategie(event.target.value);
-    console.log(event.target.value);
-    console.log("nom strategie : " + nomStrategie);
+  };
+
+  // Indicateur
+  const fetchIndicateur = useCallback(async () => {
+    try {
+      const response = await axios.get(`https://apipython2.onrender.com/recuperationIndicateur?username=${usernameSession}`);
+      const data = response.data;
+      console.log(data); // Vérifier les données reçues depuis l'API
+      // Assurez-vous que la clé correcte est utilisée ici pour extraire le nom de l'indicateur
+      const indicateurs = data.map(item => ({ _id: item._id, nomIndicateur: item.nomIndicateur }));
+      setIndicateur(indicateurs);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [usernameSession]);
+  
+
+  useEffect(() => {
+    fetchIndicateur();
+  }, [fetchIndicateur]);
+
+  const createIndicateur = async () => {
+    try {
+      console.log(nomIndicateur);
+      await axios.post('https://apipython2.onrender.com/createIndicateur', { username: usernameSession, nomIndicateur: nomIndicateur });
+      fetchIndicateur();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteIndicateur = async (nomIndicateur) => {
+    try {
+      console.log(nomIndicateur);
+      await axios.delete('https://apipython2.onrender.com/suppressionIndicateur', {
+        data: { username: usernameSession, nomIndicateur: nomIndicateur }
+      });
+      fetchIndicateur();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleNomIndicateurChange = (event) => {
+    setNomIndicateur(event.target.value);
   };
 
   return (
-    <div>
-      <Input type="text" placeholder="Nom de la stratégie" value={nomStrategie} onChange={handleNomStrategieChange} />
-      <Button label="Créer une nouvelle stratégie" onClick={createStrategie} />
-      {strategies.map((strategie) => (
-        <div key={strategie._id}>
-          <p>{strategie.nomStrategie}</p>
-          <Button label="Supprimer" onClick={() => deleteStrategie(strategie.nomStrategie)} />
-        </div>
-      ))}
+    <div className='contenuStratIndic'>
+      <div className="strategie">
+        <Input type="text" placeholder="Nom de la stratégie" value={nomStrategie} onChange={handleNomStrategieChange} />
+        <Button label="Créer une nouvelle stratégie" onClick={createStrategie} />
+        {strategies.map((strategie) => (
+          <div key={strategie._id}>
+            <p>{strategie.nomStrategie}</p>
+            <Button label="Supprimer" onClick={() => deleteStrategie(strategie.nomStrategie)} />
+          </div>
+        ))}
+      </div>
+      <div className="indicateur">
+        <Input type="text" placeholder="Nom de l'indicateur" value={nomIndicateur} onChange={handleNomIndicateurChange} />
+        <Button label="Créer un nouvel indicateur" onClick={createIndicateur} />
+        {indicateur.map((indicateur) => (
+          <div key={indicateur._id}>
+            <p>{indicateur.nomIndicateur}</p>
+            <Button label="Supprimer" onClick={() => deleteIndicateur(indicateur.nomIndicateur)} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import Button from '../components/Button';
 
 import ProfilCaseRadio from '../components/profil/test';
 import Strategie from '../components/strategie/Strategie';
-import Journal from '../components/journal/test2';
+import Journal from '../components/journal/Journal';
 
 const Profil = () => {
   const navigate = useNavigate();

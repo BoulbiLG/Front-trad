@@ -8,7 +8,6 @@ import getArgumentPsychologie from './argumentPsychologie';
 import { dateOptions, indiceOptions, forexOptions, actionOptions, psychologieOptions, fetchStrategieOptions } from './Options';
 import { soumissionsFormulaire } from './API';
 import { verificationFiltre } from './XY';
-import { getUserDataFromSession } from '../../pages/Login';
 
 import CaseRadio from '../CaseRadio';
 import Button from '../Button';
@@ -25,8 +24,7 @@ const ProfilCaseRadio = ({ selectedOption }) => {
   const [strategieOptions, setStrategieOptions] = useState([]);
   //const [argumentStrategie, setArgumentStrategie] = useState(null);
 
-  const userData = getUserDataFromSession();
-  const username = userData?.username;
+  const username = sessionStorage.getItem('username');
   useEffect(() => {
     const fetchOptions = async () => {
       const options = await fetchStrategieOptions(username, setStrategieSelectedOption);

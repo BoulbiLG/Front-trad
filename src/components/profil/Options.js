@@ -89,7 +89,7 @@ export const psychologieOptions = [
 
 export const fetchStrategieOptions = async (username, setStrategies) => {
   try {
-    const response = await axios.get(`https://trad-back.onrender.com/api/strategie/recuperationStrategie?username=${username}`);
+    const response = await axios.get(`https://apipython2.onrender.com/recuperationStrategie?username=${username}`);
     const data = response.data;
     setStrategies(data);
     if (data) {

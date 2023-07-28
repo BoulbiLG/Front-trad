@@ -16,7 +16,7 @@ const CaseRadio = ({ titre, nomOption1, nomOption2, nomOption3, selectedCaseOpti
 
   const cocheTout = {
     padding: '5px',
-    border: '1px solid black',
+    //border: '1px solid black',
     display: 'flex'
   };
 

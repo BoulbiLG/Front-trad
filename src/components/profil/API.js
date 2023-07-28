@@ -6,27 +6,50 @@ export const soumissionsFormulaire = async (argumentDate, argumentIndice, startD
     let argTPR = argumentTPR;
     let argSL = argumentSL;
     let argBE = argumentBE;
-    let argPsy =argumentPsy;
+    let argPsy = argumentPsy;
     let argStrat = argumentStrategie;
-    let argAnnEco= argumentAnnEco;
-    let argPos= argumentPos;
-    let argTypOrd= argumentTypOrd;
+    let argAnnEco = argumentAnnEco;
+    let argPos = argumentPos;
+    let argTypOrd = argumentTypOrd;
+    
     try {
         let response;
         if (startDate && endDate) {
-          const formattedStartDate = new Date(startDate).toISOString();
-          const formattedEndDate = new Date(endDate).toISOString();
-          let argSD = formattedStartDate;
-          let argED = formattedEndDate;
-          response = await axios.get(`https://apipython2.onrender.com/envoie?argD=${argD}&argSD=${argSD}&argED=${argED}&argI=${argI}&argTPR=${argTPR}&argSL=${argSL}&argBE=${argBE}&argPsy=${argPsy}&argStrat=${argStrat}&argAnnEco=${argAnnEco}&argPos=${argPos}&argTypOrd=${argTypOrd}`);
-          console.log(response.data);
-          return response.data;
+            const formattedStartDate = new Date(startDate).toISOString();
+            const formattedEndDate = new Date(endDate).toISOString();
+            let argSD = formattedStartDate;
+            let argED = formattedEndDate;
+            response = await axios.get('https://apipython2.onrender.com/envoie', {
+                argD: argD,
+                argSD: argSD,
+                argED: argED,
+                argI: argI,
+                argTPR: argTPR,
+                argSL: argSL,
+                argBE: argBE,
+                argPsy: argPsy,
+                argStrat: argStrat,
+                argAnnEco: argAnnEco,
+                argPos: argPos,
+                argTypOrd: argTypOrd
+            });
         } else {
-          response = await axios.get(`https://apipython2.onrender.com/envoie?argD=${argD}&argI=${argI}&argTPR=${argTPR}&argSL=${argSL}&argBE=${argBE}&argPsy=${argPsy}&argStrat=${argStrat}&argAnnEco=${argAnnEco}&argPos=${argPos}&argTypOrd=${argTypOrd}`);
-          console.log(response.data);
-          return response.data;
+            response = await axios.get('https://apipython2.onrender.com/envoie', {
+                argD: argD,
+                argI: argI,
+                argTPR: argTPR,
+                argSL: argSL,
+                argBE: argBE,
+                argPsy: argPsy,
+                argStrat: argStrat,
+                argAnnEco: argAnnEco,
+                argPos: argPos,
+                argTypOrd: argTypOrd
+            });
         }
-      } catch (error) {
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
         console.error(error);
         throw error;
     }
