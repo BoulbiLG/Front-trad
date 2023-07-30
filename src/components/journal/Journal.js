@@ -7,6 +7,8 @@ import { fetchJournalData, applyModifications, fetchStrategieOptions } from './A
 import { updateAnnEcoCaseValeur, updatePsychologieOption, updatePositionOption, updateTypeOrdreOption, updateVioleStrategieOption, 
 updateSortieOption, updateIndicateur1Option, updateIndicateur2Option, updateIndicateur3Option, updateStrategieOption, updateTimeEntreeOption, updateTimeSetupOption } from './TableauDouble';
 import { recuperationTradeOption, psychologieOptions, fetchIndicateurOptions, timeFrameOptions } from './Options';
+import Image from './Image';
+import RecuperationImage from './RecuperationImage';
 
 const Journal = () => {
   const [journalData, setJournalData] = useState([]);
@@ -106,6 +108,8 @@ const Journal = () => {
               <Selector options={indicateurOptions}value={(indicateur3Values.find(item => item.id === entry._id) || {}).valueIndicateur3 || ''}onChange={(selected) => changementIndicateur3Option(entry._id, selected)}/>
               <Selector options={strategieValues}value={strategieSelectedOption.find(item => item.id === entry._id)?.valueStrategie || ''}onChange={(selected) => changementStrategieOption(entry._id, selected)}/>
             </div>
+            <Image />
+            <RecuperationImage imageId="64c4daa2629adc2282178ff1"/>
             <Button label="Ne pas renseigner ce trade" onClick={() => masquerTrade(entry._id)} />
             {detailsVisible[entry._id] ? (
               <div>

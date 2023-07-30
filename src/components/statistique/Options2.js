@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const dateOptions = [
+export const dateOptions2 = [
   { value: "aujourd'hui", label: "Aujourd'hui" },
   { value: 'semaineEnCours', label: 'Semaine en cours' },
   { value: 'semaineGlissante', label: 'Semaine glissante' },
@@ -14,7 +14,7 @@ export const dateOptions = [
   { value: 'choixLibre', label: 'Choix libre' },
 ];
 
-export const indiceOptions = [
+export const indiceOptions2 = [
   { value: "DowJonesIndustrialAverage", label: "Dow Jones Industrial Average" },
   { value: 'NAS', label: 'Nasdaq Composite' },
   { value: 'FTSE100', label: 'FTSE 100' },
@@ -32,7 +32,7 @@ export const indiceOptions = [
   { value: 'ADAUSD', label: 'ADAUSD' },
 ];
 
-export const forexOptions = [
+export const forexOptions2 = [
   { value: "EUR/USD", label: "EUR/USD (Euro / Dollar américain" },
   { value: "USD/JPY", label: "Dollar américain / Yen japonnais" },
   { value: "GBP/USD", label: "Livre sterling / Dollar américain" },
@@ -53,7 +53,7 @@ export const forexOptions = [
   { value: "NZD/CAD", label: "Dollar néo-zélandais / Dollar canadien" },
 ];
 
-export const actionOptions = [
+export const actionOptions2 = [
   { value: "Apple", label: "Apple Inc. (AAPL)" },
   { value: "Amazon", label: "Amazon.com Inc. (AMZN)" },
   { value: "Microsoft", label: "Microsoft Corporation (MSFT)" },
@@ -76,7 +76,7 @@ export const actionOptions = [
   { value: "Intel", label: "Intel Corporation (INTC)" },
 ];
 
-export const psychologieOptions = [
+export const psychologieOptions2 = [
   { value: "frustration", label: "frustration" },
   { value: "colère", label: "colère" },
   { value: "impatience", label: "impatience" },
@@ -87,15 +87,15 @@ export const psychologieOptions = [
   { value: "rattrapage", label: "rattrapage" },
 ];
 
-export const fetchStrategieOptions = async (username, setStrategies) => {
+export const fetchStrategieOptions2 = async (username2, setStrategies2) => {
   try {
-    const response = await axios.get(`https://apipython2.onrender.com/recuperationStrategie?username=${username}`);
-    const data = response.data;
-    setStrategies(data);
-    if (data) {
-      return data.map((strategie) => ({
-        value: strategie.nomStrategie,
-        label: strategie.nomStrategie
+    const response = await axios.get(`https://apipython2.onrender.com/recuperationStrategie?username=${username2}`);
+    const data2 = response.data;
+    setStrategies2(data2);
+    if (data2) {
+      return data2.map((strategie2) => ({
+        value: strategie2.nomStrategie,
+        label: strategie2.nomStrategie
       }));
     } else {
       return [];
@@ -107,7 +107,7 @@ export const fetchStrategieOptions = async (username, setStrategies) => {
 };
 
 // indicateur
-export let indicateurOptions = [
+export let indicateurOptions2 = [
   {value: "Moving Average", label: "Moyenne mobile (Moving Average)"},
   {value: "Bandes de Bollinger", label: "Bandes de Bollinger (Bollinger Bands)"},
   {value: "Relative Strength Index", label: "Relative Strength Index (RSI)"},
@@ -140,22 +140,22 @@ export let indicateurOptions = [
   {value: "Indicateur de sentiment", label: "Indicateur de sentiment (Sentiment Indicator)"}
 ];
 
-export const fetchIndicateurOptions = async (username) => {
+export const fetchIndicateurOptions2 = async (username2) => {
   try {
-    const response = await axios.get(`https://apipython2.onrender.com/recuperationIndicateur?username=${username}`);
-    const data = response.data;
+    const response2 = await axios.get(`https://apipython2.onrender.com/recuperationIndicateur?username=${username2}`);
+    const data2 = response2.data;
     
-    const cleanOptions = data.map(item => ({ value: item.nomIndicateur, label: item.nomIndicateur }));
+    const cleanOptions2 = data2.map(item => ({ value: item.nomIndicateur, label: item.nomIndicateur }));
     
-    const options = indicateurOptions.concat(cleanOptions);
-    return options;
+    const options2 = indicateurOptions2.concat(cleanOptions2);
+    return options2;
   } catch (error) {
     console.error(error);
     return [];
   }
 };
 
-export const timeFrameOptions = [
+export const timeFrameOptions2 = [
   {value: "1 minutes", label: "1 minutes"},
   {value: "5 minutes", label: "5 minutes"},
   {value: "15 minutes", label: "15 minutes"},

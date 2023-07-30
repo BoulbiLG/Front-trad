@@ -4,7 +4,8 @@ import '../css/profil.css';
 import NavBar from '../components/NavBar';
 import Button from '../components/Button';
 
-import ProfilCaseRadio from '../components/profil/test';
+import Statistique1 from '../components/profil/Statistique1';
+import Statistique2 from '../components/statistique/Statistique2';
 import Strategie from '../components/strategie/Strategie';
 import Journal from '../components/journal/Journal';
 
@@ -60,7 +61,12 @@ const Profil = () => {
             <div className="selecteur">
               <div className='toutesLesCoches'>
                 {affichageFenetre === "stat" ? (
-                  <ProfilCaseRadio />
+                  <div className="">
+                    <div className="">
+                      <Statistique1 />
+                      <Statistique2 />
+                    </div>
+                  </div>
                 ) : null}
                 {affichageFenetre === "strategie" ? (
                   <Strategie />

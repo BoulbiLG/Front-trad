@@ -57,8 +57,6 @@ const Strategie = ({ selectedOption }) => {
     try {
       const response = await axios.get(`https://apipython2.onrender.com/recuperationIndicateur?username=${usernameSession}`);
       const data = response.data;
-      console.log(data); // Vérifier les données reçues depuis l'API
-      // Assurez-vous que la clé correcte est utilisée ici pour extraire le nom de l'indicateur
       const indicateurs = data.map(item => ({ _id: item._id, nomIndicateur: item.nomIndicateur }));
       setIndicateur(indicateurs);
     } catch (error) {
