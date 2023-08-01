@@ -9,6 +9,9 @@ const Strategie = ({ selectedOption }) => {
   const [strategies, setStrategies] = useState([]);
   const [nomIndicateur, setNomIndicateur] = useState('');
   const [indicateur, setIndicateur] = useState([]);
+  const [nomPorteFeuille, setNomPorteFeuille] = useState('');
+  const [porteFeuille, setPorteFeuille] = useState([]);
+
   const usernameSession = sessionStorage.getItem('username');
 
   // Strategie
@@ -62,7 +65,7 @@ const Strategie = ({ selectedOption }) => {
     } catch (error) {
       console.error(error);
     }
-  }, [usernameSession]);
+  }, [usernameSession, setIndicateur]);
   
 
   useEffect(() => {
@@ -95,6 +98,45 @@ const Strategie = ({ selectedOption }) => {
     setNomIndicateur(event.target.value);
   };
 
+  // portefeuille
+  const fetchPorteFeuille = useCallback(async () => {
+    try {
+      const response = await axios.get(`https://apipython2.onrender.com/recuperationPorteFeuille?username=${usernameSession}`);
+      const data = response.data;
+      setPorteFeuille(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [usernameSession]);
+
+  useEffect(() => {
+    fetchPorteFeuille();
+  }, [fetchPorteFeuille]);
+
+  const createPorteFeuille = async () => {
+    try {
+      await axios.post('https://apipython2.onrender.com/createPorteFeuille', { username: usernameSession, nomPorteFeuille: nomPorteFeuille });
+      fetchPorteFeuille();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deletePorteFeuille = async (nomPorteFeuille) => {
+    try {
+      await axios.delete('https://apipython2.onrender.com/suppressionPorteFeuille', {
+        data: { username: usernameSession, nomPorteFeuille: nomPorteFeuille }
+      });
+      fetchPorteFeuille();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+const handleNomPorteFeuilleChange = (event) => {
+  setNomPorteFeuille(event.target.value);
+};
+
   return (
     <div className='contenuStratIndic'>
       <div className="strategie">
@@ -114,6 +156,16 @@ const Strategie = ({ selectedOption }) => {
           <div key={indicateur._id}>
             <p>{indicateur.nomIndicateur}</p>
             <Button label="Supprimer" onClick={() => deleteIndicateur(indicateur.nomIndicateur)} />
+          </div>
+        ))}
+      </div>
+      <div className="porteFeuille">
+        <Input type="text" placeholder="Nom du portefeuille" value={nomPorteFeuille} onChange={handleNomPorteFeuilleChange} />
+        <Button label="Créer un nouveau porte feuille" onClick={createPorteFeuille} />
+        {porteFeuille.map((porteFeuille) => (
+          <div key={porteFeuille._id}>
+            <p>{porteFeuille.nomSeul}</p>
+            <Button label="Supprimer" onClick={() => deletePorteFeuille(porteFeuille.nomComplet)} />
           </div>
         ))}
       </div>

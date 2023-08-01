@@ -57,3 +57,23 @@ export const fetchStrategieOptions = async (username, setStrategies) => {
     return [];
   }
 };
+
+export const fetchPorteFeuilleOptions = async (username, setPorteFeuille) => {
+  try {
+    const response = await axios.get(`https://apipython2.onrender.com/recuperationPorteFeuille?username=${username}`);
+    const data = response.data;
+    setPorteFeuille(data);
+    if (data) {
+      return data.map((porteFeuille) => ({
+        value: porteFeuille.nomSeul,
+        label: porteFeuille.nomSeul,
+        nomComplet: porteFeuille.nomComplet
+      }));
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};

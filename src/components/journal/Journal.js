@@ -3,9 +3,10 @@ import "../../css/journal.css"
 import CaseRadio from '../CaseRadio';
 import Button from '../Button';
 import Selector from '../Selector';
-import { fetchJournalData, applyModifications, fetchStrategieOptions } from './API';
+import { fetchJournalData, applyModifications, fetchStrategieOptions, fetchPorteFeuilleOptions } from './API';
 import { updateAnnEcoCaseValeur, updatePsychologieOption, updatePositionOption, updateTypeOrdreOption, updateVioleStrategieOption, 
-updateSortieOption, updateIndicateur1Option, updateIndicateur2Option, updateIndicateur3Option, updateStrategieOption, updateTimeEntreeOption, updateTimeSetupOption } from './TableauDouble';
+updateSortieOption, updateIndicateur1Option, updateIndicateur2Option, updateIndicateur3Option, updateStrategieOption, updateTimeEntreeOption, 
+updateTimeSetupOption, updatePorteFeuilleOption } from './TableauDouble';
 import { recuperationTradeOption, psychologieOptions, fetchIndicateurOptions, timeFrameOptions } from './Options';
 import Image from './Image';
 import RecuperationImage from './RecuperationImage';
@@ -31,6 +32,8 @@ const Journal = () => {
   const [indicateur3Values, setIndicateur3Values] = useState([]);
   const [strategieSelectedOption, setStrategieSelectedOption] = useState([]);
   const [strategieValues, setStrategieValues] = useState([]);
+  const [porteFeuilleSelectedOption, setPorteFeuilleSelectedOption] = useState([]);
+  const [porteFeuilleValues, setPorteFeuilleValues] = useState([]);
   const [timeEntreeValues, setTimeEntreeValues] = useState([]);
   const [timeSetupValues, setTimeSetupValues] = useState([]);
 
@@ -42,7 +45,8 @@ const Journal = () => {
   useEffect(() => {
   const fetchOptions = async () => {const options = await fetchStrategieOptions(username, setStrategieValues);setStrategieValues(options);};
   const fetchIndicateur = async () => {const indicateurOptions = await fetchIndicateurOptions();setIndicateurOptions(indicateurOptions);};
-  fetchOptions();fetchIndicateur();}, [username]);
+  const fetchPorteFeuille = async () => {const porteFeuilleOptions = await fetchPorteFeuilleOptions(username, setPorteFeuilleValues);setPorteFeuilleValues(porteFeuilleOptions);};
+  fetchOptions();fetchIndicateur();fetchPorteFeuille();}, [username]);
 
   // appliquer les modifications
   useEffect(() => {fetchJournalData(usernameSession, selectedOptionTypeTrade).then((data) => setJournalData(data)).catch(() => setJournalData([]));}, [selectedOptionTypeTrade, usernameSession]);
@@ -73,6 +77,7 @@ const Journal = () => {
   const changementIndicateur2Option = (id, newValue) => {updateIndicateur2Option(id, newValue, indicateur2Values, setIndicateur2Values);};
   const changementIndicateur3Option = (id, newValue) => {updateIndicateur3Option(id, newValue, indicateur3Values, setIndicateur3Values);};
   const changementStrategieOption = (id, newValue) => {updateStrategieOption(id, newValue, strategieSelectedOption, setStrategieSelectedOption);};
+  const changementPorteFeuilleOption = (id, newValue) => {updatePorteFeuilleOption(id, newValue, porteFeuilleSelectedOption, setPorteFeuilleSelectedOption);};
   const changementTimeEntreeOption = (id, newValue) => {updateTimeEntreeOption(id, newValue, timeEntreeValues, setTimeEntreeValues);};
   const changementTimeSetupOption = (id, newValue) => {updateTimeSetupOption(id, newValue, timeSetupValues, setTimeSetupValues);};
 
@@ -107,6 +112,7 @@ const Journal = () => {
               <Selector options={indicateurOptions}value={(indicateur2Values.find(item => item.id === entry._id) || {}).valueIndicateur2 || ''}onChange={(selected) => changementIndicateur2Option(entry._id, selected)}/>
               <Selector options={indicateurOptions}value={(indicateur3Values.find(item => item.id === entry._id) || {}).valueIndicateur3 || ''}onChange={(selected) => changementIndicateur3Option(entry._id, selected)}/>
               <Selector options={strategieValues}value={strategieSelectedOption.find(item => item.id === entry._id)?.valueStrategie || ''}onChange={(selected) => changementStrategieOption(entry._id, selected)}/>
+              <Selector options={porteFeuilleValues}value={porteFeuilleSelectedOption.find(item => item.id === entry._id)?.valuePorteFeuille || ''}onChange={(selected) => changementPorteFeuilleOption(entry._id, selected)}/>
             </div>
             <Image />
             <RecuperationImage imageId="64c4daa2629adc2282178ff1"/>
