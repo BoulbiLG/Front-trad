@@ -7,7 +7,7 @@ import getArgumentDate from './ArgumentDate';
 import { getArgumentFiltre } from './ArgumentIndice';
 import getArgumentPsychologie from './argumentPsychologie';
 import { dateOptions, indiceOptions, forexOptions, actionOptions, psychologieOptions, fetchStrategieOptions, fetchIndicateurOptions,
-timeFrameOptions } from './Options';
+timeFrameOptions, fetchCollectionOptions } from './Options';
 import { soumissionsFormulaire } from './API';
 import { verificationFiltre } from './XY';
 
@@ -16,6 +16,10 @@ import Button from '../Button';
 import Selector from '../Selector';
 
 const Statistique1 = ({ selectedOption }) => {
+
+  const [collectionValues, setCollectionValues] = useState([]);
+  const [collectionOption, setCollectionOption] = useState([]);
+
   const [takeProfit, setTakeProfit] = useState(null);
 
   const [stopLoss, setStopLoss] = useState(null);
@@ -45,8 +49,13 @@ const Statistique1 = ({ selectedOption }) => {
   useEffect(() => {
     const fetchOptions = async () => {const options = await fetchStrategieOptions(username, setStrategieSelectedOption);setStrategieOptions(options);};
     const fetchIndicateur = async () => {const indicOption = await fetchIndicateurOptions();setIndicateurOptions(indicOption);};
+    const fetchCollection = async () => {
+      const username = sessionStorage.getItem('username');
+      const collectionOptions = await fetchCollectionOptions(username);
+      setCollectionOption(collectionOptions);}
     fetchOptions();
     fetchIndicateur();
+    fetchCollection();
   }, [username]);
 
   const [dateSelectedOption, setdateSelectedOption] = useState('');
@@ -79,6 +88,8 @@ const Statistique1 = ({ selectedOption }) => {
   const handleStartDateChange = (date) => { if (date) { setStartDate(date); } };
   const handleEndDateChange = (date) => { if (date) { setEndDate(date); } };
 
+  const changementSelectorChangeCollection = (selectedValue) => {setCollectionValues(selectedValue);};
+
     const handleClick = async () => {
       let argumentStrategie = strategieSelectedOption;
       let argumentTimeEntree = timeEntreeValues;
@@ -92,6 +103,7 @@ const Statistique1 = ({ selectedOption }) => {
       if (argumentIndicateur1.length !== 1) {argumentIndicateur1 = null;}
       if (argumentIndicateur2.length !== 1) {argumentIndicateur2 = null;}
       if (argumentIndicateur3.length !== 1) {argumentIndicateur3 = null;}
+      const argumentCollection = collectionValues;
       const argumentDate = getArgumentDate(dateSelectedOption);
       const argumentIndice = getArgumentFiltre(indiceSelectedOption);
       const argumentPsy = getArgumentPsychologie(psychologieSelectedOption);
@@ -102,11 +114,14 @@ const Statistique1 = ({ selectedOption }) => {
 
         soumissionsFormulaire(argumentDate, argumentIndice, startDate, endDate, argumentTPR, argumentSL, argumentBE, argumentPsy, argumentStrategie, 
         argumentAnnEco, argumentPos, argumentTypOrd, argumentSortieManuelle, argumentTilt, argumentBuySell, argumentIndicateur1, argumentIndicateur2,
-        argumentIndicateur3, argumentVioleStrat, argumentSortie, argumentTimeEntree, argumentTimeSetup, argumentTJS);
+        argumentIndicateur3, argumentVioleStrat, argumentSortie, argumentTimeEntree, argumentTimeSetup, argumentTJS, argumentCollection);
     };
 
   return (
     <div className='statistique1'>
+      <div className="">
+      <div className="inputFiltreXY"><p>Collection dans laquelle chercher</p><Selector options={collectionOption} value={collectionValues} onChange={changementSelectorChangeCollection} /></div>
+      </div>
       <Selector options={dateOptions} value={dateSelectedOption} onChange={(selected) => setdateSelectedOption(selected)} />
       {dateSelectedOption === "choixLibre" && (
         <div>
@@ -117,26 +132,26 @@ const Statistique1 = ({ selectedOption }) => {
       <Selector options={indiceOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
       <Selector options={forexOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
       <Selector options={actionOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
-      <CaseRadio titre="Take profit" nomOption1="Atteint" nomOption2="Dépassé" nomOption3="Non atteint" selectedCaseOption={takeProfit} onChange={valeurTakeProfitChange} />
-      <CaseRadio titre="Stop loss" nomOption1="Atteint" nomOption2="Partiel" selectedCaseOption={stopLoss} onChange={valeurStopLossChange} />
-      <CaseRadio titre="-0.5RR < BE < 0.5RR" nomOption1=" " selectedCaseOption={rrRange} onChange={valeurRrRangeChange} />
-      <CaseRadio titre="Sortie manuelle" nomOption1="succès" nomOption2="échec" selectedCaseOption={sortieManuelle} onChange={valeurSortieManuelleChange} />
-      <CaseRadio titre="Journée de tilt" nomOption1="oui" nomOption2="non" selectedCaseOption={tilt} onChange={valeurTiltChange} />
-      <CaseRadio titre="Type d'ordre" nomOption1="Sell" nomOption2="Buy" selectedCaseOption={buySell} onChange={valeurBuySellChange} />
-      <CaseRadio titre="Viole de la strategie" nomOption1="oui" nomOption2="non" selectedCaseOption={violeStrat} onChange={valeurVioleStratChange} />
-      <CaseRadio titre="Sortie sur décision" nomOption1="technique" nomOption2="émotion" selectedCaseOption={sortie} onChange={valeurSortieChange} />
-      <CaseRadio titre="Trade TJS" nomOption1="positif" nomOption2="négatif" selectedCaseOption={TJS} onChange={TJSChange} />
+      <div className="inputFiltreXY"><p>take profit</p><CaseRadio titre="Take profit" nomOption1="Atteint" nomOption2="Dépassé" nomOption3="Non atteint" selectedCaseOption={takeProfit} onChange={valeurTakeProfitChange} /></div>
+      <div className="inputFiltreXY"><p>stop loss</p><CaseRadio titre="Stop loss" nomOption1="Atteint" nomOption2="Partiel" selectedCaseOption={stopLoss} onChange={valeurStopLossChange} /></div>
+      <div className="inputFiltreXY"><p>BE</p><CaseRadio titre="-0.5RR < BE < 0.5RR" nomOption1=" " selectedCaseOption={rrRange} onChange={valeurRrRangeChange} /></div>
+      <div className="inputFiltreXY"><p>sortie manuelle</p><CaseRadio titre="Sortie manuelle" nomOption1="succès" nomOption2="échec" selectedCaseOption={sortieManuelle} onChange={valeurSortieManuelleChange} /></div>
+      <div className="inputFiltreXY"><p>journée de tilt</p><CaseRadio titre="Journée de tilt" nomOption1="oui" nomOption2="non" selectedCaseOption={tilt} onChange={valeurTiltChange} /></div>
+      <div className="inputFiltreXY"><p>type d'ordre</p><CaseRadio titre="Type d'ordre" nomOption1="Sell" nomOption2="Buy" selectedCaseOption={buySell} onChange={valeurBuySellChange} /></div>
+      <div className="inputFiltreXY"><p>viole de la strategie</p><CaseRadio titre="Viole de la strategie" nomOption1="oui" nomOption2="non" selectedCaseOption={violeStrat} onChange={valeurVioleStratChange} /></div>
+      <div className="inputFiltreXY"><p>sortie sur décision</p><CaseRadio titre="Sortie sur décision" nomOption1="technique" nomOption2="émotion" selectedCaseOption={sortie} onChange={valeurSortieChange} /></div>
+      <div className="inputFiltreXY"><p>trade TJS</p><CaseRadio titre="Trade TJS" nomOption1="positif" nomOption2="négatif" selectedCaseOption={TJS} onChange={TJSChange} /></div>
       <div className="filtre">
-        <CaseRadio titre="Trade durant une annonce économique" nomOption1="oui" nomOption2="non" selectedCaseOption={AnnEco} onChange={valeurAnnEcoChange} />
-        <CaseRadio titre="Position" nomOption1="signal" nomOption2="influence" selectedCaseOption={positionSignInfl} onChange={valeurpositionSignInflChange} />
-        <CaseRadio titre="Type d'ordre" nomOption1="market" nomOption2="conditionnel" selectedCaseOption={typeOrdre} onChange={valeurtypeOrdreChange} />
-        <Selector options={strategieOptions} defaultValue="" value={strategieSelectedOption} onChange={(selected) => setStrategieSelectedOption(selected)} />
-        <Selector options={psychologieOptions} value={psychologieSelectedOption} onChange={(selected) => setPsychologieSelectedOption(selected)} />
-        <Selector options={indicateurOptions} value={indicateur1Values} onChange={(selected) => setIndicateur1Values(selected)} />
-        <Selector options={indicateurOptions} value={indicateur2Values} onChange={(selected) => setIndicateur2Values(selected)} />
-        <Selector options={indicateurOptions} value={indicateur3Values} onChange={(selected) => setIndicateur3Values(selected)} />
-        <Selector options={timeFrameOptions} value={timeEntreeValues} onChange={(selected) => timeEntreeOptionChange(selected)}/>
-        <Selector options={timeFrameOptions} value={timeSetupValues} onChange={(selected) => timeSetupOptionChange(selected)}/>
+        <div className="inputFiltreXY"><p>trade durant une annonce economique</p><CaseRadio titre="Trade durant une annonce économique" nomOption1="oui" nomOption2="non" selectedCaseOption={AnnEco} onChange={valeurAnnEcoChange} /></div>
+        <div className="inputFiltreXY"><p>position</p><CaseRadio titre="Position" nomOption1="signal" nomOption2="influence" selectedCaseOption={positionSignInfl} onChange={valeurpositionSignInflChange} /></div>
+        <div className="inputFiltreXY"><p>type d'ordre</p><CaseRadio titre="Type d'ordre" nomOption1="market" nomOption2="conditionnel" selectedCaseOption={typeOrdre} onChange={valeurtypeOrdreChange} /></div>
+        <div className="inputFiltreXY"><p>strategie</p><Selector options={strategieOptions} defaultValue="" value={strategieSelectedOption} onChange={(selected) => setStrategieSelectedOption(selected)} /></div>
+        <div className="inputFiltreXY"><p>etat psychologique</p><Selector options={psychologieOptions} value={psychologieSelectedOption} onChange={(selected) => setPsychologieSelectedOption(selected)} /></div>
+        <div className="inputFiltreXY"><p>indicateur 1</p><Selector options={indicateurOptions} value={indicateur1Values} onChange={(selected) => setIndicateur1Values(selected)} /></div>
+        <div className="inputFiltreXY"><p>indicateur 2</p><Selector options={indicateurOptions} value={indicateur2Values} onChange={(selected) => setIndicateur2Values(selected)} /></div>
+        <div className="inputFiltreXY"><p>indicateur 3</p><Selector options={indicateurOptions} value={indicateur3Values} onChange={(selected) => setIndicateur3Values(selected)} /></div>
+        <div className="inputFiltreXY"><p>time frame entrée</p><Selector options={timeFrameOptions} value={timeEntreeValues} onChange={(selected) => timeEntreeOptionChange(selected)}/></div>
+        <div className="inputFiltreXY"><p>time frame setup</p><Selector options={timeFrameOptions} value={timeSetupValues} onChange={(selected) => timeSetupOptionChange(selected)}/></div>
       </div>
       <Button label="chercher" onClick={handleClick} />
     </div>

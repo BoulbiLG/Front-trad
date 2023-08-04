@@ -9,3 +9,9 @@
     padding: 10px;
     margin: 10px;
 }
+
+.inputFiltreXY {
+    display: flex;
+    align-items: center;
+    
+}

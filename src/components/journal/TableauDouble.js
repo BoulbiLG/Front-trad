@@ -155,15 +155,16 @@ export const updateTimeSetupOption = (id, selectedValue, timeSetupValues, setTim
 };
 
 // portefeuille
-export const updatePorteFeuilleOption = (id, selectedValue, porteFeuilleValues, setPorteFeuilleValues) => {
-  const updatedValues = [...porteFeuilleValues];
+export const updatePorteFeuilleOption = (id, selectedValue, porteFeuilleSelectedOption, setPorteFeuilleSelectedOption) => {
+  const updatedValues = [...porteFeuilleSelectedOption];
   const entryIndex = updatedValues.findIndex(item => item.id === id);
   if (entryIndex !== -1) {
     updatedValues[entryIndex].valuePorteFeuille = selectedValue;
+    console.log(updatedValues);
   } else {
     updatedValues.push({ id, valuePorteFeuille: selectedValue });
+    console.log(updatedValues);
   }
-  setPorteFeuilleValues(updatedValues);
-  console.log('Updated porteFeuilleValues:', updatedValues);
+  setPorteFeuilleSelectedOption(updatedValues);
+  console.log('Updated porteFeuilleSelectedOption:', updatedValues);
 };
-

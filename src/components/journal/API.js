@@ -2,9 +2,10 @@ import axios from 'axios';
 
 const apiUrl = 'https://apipython2.onrender.com';
 
-export const fetchJournalData = async (username, selectedOption) => {
+export const fetchJournalData = async (username, selectedOption, collectionTradeValues) => {
   try {
-    const response = await axios.get(`${apiUrl}/recuperationTrade?username=${username}&typeTrade=${selectedOption}`);
+    console.log(collectionTradeValues);
+    const response = await axios.get(`${apiUrl}/recuperationTrade?username=${username}&typeTrade=${selectedOption}&collection=${collectionTradeValues}`);
     return response.data;
   } catch (error) {
     console.log('Erreur lors de la récupération des données du journal :', error);
@@ -13,9 +14,10 @@ export const fetchJournalData = async (username, selectedOption) => {
 };
 
 export const applyModifications = async (annonceEcoCaseValeurs, psychologieValues, positionValues, typeOrdreValues, violeStrategieValues, sortieValues,
-  indicateur1Values, indicateur2Values, indicateur3Values, strategieValues, timeEntreeValues, timeSetupValues
+  indicateur1Values, indicateur2Values, indicateur3Values, strategieValues, timeEntreeValues, timeSetupValues, porteFeuilleSelectedOption, collectionValues
   ) => {
   try {
+    console.log(porteFeuilleSelectedOption);
     const headers = { 'Content-Type': 'application/json' };
     const data = { 
       trades: annonceEcoCaseValeurs.map(item => ({ id: item.id, valeurAnnEco: item.valeurAnnEco })),
@@ -30,7 +32,10 @@ export const applyModifications = async (annonceEcoCaseValeurs, psychologieValue
       strategie: strategieValues.map(item => ({ id: item.id, valueStrategie: item.strategieValues })),
       timeEntree: timeEntreeValues.map(item => ({ id: item.id, valueTimeEntree: item.valueTimeEntree })),
       timeSetup: timeSetupValues.map(item => ({ id: item.id, valueTimeSetup: item.valueTimeSetup })),
+      porteFeuille: porteFeuilleSelectedOption.map(item => ({ id: item.id, valuePorteFeuille: item.valuePorteFeuille })),
+      collection: collectionValues
     };
+    console.log(data);
     await axios.post(`${apiUrl}/modificationTrade`, data, { headers });
     return 'Modifications appliquées avec succès.';
   } catch (error) {
@@ -65,7 +70,7 @@ export const fetchPorteFeuilleOptions = async (username, setPorteFeuille) => {
     setPorteFeuille(data);
     if (data) {
       return data.map((porteFeuille) => ({
-        value: porteFeuille.nomSeul,
+        value: porteFeuille.nomComplet,
         label: porteFeuille.nomSeul,
         nomComplet: porteFeuille.nomComplet
       }));

@@ -2,8 +2,9 @@ import axios from 'axios';
 
 export const soumissionsFormulaire = async (argumentDate, argumentIndice, startDate, endDate, argumentTPR, argumentSL, argumentBE, argumentPsy, 
     argumentStrategie, argumentAnnEco, argumentPos, argumentTypOrd, argumentSortieManuelle, argumentTilt, argumentBuySell, argumentIndicateur1,
-    argumentIndicateur2, argumentIndicateur3, argumentVioleStrat, argumentSortie, argumentTimeEntree, argumentTimeSetup, argumentTJS ) => {
-    const usernameSession = sessionStorage.getItem('username');
+    argumentIndicateur2, argumentIndicateur3, argumentVioleStrat, argumentSortie, argumentTimeEntree, argumentTimeSetup, argumentTJS,
+    argumentCollection ) => {
+    //onst usernameSession = sessionStorage.getItem('username');
 
     let argStrat = argumentStrategie || "";
     let argD = argumentDate || "";
@@ -26,11 +27,10 @@ export const soumissionsFormulaire = async (argumentDate, argumentIndice, startD
     let argTimeEntree = argumentTimeEntree || "";
     let argTimeSetup = argumentTimeSetup || "";
     let argTJS = argumentTJS || "";
+    let argCollection = argumentCollection || "";
 
     const baseURL = "https://apipython2.onrender.com/envoie";
-    let parametres = {
-        "username": usernameSession
-    };
+    let parametres = {};
     if (startDate !== null && endDate !== null && startDate !== "" && endDate !== ""){
         const formattedStartDate = startDate ? new Date(startDate).toISOString() : '';
         const formattedEndDate = endDate ? new Date(endDate).toISOString() : '';
@@ -38,6 +38,7 @@ export const soumissionsFormulaire = async (argumentDate, argumentIndice, startD
         parametres["argED"] = formattedEndDate !== 'undefined' ? formattedEndDate : '';
     }
 
+    if (argCollection !== null && argCollection !== "") {parametres["argCollection"] = argCollection;}
     if (argTJS !== null && argTJS !== "") {parametres["argTJS"] = argTJS;}
     if (argTimeEntree !== null && argTimeEntree !== "") {parametres["argTimeEntree"] = argTimeEntree;}
     if (argTimeSetup !== null && argTimeSetup !== "") {parametres["argTimeSetup"] = argTimeSetup;}

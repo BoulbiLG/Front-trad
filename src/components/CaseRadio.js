@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CaseRadio = ({ titre, nomOption1, nomOption2, nomOption3, selectedCaseOption, onChange }) => {
+const CaseRadio = ({ titre, affichage, nomOption1, nomOption2, nomOption3, selectedCaseOption, onChange }) => {
   const cocheStyle = {
     display: 'flex',
     justifyContent: 'start'
@@ -26,7 +26,7 @@ const CaseRadio = ({ titre, nomOption1, nomOption2, nomOption3, selectedCaseOpti
 
   return (
     <div style={cocheTout}>
-      <h2 style={h1Style}>{titre}</h2>
+      <h2 style={h1Style}>{affichage}</h2>
       <div style={cocheStyle}>
         {nomOption1 && (
           <div>

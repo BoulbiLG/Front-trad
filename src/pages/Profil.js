@@ -5,7 +5,7 @@ import NavBar from '../components/NavBar';
 import Button from '../components/Button';
 
 import Statistique1 from '../components/profil/Statistique1';
-import Statistique2 from '../components/statistique/Statistique2';
+//import Statistique2 from '../components/statistique/Statistique2';
 import Strategie from '../components/strategie/Strategie';
 import Journal from '../components/journal/Journal';
 
@@ -64,7 +64,6 @@ const Profil = () => {
                   <div className="">
                     <div className="">
                       <Statistique1 />
-                      <Statistique2 />
                     </div>
                   </div>
                 ) : null}
