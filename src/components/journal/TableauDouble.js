@@ -168,3 +168,33 @@ export const updatePorteFeuilleOption = (id, selectedValue, porteFeuilleSelected
   setPorteFeuilleSelectedOption(updatedValues);
   console.log('Updated porteFeuilleSelectedOption:', updatedValues);
 };
+
+// tag
+export const updateTagOption = (id, selectedValue, tagSelectedOption, setTagSelectedOption) => {
+  const updatedValues = [...tagSelectedOption];
+  const entryIndex = updatedValues.findIndex(item => item.id === id);
+  if (entryIndex !== -1) {
+    updatedValues[entryIndex].valueTag = selectedValue;
+    console.log(updatedValues);
+  } else {
+    updatedValues.push({ id, valueTag: selectedValue });
+    console.log(updatedValues);
+  }
+  setTagSelectedOption(updatedValues);
+  console.log('Updated tagSelectedOption:', updatedValues);
+};
+
+// note
+export const updateNoteOption = (id, selectedValue, noteSelectedOption, setNoteSelectedOption) => {
+  const updatedValues = [...noteSelectedOption];
+  const entryIndex = updatedValues.findIndex(item => item.id === id);
+  if (entryIndex !== -1) {
+    updatedValues[entryIndex].valueNote = selectedValue;
+    console.log(updatedValues);
+  } else {
+    updatedValues.push({ id, valueNote: selectedValue });
+    console.log(updatedValues);
+  }
+  setNoteSelectedOption(updatedValues);
+  console.log('Updated noteSelectedOption:', updatedValues);
+};

@@ -181,3 +181,8 @@ export const fetchCollectionOptions = async (username) => {
     return [];
   }
 };
+
+export const meilleurOptions = [
+  {value: "RR", label: "RR"},
+  {value: "TP", label: "TP"}
+]

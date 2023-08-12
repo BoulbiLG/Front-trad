@@ -9,7 +9,6 @@ import AjouteTradeComponent from '../AjoutTrade/AjoutTrade';
 import SupprimerTrade from '../supprimerTrade/supprimerTrade';
 import ModifierTrade from '../modifierTrade.js/ModifierTrade';
 import CSV from '../csv/CSV';
-import ImageUploader from '../image/ImageUploader';
 
 // fetch recuperation options ./API.js
 import { fetchJournalData, applyModifications, fetchStrategieOptions, fetchPorteFeuilleOptions } from './API';
@@ -21,15 +20,16 @@ updateTimeSetupOption, updatePorteFeuilleOption, updateTagOption, updateNoteOpti
 
 // recuperation options de ./Options.js
 import { recuperationTradeOption, psychologieOptions, fetchIndicateurOptions, timeFrameOptions, fetchCollectionOptions } from './Options';
+import Image from './Image';
 
 const Journal = () => {
- 
   const [journalData, setJournalData] = useState([]);
 
   //composant image  
   const [selectedOptionTypeTrade, setSelectedOptionTypeTrade] = useState("tout");
   const [collectionValues, setCollectionValues] = useState([]);
   const [collectionOption, setCollectionOption] = useState([]);
+  const [detailsVisible, setDetailsVisible] = useState({});
   const [modificationStatus, setModificationStatus] = useState('');
   const usernameSession = sessionStorage.getItem('username');
   
@@ -96,6 +96,8 @@ const Journal = () => {
   const changementTimeSetupOption = (id, newValue) => {updateTimeSetupOption(id, newValue, timeSetupValues, setTimeSetupValues);};
   const changementTagOption = (id, newValue) => {updateTagOption(id, newValue, tag, setTag);};
   const changementNoteOption = (id, newValue) => {updateNoteOption(id, newValue, note, setNote);};
+
+  const toggleDetails = (tradeId) => {setDetailsVisible(prevState => ({ ...prevState, [tradeId]: !prevState[tradeId] }));};
   
   return (
     <div>
@@ -120,30 +122,47 @@ const Journal = () => {
               <div className="IT"><p>Violation de la stratégie</p><CaseRadio titre={`Violation de la stratégie ${entry._id}`} nomOption1="oui"nomOption2="non" selectedCaseOption={(violeStrategieValues.find(item => item.id === entry._id) || {}).valueVioleStrategie || ''} onChange={(newValue) => changementVioleStrategieOption(entry._id, newValue)}/></div>
               <div className="IT"><p>Type de sortie</p><CaseRadio titre={`Type de sortie ${entry._id}`} nomOption1="Technique"nomOption2="Emotion" selectedCaseOption={(sortieValues.find(item => item.id === entry._id) || {}).valueSortie || ''} onChange={(newValue) => changementSortieOption(entry._id, newValue)}/></div>
               <div className="IT"><p>Etat psychologique</p><Selector options={psychologieOptions}value={psychologieValues.find(item => item.id === entry._id)?.psychologie || ''}onChange={(selected) => changementPsychologieOption(entry._id, selected)}/></div>
-              <div className="timeFrame">
-                <div className="IT"><p>Time frame d'entrée</p><Selector options={timeFrameOptions}value={timeEntreeValues.find(item => item.id === entry._id)?.timeEntree || ''}onChange={(selected) => changementTimeEntreeOption(entry._id, selected)}/></div>
-                <div className="IT"><p>Time frame setup</p><Selector options={timeFrameOptions}value={timeSetupValues.find(item => item.id === entry._id)?.timeSetup || ''}onChange={(selected) => changementTimeSetupOption(entry._id, selected)}/></div>
-              </div>
-              <div className="indicateur">
-                <div className="IT"><p>indicateur 1</p><Selector options={indicateurOptions}value={(indicateur1Values.find(item => item.id === entry._id) || {}).valueIndicateur1 || ''}onChange={(selected) => changementIndicateur1Option(entry._id, selected)}/></div>
-                <div className="IT"><p>indicateur 2</p><Selector options={indicateurOptions}value={(indicateur2Values.find(item => item.id === entry._id) || {}).valueIndicateur2 || ''}onChange={(selected) => changementIndicateur2Option(entry._id, selected)}/></div>
-                <div className="IT"><p>indicateur 3</p><Selector options={indicateurOptions}value={(indicateur3Values.find(item => item.id === entry._id) || {}).valueIndicateur3 || ''}onChange={(selected) => changementIndicateur3Option(entry._id, selected)}/></div>
-              </div>
+              
+              <div className="IT"><p>Time frame d'entrée</p><Selector options={timeFrameOptions}value={timeEntreeValues.find(item => item.id === entry._id)?.timeEntree || ''}onChange={(selected) => changementTimeEntreeOption(entry._id, selected)}/></div>
+              <div className="IT"><p>Time frame setup</p><Selector options={timeFrameOptions}value={timeSetupValues.find(item => item.id === entry._id)?.timeSetup || ''}onChange={(selected) => changementTimeSetupOption(entry._id, selected)}/></div>
+              
+              <div className="IT"><p>indicateur 1</p><Selector options={indicateurOptions}value={(indicateur1Values.find(item => item.id === entry._id) || {}).valueIndicateur1 || ''}onChange={(selected) => changementIndicateur1Option(entry._id, selected)}/></div>
+              <div className="IT"><p>indicateur 2</p><Selector options={indicateurOptions}value={(indicateur2Values.find(item => item.id === entry._id) || {}).valueIndicateur2 || ''}onChange={(selected) => changementIndicateur2Option(entry._id, selected)}/></div>
+              <div className="IT"><p>indicateur 3</p><Selector options={indicateurOptions}value={(indicateur3Values.find(item => item.id === entry._id) || {}).valueIndicateur3 || ''}onChange={(selected) => changementIndicateur3Option(entry._id, selected)}/></div>
               <div className="IT"><p>Strategie</p><Selector options={strategieValues}value={strategieSelectedOption.find(item => item.id === entry._id)?.valueStrategie || ''}onChange={(selected) => changementStrategieOption(entry._id, selected)}/></div>
               <div className="IT"><p>Porte feuille</p><Selector options={porteFeuilleValues}value={porteFeuilleSelectedOption.find(item => item.id === entry._id)?.valuePorteFeuille || ''}onChange={(selected) => changementPorteFeuilleOption(entry._id, selected)}/></div>
             </div>
-            <div className="description">
-              <p>Entrez un tag</p>
-              <Input type="text" placeholder="Entrez du texte" onChange={(event) => changementTagOption(entry._id, event.target.value)}/>
-              <p>Entrez des notes</p>
-              <TextArea cols="100" rows="5" placeholder="Entrez du texte" onChange={(event) => changementNoteOption(entry._id, event.target.value)} />
-            </div>
-            <div className="actionTradeIndividuel">
-              <SupprimerTrade id={entry._id} collection={collectionValues} />
-              <ModifierTrade id={entry._id} collection={collectionValues} />
-              <Button label="Ne pas renseigner ce trade" onClick={() => masquerTrade(entry._id)} />
-              <ImageUploader id={entry._id} collection={collectionValues} />
-            </div>
+            <Image />
+            <Input
+              type="text"
+              placeholder="Entrez une valeur"
+              onChange={(event) => changementTagOption(entry._id, event.target.value)}
+            />
+            <TextArea col={20} row={20} placeholder="Entrez des notes" onChange={(event) => changementNoteOption(entry._id, event.target.value)} />
+            <SupprimerTrade id={entry._id} collection={collectionValues} />
+            <ModifierTrade id={entry._id} collection={collectionValues} />
+            <Button label="Ne pas renseigner ce trade" onClick={() => masquerTrade(entry._id)} />
+            {detailsVisible[entry._id] ? (
+              <div>
+                <p className='valeurUsername valeur'>Username : {entry.username}</p>
+                <p className='valeurMagicNumber valeur'>Magic number : {entry.magicNumber}</p>
+                <p className='valeurTypeOfTransaction valeur'>Type of transaction : {entry.typeOfTransaction}</p>
+                <p className='valeurTypeSymbole valeur'>Symbole : {entry.symbole}</p>
+                <p className='valeurPriceOpening valeur'>Price opening : {entry.priceOpening}</p>
+                <p className='valeurStopLoss valeur'>Stop loss : {entry.stopLoss}</p>
+                <p className='valeurTakeProfit valeur'>Take profit : {entry.takeProfit}</p>
+                <p className='valeurDateClosure valeur'>Date and Time closure : {entry.dateAndTimeClosure}</p>
+                <p className='valeurPriceClosure valeur'>Price closure : {entry.priceClosure}</p>
+                <p className='valeurSwap valeur'>Swap : {entry.swap}</p>
+                <p className='valeurProfit valeur'>Profit : {entry.profit}</p>
+                <p className='valeurCommission valeur'>Commission : {entry.commission}</p>
+                <p className='valeurClosurePosition valeur'>Closure position : {entry.closurePosition}</p>
+                <p className='valeurBalance valeur'>Balance : {entry.balance}</p>
+                <Button label="Fermer les détails de ce trade" onClick={() => toggleDetails(entry._id)} />
+              </div>
+            ) : (
+              <Button label="Voir les détails de ce trade" onClick={() => toggleDetails(entry._id)} />
+            )}
           </div>
         </div>
       ))}

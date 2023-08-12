@@ -1,0 +1,78 @@
+.cadreImageUploader {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.279);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    animation: noir 1s ease forwards;
+}
+
+.contenuMontreImageUploader {
+    animation: arrive 0.3s ease forwards;
+    width: 700px;
+    min-height: 600px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.divImageUploader {
+    cursor: pointer;
+    position: relative;
+    margin: 20px auto;
+    height: 200px;
+    width: 90%;
+    border: 2px dashed black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagePreview {
+    margin: 5px 20px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.imageDetails {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.basImageUploader {
+    align-items: center;
+    display: flex;
+    width: 100vw;
+    bottom: 0;
+    position: absolute;
+    margin: 20px;
+}
+
+.ITImageUploader {
+    display: flex;
+}
+
+@keyframes arrive {
+    from {
+        transform: translateY(100px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes noir {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.277);
+    }
+}

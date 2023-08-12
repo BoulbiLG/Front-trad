@@ -4,7 +4,6 @@ const apiUrl = 'https://apipython2.onrender.com';
 
 export const fetchJournalData = async (username, selectedOption, collectionTradeValues) => {
   try {
-    console.log(collectionTradeValues);
     const response = await axios.get(`${apiUrl}/recuperationTrade?username=${username}&typeTrade=${selectedOption}&collection=${collectionTradeValues}`);
     return response.data;
   } catch (error) {
@@ -14,10 +13,11 @@ export const fetchJournalData = async (username, selectedOption, collectionTrade
 };
 
 export const applyModifications = async (annonceEcoCaseValeurs, psychologieValues, positionValues, typeOrdreValues, violeStrategieValues, sortieValues,
-  indicateur1Values, indicateur2Values, indicateur3Values, strategieValues, timeEntreeValues, timeSetupValues, porteFeuilleSelectedOption, collectionValues
+  indicateur1Values, indicateur2Values, indicateur3Values, strategieValues, timeEntreeValues, timeSetupValues, porteFeuilleSelectedOption, collectionValues,
+  tag, note
   ) => {
   try {
-    console.log(porteFeuilleSelectedOption);
+    //console.log(porteFeuilleSelectedOption);
     const headers = { 'Content-Type': 'application/json' };
     const data = { 
       trades: annonceEcoCaseValeurs.map(item => ({ id: item.id, valeurAnnEco: item.valeurAnnEco })),
@@ -33,6 +33,8 @@ export const applyModifications = async (annonceEcoCaseValeurs, psychologieValue
       timeEntree: timeEntreeValues.map(item => ({ id: item.id, valueTimeEntree: item.valueTimeEntree })),
       timeSetup: timeSetupValues.map(item => ({ id: item.id, valueTimeSetup: item.valueTimeSetup })),
       porteFeuille: porteFeuilleSelectedOption.map(item => ({ id: item.id, valuePorteFeuille: item.valuePorteFeuille })),
+      tag: tag.map(item => ({ id: item.id, valueTag: item.valueTag })),
+      note: note.map(item => ({ id: item.id, valueNote: item.valueNote })),
       collection: collectionValues
     };
     console.log(data);

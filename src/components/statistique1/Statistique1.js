@@ -14,6 +14,7 @@ import { verificationFiltre } from './XY';
 import CaseRadio from '../CaseRadio';
 import Button from '../Button';
 import Selector from '../Selector';
+import Meilleur from './meilleur';
 
 const Statistique1 = ({ selectedOption }) => {
 
@@ -154,6 +155,7 @@ const Statistique1 = ({ selectedOption }) => {
         <div className="inputFiltreXY"><p>time frame setup</p><Selector options={timeFrameOptions} value={timeSetupValues} onChange={(selected) => timeSetupOptionChange(selected)}/></div>
       </div>
       <Button label="chercher" onClick={handleClick} />
+      <Meilleur collection={collectionValues}/>
     </div>
   );
 };

@@ -4,6 +4,9 @@
     width: 100%;
     border: 1px solid black;
     border-radius: 5px;
+    background-color: white;
+    margin: 5px 0;
+    padding: 5px;
 }
 
 .donnee {
@@ -18,4 +21,22 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.IT {
+    display: flex;
+    align-items: center;
+}
+
+.filtreInput {
+    display: block;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+}
+
+.actionTradeIndividuel, .timeFrame {
+    display: flex;
 }

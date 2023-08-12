@@ -8,9 +8,7 @@ export const recuperationTradeOption = [
     { value: "renseigne", label: "Renseigné" },
 ];
 
-let recuperationCollectionOption = [
-  { value: "rien", label: "rien" },
-];
+let recuperationCollectionOption = [];
 
 export const fetchCollectionOptions = async (username) => {
   try {

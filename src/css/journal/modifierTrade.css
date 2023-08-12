@@ -1,0 +1,48 @@
+.cadreModifierTrade {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.279);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    animation: noir 1s ease forwards;
+}
+
+.contenuMontreModifierTrade {
+    animation: arrive 0.3s ease forwards;
+    width: 700px;
+    background-color: white;
+    margin: 10px;
+}
+
+.inputModifierTrade {
+    display: flex;
+    width: 100vw;
+}
+
+.ITmodification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@keyframes arrive {
+    from {
+        transform: translateY(100px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes noir {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.277);
+    }
+}

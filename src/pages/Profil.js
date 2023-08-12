@@ -4,8 +4,8 @@ import '../css/profil.css';
 import NavBar from '../components/NavBar';
 import Button from '../components/Button';
 
-import Statistique1 from '../components/profil/Statistique1';
-//import Statistique2 from '../components/statistique/Statistique2';
+import Statistique1 from '../components/statistique1/Statistique1';
+//import Statistique2 from '../components/Statistique2/Statistique2';
 import Strategie from '../components/strategie/Strategie';
 import Journal from '../components/journal/Journal';
 
@@ -54,10 +54,12 @@ const Profil = () => {
           <div className="cadre-infos">
             <h1>{username}</h1>
             <p>{email}</p>
-            <button className='deconnexion' onClick={deconnexion}>Se déconnecter</button>
-            <Button label="Statistiques" onClick={statAffichage} />
-            <Button label="Stratégie" onClick={strategieAffichage} />
-            <Button label="Journal" onClick={journalAffichage} />
+            <div className="section">
+              <Button backgroundColor="#d51f1f" className='deconnexion' label='deconnexion' onClick={deconnexion} />
+              <Button label="Statistiques" onClick={statAffichage} />
+              <Button label="Stratégie" onClick={strategieAffichage} />
+              <Button label="Journal" onClick={journalAffichage} />
+            </div>
             <div className="selecteur">
               <div className='toutesLesCoches'>
                 {affichageFenetre === "stat" ? (

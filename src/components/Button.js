@@ -1,23 +1,19 @@
 import React from 'react';
+import '../css/component/button.css';
 
 class Button extends React.Component {
   render() {
-    const { label, onClick, disabled } = this.props;
-    const buttonStyle = {
-      padding: '10px 20px',
-      fontSize: '16px',
-      fontWeight: 'bold',
-      borderRadius: '4px',
-      border: 'none',
-      backgroundColor: disabled ? '#ccc' : '#007bff',
-      color: '#fff',
-      cursor: disabled ? 'not-allowed' : 'pointer',
+    const { label, onClick, disabled, backgroundColor, color } = this.props;
+    const style = {
+      backgroundColor: backgroundColor || '#007bff',
+      color: color || 'white',
     };
-
     return (
-      <button style={buttonStyle} onClick={onClick} disabled={disabled}>
+      <div className="di">
+      <button style={style} className='bouton' onClick={onClick} disabled={disabled}>
         {label}
       </button>
+      </div>
     );
   }
 }

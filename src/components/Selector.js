@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/component/selector.css';
 
 class InputSelector extends React.Component {
   constructor(props) {

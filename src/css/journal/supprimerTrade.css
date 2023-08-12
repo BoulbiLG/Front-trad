@@ -1,0 +1,49 @@
+.cadreSupprimerTrade {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.279);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    animation: noir 1s ease forwards;
+}
+
+.contenuMontreSupprimerTrade {
+    animation: arrive 0.3s ease forwards;
+    width: 400px;
+    height: 150px;
+    background-color: white;
+}
+
+.infoSupprimerTrade {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+}
+
+.inputSupprimerTrade {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+@keyframes arrive {
+    from {
+        transform: translateY(100px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes noir {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.277);
+    }
+}

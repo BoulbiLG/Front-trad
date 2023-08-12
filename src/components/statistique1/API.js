@@ -4,7 +4,7 @@ export const soumissionsFormulaire = async (argumentDate, argumentIndice, startD
     argumentStrategie, argumentAnnEco, argumentPos, argumentTypOrd, argumentSortieManuelle, argumentTilt, argumentBuySell, argumentIndicateur1,
     argumentIndicateur2, argumentIndicateur3, argumentVioleStrat, argumentSortie, argumentTimeEntree, argumentTimeSetup, argumentTJS,
     argumentCollection ) => {
-    //onst usernameSession = sessionStorage.getItem('username');
+    //const usernameSession = sessionStorage.getItem('username');
 
     let argStrat = argumentStrategie || "";
     let argD = argumentDate || "";
