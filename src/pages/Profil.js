@@ -8,6 +8,7 @@ import Statistique1 from '../components/statistique1/Statistique1';
 //import Statistique2 from '../components/Statistique2/Statistique2';
 import Strategie from '../components/strategie/Strategie';
 import Journal from '../components/journal/Journal';
+import Consultation from '../components/consultation/Consultation';
 
 const Profil = () => {
   const navigate = useNavigate();
@@ -73,7 +74,10 @@ const Profil = () => {
                   <Strategie />
                 ) : null}
                 {affichageFenetre === "journal" ? (
-                  <Journal />
+                  <div>
+                    <Consultation />
+                    <Journal />
+                  </div>
                 ) : null}
               </div>
             </div>

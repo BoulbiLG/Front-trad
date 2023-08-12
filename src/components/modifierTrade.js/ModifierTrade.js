@@ -46,7 +46,6 @@ const ModifierTrade = ({ id, collection }) => {
         const recuperationUnTradebrut = async (id, collection) => {
             try {
                 const response = await recuperationUnTrade(id, collection);
-                console.log(response);
                 setMagicNumber(response[0].magicNumber);
                 setVolume(response[0].volume);
                 setSymbole(response[0].symbol);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const handleImageUpload = async (selectedImage) => {
+export const handleImageUpload = async (selectedImage, idValue, collectionValue) => {
   try {
     if (!selectedImage) {
       alert('Veuillez sélectionner une image.');
@@ -9,6 +9,8 @@ export const handleImageUpload = async (selectedImage) => {
 
     const formData = new FormData();
     formData.append('image', selectedImage);
+    formData.append('id', idValue.toString());
+    formData.append('collection', collectionValue.toString());
 
     const response = await axios.post('https://apipython2.onrender.com/enregistrerImage', formData, {
       headers: {

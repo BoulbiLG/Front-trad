@@ -109,7 +109,6 @@ const Journal = () => {
         
         <div className="tradConteneur" key={entry._id}>
           <div className='donnee'>
-            <p className='valeurID valeur'>ID : {entry._id}</p><p className='valeurTicketnumber valeur'>ticket number : {entry.ticketNumber}</p>
             <p className='valeurVolume valeur'>volume : {entry.volume}</p><p className='valeurDate valeur'>date d'ouverture : {entry.dateAndTimeOpening}</p>
           </div>
           <div className="filtre">

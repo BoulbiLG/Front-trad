@@ -3,7 +3,7 @@ import axios from 'axios';
 import Button from '../Button';
 import '../../css/journal/imageUploader.css';
 
-const ImageUploader = (id, collection) => {
+const ImageUploader = ({ id, collection }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [imageUploaderStatus, setImageUploaderStatus] = useState('');
   const [imageUploaderAffichage, setImageUploaderAffichage] = useState("cache"); // cache ou montre
@@ -18,8 +18,8 @@ const ImageUploader = (id, collection) => {
 
       const formData = new FormData();
       formData.append('image', selectedImage);
-      formData.append('id', id);
-      formData.append('collection', collection);
+      formData.append('id', id.toString());
+      formData.append('collection', collection.toString());
 
       const response = await axios.post('https://apipython2.onrender.com/enregistrerImage', formData, {
         headers: {
