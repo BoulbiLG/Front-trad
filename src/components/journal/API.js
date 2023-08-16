@@ -84,3 +84,33 @@ export const fetchPorteFeuilleOptions = async (username, setPorteFeuille) => {
     return [];
   }
 };
+
+export const recuperationNomRemplissage = async (username, setRemplissageOption) => {
+  try {
+    const response = await axios.get(`https://apipython2.onrender.com/recuperationRemplissageDefaut?username=${username}`);
+    const data = response.data;
+    setRemplissageOption(data);
+    if (data) {
+      return data.map((remplissage) => ({
+        value: remplissage.nomRemplissageDefaut,
+        label: remplissage.nomRemplissageDefaut
+      }));
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const recuperationSeulRemplissage = async (usernameSession, remplissageValeur) => {
+  try {
+    const response = await axios.get(`https://apipython2.onrender.com/recuperationSeulRemplissage?username=${usernameSession}&nomRemplissageDefaut=${remplissageValeur}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return 'Une erreur est survenue lors de la recuperation du remplissages.';
+  }
+};

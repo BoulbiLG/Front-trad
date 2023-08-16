@@ -1,0 +1,48 @@
+.cadreRemplissage {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.279);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    animation: noir 1s ease forwards;
+}
+
+.contenuMontreRemplissage {
+    padding: 20px;
+    animation: arrive 0.3s ease forwards;
+    height: 600px;
+    width: 700px;
+    background-color: white;
+}
+
+.basRemplissage {
+    align-items: center;
+    display: flex;
+    width: 100vw;
+}
+
+.IT {
+    display: flex;
+}
+
+@keyframes arrive {
+    from {
+        transform: translateY(100px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes noir {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.277);
+    }
+}

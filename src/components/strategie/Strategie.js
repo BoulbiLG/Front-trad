@@ -3,6 +3,7 @@ import axios from 'axios';
 import Button from '../Button';
 import Input from '../Input';
 import '../../css/strategie.css';
+import RemplissageDefaut from './RemplissageDefaut';
 
 const Strategie = ({ selectedOption }) => {
   const [nomStrategie, setNomStrategie] = useState('');
@@ -169,6 +170,7 @@ const handleNomPorteFeuilleChange = (event) => {
           </div>
         ))}
       </div>
+      <RemplissageDefaut />
     </div>
   );
 };

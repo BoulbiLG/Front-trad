@@ -1,0 +1,67 @@
+.cadreRecuperationRemplissage {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.279);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    animation: noir 1s ease forwards;
+}
+
+.contenuMontreRecuperationRemplissage {
+    padding: 20px;
+    animation: arrive 0.3s ease forwards;
+    height: 330px;
+    width: 700px;
+    background-color: white;
+}
+
+.basRecuperationRemplissage {
+    display: flex;
+    width: 100vw;
+}
+
+.IT {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+}
+
+.RecuperationRemplissage {
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    transition: all 0.2s;
+    margin: 5px 0;
+}
+
+.RecuperationRemplissage:hover {
+    filter: brightness(90%);
+}
+
+.RecuperationRemplissage:active {
+    filter: brightness(80%);
+}
+
+@keyframes arrive {
+    from {
+        transform: translateY(100px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes noir {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.277);
+    }
+}

@@ -2,10 +2,15 @@ import axios from 'axios';
 
 const apiUrl = 'https://apipython2.onrender.com';
 
-export const fetchJournalData = async (username, collectionTradeValues) => {
+export const fetchJournalData = async (username, collectionTradeValues, rechercheDonnee) => {
   try {
-    const response = await axios.get(`${apiUrl}/recuperationTrade?username=${username}&&collection=${collectionTradeValues}`);
-    return response.data;
+    let response;
+    if (rechercheDonnee === null || rechercheDonnee === '') {
+      response = await axios.get(`${apiUrl}/recuperationTrade?username=${username}&collection=${collectionTradeValues}`);
+    } else {
+      response = await axios.get(`${apiUrl}/recuperationTrade?username=${username}&collection=${collectionTradeValues}&rechercheDonnee=${rechercheDonnee}`);
+    }
+      return response.data;
   } catch (error) {
     console.log('Erreur lors de la récupération des données du journal :', error);
     return [];
