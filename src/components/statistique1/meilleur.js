@@ -9,8 +9,10 @@ const Meilleur = ({ collection }) => {
     console.log(collection);
     const username = sessionStorage.getItem('username');
 
-    const [meilleurValue, setMeilleurValue] = useState('');
+    const [meilleurValue, setMeilleurValue] = useState(meilleurOptions[0].value);
     const [responseData, setResponseData] = useState([]);
+
+    console.log(meilleurValue);
 
     useEffect(() => {
         axios.get(`https://apipython2.onrender.com/best?meilleur=${meilleurValue}&username=${username}collection=${collectionArgument}`)
