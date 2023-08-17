@@ -53,6 +53,7 @@ const Statistique1 = ({ selectedOption }) => {
     const fetchCollection = async () => {
       const username = sessionStorage.getItem('username');
       const collectionOptions = await fetchCollectionOptions(username);
+      console.log(collectionValues);
       setCollectionOption(collectionOptions);}
     fetchOptions();
     fetchIndicateur();

@@ -3,9 +3,10 @@ import Selector from '../Selector';
 import { meilleurOptions } from './Options';
 import axios from 'axios';
 
-const Meilleur = (collection) => {
+const Meilleur = ({ collection }) => {
 
     let collectionArgument = collection
+    console.log(collection);
     const username = sessionStorage.getItem('username');
 
     const [meilleurValue, setMeilleurValue] = useState('');
