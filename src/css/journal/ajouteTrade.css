@@ -12,6 +12,7 @@
 }
 
 .contenuMontre {
+    padding: 20px;
     animation: arrive 0.3s ease forwards;
     height: 900px;
     width: 700px;

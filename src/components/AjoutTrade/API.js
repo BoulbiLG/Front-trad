@@ -10,8 +10,9 @@ export const ajoutManuelTrade = async (collectionValues, magicNumber, volume, sy
 
       const headers = { 'Content-Type': 'application/json' };
 
-      let data = {"username": username}
+      let data = {}
 
+      if (username !== null || username !== '') {data['username'] = username}
       if (dateFin !== null || dateFin !== '') {data['dateAndTimeClosure'] = dateFin}
       if (dateDebut !== null || dateDebut !== '') {data['dateAndTimeOpening'] = dateDebut}
       if (ticketNumber !== null || ticketNumber !== '') {data['ticketNumber'] = parseFloat(ticketNumber)}

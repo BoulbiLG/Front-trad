@@ -66,6 +66,26 @@ const ImageUploader = ({ id, collection }) => {
     setSelectedImages(newSelectedImages);
   };
 
+  const handleDrop = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const files = event.dataTransfer.files;
+    const newSelectedImages = [...selectedImages];
+
+    for (let i = 0; i < files.length; i++) {
+      newSelectedImages.push(files[i]);
+    }
+
+    setSelectedImages(newSelectedImages);
+    setImageUploaderStatus("");
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
   return (
     <div className="ImageUploader">
         <Button label='Ajouter des images' onClick={afficherImageUploader}/>
@@ -73,7 +93,7 @@ const ImageUploader = ({ id, collection }) => {
         <div className="cadreImageUploader">
             <div className="contenuMontreImageUploader">
                 <div className="divImageUploader">
-                    <div className="upload-div" onClick={() => document.getElementById('image-input').click()}>
+                    <div className="upload-div" onDrop={handleDrop} onDragOver={handleDragOver} onClick={() => document.getElementById('image-input').click()}>
                         <div className="placeholder">Cliquer pour ajouter des images</div>
                         <input id="image-input" type="file" multiple hidden onChange={handleFileChange} />
                     </div>

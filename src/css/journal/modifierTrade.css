@@ -12,6 +12,7 @@
 }
 
 .contenuMontreModifierTrade {
+    padding: 20px;
     animation: arrive 0.3s ease forwards;
     width: 700px;
     background-color: white;

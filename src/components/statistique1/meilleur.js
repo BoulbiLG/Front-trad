@@ -12,7 +12,7 @@ const Meilleur = (collection) => {
     const [responseData, setResponseData] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://apipython2.onrender.com/winrate?meilleur=${meilleurValue}&username=${username}collection=${collectionArgument}`)
+        axios.get(`https://apipython2.onrender.com/best?meilleur=${meilleurValue}&username=${username}collection=${collectionArgument}`)
             .then((response) => {
                 setResponseData(response.data);
             })

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import Button from '../Button';
 import Input from '../Input';
 import Selector from '../Selector';
@@ -27,7 +28,7 @@ const ModifierTrade = ({ id, collection }) => {
     //const [dateFin, setDateFin] = useState('');
 
     const [magicNumber, setMagicNumber] = useState(null);
-    const [volume, setVolume] = useState(null);
+    const [volume, setVolume] = useState();
     const [symbole, setSymbole] = useState(null);
     const [priceOpening, setPriceOpening] = useState(null);
     const [stopLoss, setStopLoss] = useState(null);
@@ -70,30 +71,61 @@ const ModifierTrade = ({ id, collection }) => {
         recuperationUnTradebrut(id, collection);
     }, [id, collection]);
 
-    const correctionTrade = async () => {try {const correctionTradeStatus = await correctionTradeSeul( collection, id, magicNumber, volume, symbole, priceOpening,
-        stopLoss, takeProfit, priceClosure, swap, profit, commission, balance, typeTransaction, orderType, identifier, closurePosition, ticketNumber, 
-    );setCorrectionTradeStatus(correctionTradeStatus);} catch (error) {setCorrectionTradeStatus('Une erreur est survenue lors de l\'application des modifications.');}};
+    const correctionTrade = async () => {
+        try {
+            // Convertissez le champ volume en nombre si nécessaire
+            const numericVolume = parseFloat(volume);
+            
+            // Vérifiez si la valeur est proche de zéro (en dessous d'un certain seuil)
+            const epsilon = 0.0001; // Seuil pour considérer la valeur comme zéro
+            const correctedVolume = Math.abs(numericVolume) < epsilon ? 0.0 : numericVolume;
+            
+            const correctionTradeStatus = await correctionTradeSeul(
+                collection, id, magicNumber, correctedVolume, symbole, priceOpening,
+                stopLoss, takeProfit, priceClosure, swap, profit, commission, balance, typeTransaction, orderType, identifier, closurePosition, ticketNumber,
+            );
+            
+            setCorrectionTradeStatus(correctionTradeStatus);
+            toast.success(correctionTradeStatus, { /* ... */ });
+        } catch (error) {
+            setCorrectionTradeStatus('Une erreur est survenue lors de l\'application des modifications.');
+            toast.error(correctionTradeStatus, { /* ... */ });
+        }
+    };
 
     return (
         <div>
+            <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            />
+            <ToastContainer />
             <Button backgroundColor="#007bff" color="white" label='Modifier ce trade' onClick={afficherModifierTrade} />
             {modifierTradeAffichage === "affiche" ? (
                 <div className="cadreModifierTrade">
                     <div className="contenuMontreModifierTrade">
                         <div className="infoModifierTrade">
-                            <div className="ITmodification"><p>Magic number</p><Input type="text" placeholder={"Magic Number"} value={magicNumber} onChange={(event) => {setMagicNumber(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Volume</p><Input type="text" placeholder={"Volume"} value={volume} onChange={(event) => {setVolume(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Magic number</p><Input type="number" typeValeur="number" placeholder={"Magic Number"} value={magicNumber} onChange={(event) => {setMagicNumber(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Volume</p><Input type="number" typeValeur="number" placeholder={"Volume"} value={volume} onChange={(event) => {setVolume(event.target.value)}}/></div>
                             <div className="ITmodification"><p>Symbole</p><Input type="text" placeholder={"Symbole"} value={symbole} onChange={(event) => {setSymbole(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Price opening</p><Input type="text" placeholder={"Price opening"} value={priceOpening} onChange={(event) => {setPriceOpening(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Stop loss</p><Input type="text" placeholder={"Stop loss"} value={stopLoss} onChange={(event) => {setStopLoss(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Take profit</p><Input type="text" placeholder={"Take profit"} value={takeProfit} onChange={(event) => {setTakeProfit(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Price closure</p><Input type="text" placeholder={"Price closure"} value={priceClosure} onChange={(event) => {setPriceClosure(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Swap</p><Input type="text" placeholder={"Swap"} value={swap} onChange={(event) => {setSwap(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Profit</p><Input type="text" placeholder={"Profit"} value={profit} onChange={(event) => {setProfit(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Commision</p><Input type="text" placeholder={"Commision"} value={commission} onChange={(event) => {setCommission(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Balance</p><Input type="text" placeholder={"Balance"} value={balance} onChange={(event) => {setBalance(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Identifier</p><Input type="text" placeholder={"Identifier"} value={identifier} onChange={(event) => {setIdentifier(event.target.value)}}/></div>
-                            <div className="ITmodification"><p>Ticket number</p><Input type="text" placeholder={"Ticket number"} value={ticketNumber} onChange={(event) => {setTicketNumber(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Price opening</p><Input type="number" typeValeur="number" placeholder={"Price opening"} value={priceOpening} onChange={(event) => {setPriceOpening(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Stop loss</p><Input type="number" typeValeur="number" placeholder={"Stop loss"} value={stopLoss} onChange={(event) => {setStopLoss(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Take profit</p><Input type="number" typeValeur="number" placeholder={"Take profit"} value={takeProfit} onChange={(event) => {setTakeProfit(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Price closure</p><Input type="number" typeValeur="number" placeholder={"Price closure"} value={priceClosure} onChange={(event) => {setPriceClosure(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Swap</p><Input type="number" typeValeur="number" placeholder={"Swap"} value={swap} onChange={(event) => {setSwap(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Profit</p><Input type="number" typeValeur="number" placeholder={"Profit"} value={profit} onChange={(event) => {setProfit(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Commision</p><Input type="number" typeValeur="number" placeholder={"Commision"} value={commission} onChange={(event) => {setCommission(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Balance</p><Input type="number" typeValeur="number" placeholder={"Balance"} value={balance} onChange={(event) => {setBalance(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Identifier</p><Input type="number" typeValeur="number" placeholder={"Identifier"} value={identifier} onChange={(event) => {setIdentifier(event.target.value)}}/></div>
+                            <div className="ITmodification"><p>Ticket number</p><Input type="number" typeValeur="number" placeholder={"Ticket number"} value={ticketNumber} onChange={(event) => {setTicketNumber(event.target.value)}}/></div>
                             <div className="ITmodification"><p>Type of transaction</p><Selector options={typeOfTransactionOptions} value={typeTransaction} onChange={(selected) => {setTypeTransaction(selected);}} /></div>
                             <div className="ITmodification"><p>Order type</p><Selector options={orderTypeOptions} value={orderType} onChange={(selected) => {setOrderType(selected);}} /></div>
                             <div className="ITmodification"><p>Closure position</p><Selector options={closurePositionOptions} value={closurePosition} onChange={(selected) => {setClosurePosition(selected);}} /></div>
@@ -102,7 +134,7 @@ const ModifierTrade = ({ id, collection }) => {
                         <div className="inputModifierTrade">
                             <Button backgroundColor="#007bff" color="white" className="bouton" label='Confirmer la modification' onClick={correctionTrade} />
                             <Button className="bouton" label='Annuler' onClick={masquerModifierTrade} />
-                            <p>{correctionTradeStatus}</p>
+                            {/*<p>{correctionTradeStatus}</p>*/}
                         </div>
                     </div>
                 </div>

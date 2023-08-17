@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import CaseRadio from '../CaseRadio';
 import Button from '../Button';
 import Selector from '../Selector';
@@ -187,7 +189,10 @@ const Journal = () => {
   );
   setModificationStatus(modificationStatus);
   fetchJournalData(username, selectedOptionTypeTrade, collectionValues)
-  .then((data) =>setJournalData(data))
+  .then((data) => {
+    setJournalData(data);
+    toast.success(modificationStatus, { position: "top-left", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light"});
+  })
   .catch(() => setJournalData([]));
 } catch (error) {setModificationStatus('Une erreur est survenue lors de l\'application des modifications');}};
 
@@ -224,8 +229,21 @@ const Journal = () => {
       <div className="actionsTrade">
         <Button label="Appliquer les modifications" onClick={appliquerModifications} />
         <CSV />
-        {modificationStatus && <p>{modificationStatus}</p>}
+        {/*{modificationStatus && <p>{modificationStatus}</p>}*/}
         <AjouteTradeComponent />
+        <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
+        <ToastContainer />
       </div>
 
       {/*======================================= TRADE ========================================*/}
