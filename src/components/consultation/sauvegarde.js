@@ -1,117 +1,62 @@
+//import { format } from 'date-fns';
 import React, { useState, useEffect } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Button from '../Button';
 import Selector from '../Selector';
-import Input from '../Input';
-import RecuperationImage from './RecuperationImage';
+import Input from '../Input'
+//import CaseRadio from '../CaseRadio';
 import '../../css/journal/consultation.css';
 import { fetchJournalData } from './API';
 import { fetchCollectionOptions } from './Options';
+import RecuperationImage from './RecuperationImage';
 
 const Consultation = () => {
-  const [collectionValues, setCollectionValues] = useState([]);
-  const [collectionOption, setCollectionOption] = useState([]);
-  const [journalData, setJournalData] = useState([]);
-  const [tradeAffichage, setTradeAffichage] = useState('cache');
-  const [tradeIDpopup, setTradeIDpopup] = useState();
-  const [rechercheDonnee, setRechercheDonnee] = useState('');
 
-  const masquerTrade = () => {
-    setTradeAffichage('cache');
-  };
+    const [collectionValues, setCollectionValues] = useState([]);
+    const [collectionOption, setCollectionOption] = useState([]);
+    const [journalData, setJournalData] = useState([]);
+    const [tradeAffichage, setTradeAffichage] = useState('cache');
+    const [tradeIDpopup, setTradeIDpopup] = useState();
+    const [rechercheDonnee, setRechercheDonnee] = useState('');
 
-  const afficherTrade = selectedData => {
-    setTradeAffichage('montre');
-    setTradeIDpopup(selectedData);
-  };
-
-  const username = sessionStorage.getItem('username');
-
-  const changementSelectorChangeCollection = selectedValue => {
-    setCollectionValues(selectedValue);
-  };
-
-  const onDragEnd = result => {
-    if (!result.destination) {
-      return;
-    }
-
-    const columns = Array.from(journalData);
-    const [reorderedColumn] = columns.splice(result.source.index, 1);
-    columns.splice(result.destination.index, 0, reorderedColumn);
-
-    setJournalData(columns);
-  };
-
-  useEffect(() => {
-    fetchJournalData(username, collectionValues, rechercheDonnee)
-      .then(data => {setJournalData(data); console.log(journalData)})
-      .catch(() => setJournalData([]));
-  }, [username, collectionValues, rechercheDonnee]);
-
-  useEffect(() => {
-    const fetchCollection = async () => {
-      const collectionOptions = await fetchCollectionOptions(username);
-      setCollectionOption(collectionOptions);
-      setCollectionValues(collectionOptions[0].value);
+    const masquerTrade = () => {setTradeAffichage('cache')};
+    const afficherTrade = (selectedData) => {
+        setTradeAffichage('montre');
+        setTradeIDpopup(selectedData);
     };
-    fetchCollection();
-  }, [username]);
 
-  return (
-    <div className="consultation">
-      <h3>Consultation</h3>
-      <Selector
-        options={collectionOption}
-        value={collectionValues}
-        onChange={changementSelectorChangeCollection}
-      />
-      <Input
-        placeholder="Recherchez un trade avec un tag"
-        value={rechercheDonnee}
-        onChange={event => {
-          setRechercheDonnee(event.target.value);
-        }}
-      />
-        <div className="carteConsultation">
-            <DragDropContext onDragEnd={onDragEnd}>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Numéro de ticket</th>
-                    <th>Volume</th>
-                </tr>
-                </thead>
-                <Droppable droppableId="column" direction="vertical">
-                {provided => (
-                    <tbody {...provided.droppableProps} ref={provided.innerRef}>
-                    {journalData.map((column, columnIndex) => (
-                        <Draggable
-                        key={columnIndex}
-                        draggableId={`column-${columnIndex}`}
-                        index={columnIndex}
-                        >
-                        {provided => (
-                            <tr
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            key={column._id} onClick={() => afficherTrade(column)}
-                            >
-                            <td>{column._id}</td>
-                            <td>{column.ticketNumber}</td>
-                            <td>{column.volume}</td>
-                            </tr>
-                        )}
-                        </Draggable>
-                    ))}
-                    {provided.placeholder}
-                    </tbody>
-                )}
-                </Droppable>
-            </table>
-            </DragDropContext>
+    const username = sessionStorage.getItem('username');
+
+    const changementSelectorChangeCollection = (selectedValue) => {setCollectionValues(selectedValue);};
+
+    useEffect(() => {
+        fetchJournalData(username, collectionValues, rechercheDonnee)
+        .then((data) => setJournalData(data))
+        .catch(() => setJournalData([]));
+    }, [username, collectionValues, rechercheDonnee]);
+
+    useEffect(() => {
+        const fetchCollection = async () => {
+            const collectionOptions = await fetchCollectionOptions(username);
+            setCollectionOption(collectionOptions);
+            setCollectionValues(collectionOptions[0].value);
+        };
+        fetchCollection();
+    }, [username]);
+
+    return (
+        <div className="consultation">
+            <h3>Consultation</h3>
+            <Selector options={collectionOption} value={collectionValues} onChange={changementSelectorChangeCollection} />
+            <Input placeholder='Recherchez un trade avec un tag' value={rechercheDonnee} onChange={(event) => {setRechercheDonnee(event.target.value)}} />
+            <div className="carteConsultation">
+                {journalData.map(entry => (
+                    <div className="tradConteneurConsultation" key={entry._id} onClick={() => afficherTrade(entry)}>
+                        <div className='donnee'>
+                            <p className='valeurID valeur'>ID : {entry._id}</p><p className='valeurTicketnumber valeur'>ticket number : {entry.ticketNumber}</p>
+                            <p className='valeurVolume valeur'>volume : {entry.volume}</p><p className='valeurDate valeur'>date d'ouverture : {entry.dateAndTimeOpening}</p>
+                        </div>
+                    </div>
+                ))}
             </div>
             {tradeAffichage === 'montre' ? (
                 <div className="cadreConsultation">

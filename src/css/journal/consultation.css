@@ -70,6 +70,14 @@
     bottom: 0;
 }
 
+td {
+    background-color: rgb(255, 255, 255)
+}
+
+table {
+    border: none; 
+}
+
 @keyframes arrive {
     from {
         transform: translateY(100px);
@@ -87,3 +95,4 @@
         background-color: rgba(0, 0, 0, 0.277);
     }
 }
+  

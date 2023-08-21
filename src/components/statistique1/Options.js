@@ -184,5 +184,8 @@ export const fetchCollectionOptions = async (username) => {
 
 export const meilleurOptions = [
   {value: "RR", label: "RR"},
-  {value: "TP", label: "TP"}
+  {value: "TPR", label: "TP"},
+  {value: "SLR", label: "SL"},
+  {value: "strategie", label: "Strategie"},
+  {value: "profit", label: "Profit"}
 ]

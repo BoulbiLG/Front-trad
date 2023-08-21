@@ -61,3 +61,33 @@ h3 {
 .actionTradeIndividuel, .timeFrame {
     display: flex;
 }
+
+.tagBlocks {
+    border: 1px solid black;
+    padding: 5px;
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.tag {
+    border: 1px solid black;
+    padding: 5px;
+    display: flex;
+    background-color: white;
+}
+
+.taginput {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    display: flex;
+}
+
+li {
+    display: flex;
+    align-items: center;
+}

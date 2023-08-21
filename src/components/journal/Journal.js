@@ -43,6 +43,8 @@ const Journal = () => {
     const [collectionValues, setCollectionValues] = useState([]);
     const [collectionOption, setCollectionOption] = useState([]);
 
+    const [tagBlocks, setTagBlocks] = useState([]);
+
     const [modificationStatus, setModificationStatus] = useState('');
 
     const [remplissageOption, setRemplissageOption] = useState([]);
@@ -184,8 +186,8 @@ const Journal = () => {
   
   const appliquerModifications = async () => {try {const modificationStatus = await applyModifications(
     annonceEcoCaseValues, psychologieValues, positionValues, typeOrdreValues, violeStrategieValues, sortieValues, indicateur1Values, 
-    indicateur2Values, indicateur3Values, strategieValues, timeEntreeValues, timeSetupValues, porteFeuilleSelectedOption, collectionValues, tag,
-    note, tag, note
+    indicateur2Values, indicateur3Values, strategieValues, timeEntreeValues, timeSetupValues, porteFeuilleSelectedOption, collectionValues, tagBlocks,
+    note
   );
   setModificationStatus(modificationStatus);
   fetchJournalData(username, selectedOptionTypeTrade, collectionValues)
@@ -200,11 +202,44 @@ const Journal = () => {
 
   //======================================= FONCTIONS ANNEXES ========================================
 
-
-
   const masquerTrade = (id) => {
     const updatedJournalData = journalData.filter(entry => entry._id !== id);
     setJournalData(updatedJournalData);
+  };
+
+  const [inputValues, setInputValues] = useState({});
+
+  const handleInputChange = (event, id) => {
+    const { value } = event.target;
+    setInputValues((prevInputValues) => ({
+      ...prevInputValues,
+      [id]: value,
+    }));
+  };
+
+  const handleInputKeyDown = (event, id) => {
+    if (event.key === 'Enter' && inputValues[id].trim() !== '') {
+      setTagBlocks((prevTagBlocks) => ({
+        ...prevTagBlocks,
+        [id]: [...(prevTagBlocks[id] || []), inputValues[id].trim()],
+      }));
+      setTag((prevTagBlocks) => ({
+        ...prevTagBlocks,
+        [id]: [...(prevTagBlocks[id] || []), inputValues[id].trim()],
+      }));
+      setInputValues((prevInputValues) => ({
+        ...prevInputValues,
+        [id]: '',
+      }));
+    }
+    console.log(tag);
+  };
+
+  const removeTagBlock = (id, index) => {
+    setTagBlocks((prevTagBlocks) => ({
+      ...prevTagBlocks,
+      [id]: prevTagBlocks[id].filter((_, i) => i !== index),
+    }));
   };
 
 
@@ -231,19 +266,7 @@ const Journal = () => {
         <CSV />
         {/*{modificationStatus && <p>{modificationStatus}</p>}*/}
         <AjouteTradeComponent />
-        <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        />
-        <ToastContainer />
+        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"/><ToastContainer />
       </div>
 
       {/*======================================= TRADE ========================================*/}
@@ -276,11 +299,22 @@ const Journal = () => {
               <div className="IT"><p>Porte feuille</p><Selector options={porteFeuilleValues}value={porteFeuilleSelectedOption.find(item => item.id === entry._id)?.valuePorteFeuille || ''} onChange={(selected) =>updatePorteFeuilleOption(entry._id, selected, porteFeuilleSelectedOption, setPorteFeuilleSelectedOption)}/></div>
             </div>
             <div className="description">
-              <p>Entrez un tag</p>
-              <Input type="text" placeholder="Entrez du texte" onChange={(event) =>updateTagOption(entry._id, event.target.value, tag, setTag)}/>
+              <div className="tagBlocks">
+                {tagBlocks[entry._id]?.map((block, index) => (
+                  <div key={index} className="tagBlock">
+                    {block}
+                    <button className="tagBlockRemoveButton" onClick={() => removeTagBlock(entry._id, index)}>x</button>
+                  </div>
+                ))}
+                <input type="text"placeholder="Entrez du texte" value={inputValues[entry._id] || ''}
+                onChange={(event) => handleInputChange(event, entry._id)} onKeyDown={(event) => handleInputKeyDown(event, entry._id)} className="tagInput"/>
+            </div>
+              </div>
+              {/*<p>Entrez un tag</p>
+              <Input type="text" placeholder="Entrez du texte" onChange={(event) =>updateTagOption(entry._id, event.target.value, tag, setTag)}/>*/}
               <p>Entrez des notes</p>
               <TextArea cols="100" rows="5" placeholder="Entrez du texte" onChange={(event) =>updateNoteOption(entry._id, event.target.value, note, setNote)} />
-            </div>
+            
             <div className="actionTradeIndividuel">
               <SupprimerTrade id={entry._id} collection={collectionValues} />
               <ModifierTrade id={entry._id} collection={collectionValues} />
