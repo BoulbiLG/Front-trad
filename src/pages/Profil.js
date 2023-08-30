@@ -48,7 +48,7 @@ const Profil = () => {
 
   return (
     <>
-      <div className='tout'>
+      <div className='toutProfil'>
         <NavBar />
         <div className="contenu-global">
           <div className="cadre-infos">
