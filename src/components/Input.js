@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 import '../css/component/input.css';
 
-const Input = ({ type, placeholder, value, onChange }) => {
+const Input = ({ type, placeholder, value, onChange, bord }) => {
   const [inputValue, setInputValue] = useState(value !== null ? value : '');
 
   const isValidCharacter = char => {
     if (type === 'number') {
-      // Vérifier si le caractère est un chiffre ou un point décimal
       return /^[0-9.]$/.test(char);
     }
-    return true; // Par défaut, tous les caractères sont valides pour le type 'text'
+    return true;
   };
 
   const handleInputChange = event => {
     const newInputValue = event.target.value;
     if (newInputValue === '' || isValidCharacter(newInputValue.slice(-1))) {
       setInputValue(newInputValue);
-      onChange(event); // Appeler la fonction de rappel onChange
+      onChange(event);
     }
+  };
+
+  const style = {
+    border: bord === 'non' ? 'none' : '1px solid black',
   };
 
   return (
@@ -26,8 +29,13 @@ const Input = ({ type, placeholder, value, onChange }) => {
       placeholder={placeholder}
       value={inputValue}
       onChange={handleInputChange}
+      style={style}
     />
   );
 };
 
 export default Input;
+
+
+
+

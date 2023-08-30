@@ -18,6 +18,7 @@ export const applyModifications = async (annonceEcoCaseValeurs, psychologieValue
   ) => {
   try {
     //console.log(porteFeuilleSelectedOption);
+    console.log(tag);
     const headers = { 'Content-Type': 'application/json' };
     const data = { 
       trades: annonceEcoCaseValeurs.map(item => ({ id: item.id, valeurAnnEco: item.valeurAnnEco })),
@@ -107,7 +108,7 @@ export const recuperationNomRemplissage = async (username, setRemplissageOption)
 export const recuperationSeulRemplissage = async (usernameSession, remplissageValeur) => {
   try {
     const response = await axios.get(`https://apipython2.onrender.com/recuperationSeulRemplissage?username=${usernameSession}&nomRemplissageDefaut=${remplissageValeur}`);
-    console.log(response.data);
+    //console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

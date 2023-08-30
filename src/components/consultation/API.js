@@ -12,7 +12,7 @@ export const fetchJournalData = async (username, collectionTradeValues, recherch
     }
       return response.data;
   } catch (error) {
-    console.log('Erreur lors de la récupération des données du journal :', error);
+    //console.log('Erreur lors de la récupération des données du journal :', error);
     return [];
   }
 };
@@ -34,5 +34,20 @@ export const fetchPorteFeuilleOptions = async (username, setPorteFeuille) => {
   } catch (error) {
     console.error(error);
     return [];
+  }
+};
+
+export const requeteSuppressoinTag = async (idTrade, collection, tagNom) => {
+  try {
+    const response = await axios.delete('https://apipython2.onrender.com/suppressionTag', {
+      data: {
+        idTrade: idTrade,
+        collection: collection,
+        tagNom: tagNom
+      }
+    });
+    return response.data.message;
+  } catch (error) {
+    throw new Error(error.response.data.error);
   }
 };

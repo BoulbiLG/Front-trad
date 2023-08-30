@@ -12,6 +12,8 @@ import ModifierTrade from '../modifierTrade.js/ModifierTrade';
 import CSV from '../csv/CSV';
 import ImageUploader from '../image/ImageUploader';
 import "../../css/journal.css"
+import Consultation from '../consultation/Consultation';
+import TexteZone from '../TexteZone';
 
 // fetch recuperation options ./API.js
 import { fetchJournalData, applyModifications, fetchStrategieOptions, fetchPorteFeuilleOptions, recuperationSeulRemplissage, recuperationNomRemplissage } from './API';
@@ -42,10 +44,12 @@ const Journal = () => {
     const [selectedOptionTypeTrade, setSelectedOptionTypeTrade] = useState("tout");
     const [collectionValues, setCollectionValues] = useState([]);
     const [collectionOption, setCollectionOption] = useState([]);
+    const [filtreOuvert, setFiltreOuvert] = useState({}); // OUVERTURE FERMETURE TRADE (div filtre)
 
     const [tagBlocks, setTagBlocks] = useState([]);
 
     const [modificationStatus, setModificationStatus] = useState('');
+    const [miseAjourDonne, setMiseAjourDonne] = useState(0);
 
     const [remplissageOption, setRemplissageOption] = useState([]);
     const [remplissageValeur, setRemplissageValeur] = useState('');
@@ -61,6 +65,7 @@ const Journal = () => {
     const [indicateur1Values, setIndicateur1Values] = useState([]);
     const [indicateur2Values, setIndicateur2Values] = useState([]);
     const [indicateur3Values, setIndicateur3Values] = useState([]);
+    const [indicateurOptions, setIndicateurOptions] = useState([]);
 
     const [strategieValues, setStrategieValues] = useState([]);
     const [strategieOption, setStrategieOption] = useState([]);
@@ -74,8 +79,6 @@ const Journal = () => {
     const [tag, setTag] = useState([]);
     const [note, setNote] = useState([]);
 
-    const [indicateurOptions, setIndicateurOptions] = useState([]);
-
 
 
   //======================================= RECUPERATION AUTOMATIQUE DES OPTIONS ========================================
@@ -86,8 +89,8 @@ const Journal = () => {
 
       // STRATEGIE OPTIONS
       const fetchOptions = async () => {
-        const options = await fetchStrategieOptions(username, setStrategieOption);
-        setStrategieOption(options);
+        const strategieOption = await fetchStrategieOptions(username, setStrategieOption);
+        setStrategieOption(strategieOption);
       };
 
       // INDICATEUR OPTIONS
@@ -138,7 +141,7 @@ const Journal = () => {
   //======================================= APPLICATION AUTOMATIQUE DES REMPLISSEURS ========================================
 
 
-
+  
   useEffect(() => {
     recuperationSeulRemplissage(username, remplissageValeur)
     .then((data) => {
@@ -169,14 +172,18 @@ const Journal = () => {
           const timeSetupValueForId = data[0].timeSetup;updateTimeSetupOption(id, timeSetupValueForId, updatedTimeSetupValues, setTimeSetupValues);
           const typeOrdreValueForId = data[0].typeOrdre;updateTypeOrdreOption(id, typeOrdreValueForId, updatedTypeOrdreValues, setTypeOrdreValues);
           const sortieValueForId = data[0].sortie;updateSortieOption(id, sortieValueForId, updatedSortieValues, setSortieValues);
+          console.log(timeEntreeValues);
+          console.log(timeSetupValues);
         }
       }
     })
     .catch();
-  }, [username, journalData, setPsychologieValues]);
+  }, [username, journalData, setPsychologieValues, remplissageValeur]);
+
   /*
   , annonceEcoCaseValues, indicateur1Values, indicateur2Values, indicateur3Values, positionValues, psychologieValues
-    , remplissageValeur, sortieValues, strategieValues, timeEntreeValues, timeSetupValues, typeOrdreValues, violeStrategieValues*/
+    , remplissageValeur, sortieValues, strategieValues, timeEntreeValues, timeSetupValues, typeOrdreValues, violeStrategieValues
+  */
 
 
 
@@ -186,27 +193,34 @@ const Journal = () => {
   
   const appliquerModifications = async () => {try {const modificationStatus = await applyModifications(
     annonceEcoCaseValues, psychologieValues, positionValues, typeOrdreValues, violeStrategieValues, sortieValues, indicateur1Values, 
-    indicateur2Values, indicateur3Values, strategieValues, timeEntreeValues, timeSetupValues, porteFeuilleSelectedOption, collectionValues, tagBlocks,
+    indicateur2Values, indicateur3Values, strategieValues, timeEntreeValues, timeSetupValues, porteFeuilleSelectedOption, collectionValues, tagData,
     note
   );
   setModificationStatus(modificationStatus);
   fetchJournalData(username, selectedOptionTypeTrade, collectionValues)
   .then((data) => {
     setJournalData(data);
+    setTag([]);
+    setTagBlocks([]);
+    genererNombreAleatoire();
     toast.success(modificationStatus, { position: "top-left", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light"});
   })
   .catch(() => setJournalData([]));
-} catch (error) {setModificationStatus('Une erreur est survenue lors de l\'application des modifications');}};
+  } catch (error) {setModificationStatus('Une erreur est survenue lors de l\'application des modifications');}};
 
 
 
   //======================================= FONCTIONS ANNEXES ========================================
 
-  const masquerTrade = (id) => {
-    const updatedJournalData = journalData.filter(entry => entry._id !== id);
-    setJournalData(updatedJournalData);
+
+
+  //  GENERER NOMBRE ALEATOIRE DE RAFRAICHISSEMENT
+  const genererNombreAleatoire = () => {
+    const miseAjourDonne = Math.floor(Math.random() * 1000) + 1;
+    setMiseAjourDonne(miseAjourDonne);
   };
 
+  // BLOCK TAG
   const [inputValues, setInputValues] = useState({});
 
   const handleInputChange = (event, id) => {
@@ -232,8 +246,12 @@ const Journal = () => {
         [id]: '',
       }));
     }
-    console.log(tag);
   };
+
+  const tagData = Object.keys(tag).map(id => ({
+    id,
+    valueTag: tag[id]
+  }));
 
   const removeTagBlock = (id, index) => {
     setTagBlocks((prevTagBlocks) => ({
@@ -242,16 +260,40 @@ const Journal = () => {
     }));
   };
 
+  // FONCTION POUR OUVERTURE FERMAGE TRADE
+  const toggleFiltre = (entryId) => {
+    setFiltreOuvert((prevState) => ({
+      ...prevState,
+      [entryId]: !prevState[entryId]
+    }));
+  };
 
+  // PAGINATION DES TRADE DU JOURNAL
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   //======================================= CODE JSX ========================================
 
-
+  // CODE OUVERTURE FERMAGE TRADE
+  const renderToggleButton = (entryId) => {
+    if (filtreOuvert[entryId]) {
+      return (
+        <Button label="Fermer" onClick={() => toggleFiltre(entryId)} />
+      );
+    } else {
+      return (
+        <Button label="Voir plus" onClick={() => toggleFiltre(entryId)} />
+      );
+    }
+  };
 
   return (
 
     <div>
-      <h3>Journal</h3>
+      <Consultation miseAjourDonne={miseAjourDonne}/>
+      <h3>Edition</h3>
 
       {/*======================================= FILTRE RECUPERATION TRADE / ACTIONS TRADE ========================================*/}
 
@@ -264,66 +306,91 @@ const Journal = () => {
       <div className="actionsTrade">
         <Button label="Appliquer les modifications" onClick={appliquerModifications} />
         <CSV />
-        {/*{modificationStatus && <p>{modificationStatus}</p>}*/}
         <AjouteTradeComponent />
         <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"/><ToastContainer />
       </div>
 
       {/*======================================= TRADE ========================================*/}
-
-      {journalData.map(entry => (
-        
-        <div className="tradConteneur" key={entry._id}>
-          <div className='donnee'>
-            <p className='valeurVolume valeur'>volume : {entry.volume}</p><p className='valeurDate valeur'>date d'ouverture : {entry.dateAndTimeOpening}</p>
-          </div>
-          <div className="filtre">
-            <div className="filtreInput">
-              <div className="IT"><p>Trade durant une annonce économique</p>
-              <CaseRadio titre={`Trade durant une annonce économique ${entry._id}`}nomOption1="oui"nomOption2="non"selectedCaseOption={(annonceEcoCaseValues.find(item => item.id === entry._id) || {}).valeurAnnEco || ''} onChange={(newValue) => updateAnnEcoCaseValeur(entry._id, newValue, annonceEcoCaseValues, setAnnonceEcoCaseValues)}/></div>
-              <div className="IT"><p>Position</p><CaseRadio titre={`Position ${entry._id}`} nomOption1="Signal"nomOption2="Influence" selectedCaseOption={(positionValues.find(item => item.id === entry._id) || {}).valuePosition || ''} onChange={(newValue) => updatePositionOption(entry._id, newValue, positionValues, setPositionValues)}/></div>
-              <div className="IT"><p>Type d'ordre</p><CaseRadio titre={`Type d'ordre ${entry._id}`} nomOption1="Market"nomOption2="Conditional" selectedCaseOption={(typeOrdreValues.find(item => item.id === entry._id) || {}).valueTypeOrdre || ''} onChange={(newValue) => updateTypeOrdreOption(entry._id, newValue, typeOrdreValues, setTypeOrdreValues)}/></div>
-              <div className="IT"><p>Violation de la stratégie</p><CaseRadio titre={`Violation de la stratégie ${entry._id}`} nomOption1="oui"nomOption2="non" selectedCaseOption={(violeStrategieValues.find(item => item.id === entry._id) || {}).valueVioleStrategie || ''} onChange={(newValue) => updateVioleStrategieOption(entry._id, newValue, violeStrategieValues, setVioleStrategieValues)}/></div>
-              <div className="IT"><p>Type de sortie</p><CaseRadio titre={`Type de sortie ${entry._id}`} nomOption1="Technique"nomOption2="Emotion" selectedCaseOption={(sortieValues.find(item => item.id === entry._id) || {}).valueSortie || ''} onChange={(newValue) => updateSortieOption(entry._id, newValue, sortieValues, setSortieValues)}/></div>
-              <div className="IT"><p>Etat psychologique</p><Selector options={psychologieOptions}value={psychologieValues.find(item => item.id === entry._id)?.psychologie || ''} onChange={(selected) => updatePsychologieOption(entry._id, selected, psychologieValues, setPsychologieValues)}/></div>
-              <div className="timeFrame">
-                <div className="IT"><p>Time frame d'entrée</p><Selector options={timeFrameOptions}value={timeEntreeValues.find(item => item.id === entry._id)?.timeEntree || ''} onChange={(selected) => updateTimeEntreeOption(entry._id, selected, timeEntreeValues, setTimeEntreeValues)}/></div>
-                <div className="IT"><p>Time frame setup</p><Selector options={timeFrameOptions}value={timeSetupValues.find(item => item.id === entry._id)?.timeSetup || ''} onChange={(selected) => updateTimeSetupOption(entry._id, selected, timeSetupValues, setTimeSetupValues)}/></div>
-              </div>
-              <div className="indicateur">
+      <table className="donnee-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Identifier</th>
+          <th>Ticket number</th>
+          <th>Date opening</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {journalData.map((entry) => {
+    if (startIndex <= journalData.indexOf(entry) && journalData.indexOf(entry) < endIndex) {
+      return (
+        <React.Fragment key={entry._id}>
+          <tr key={entry._id}>
+            <td><p className='valeurVolume valeur'>{entry._id}</p></td>
+            <td><p className='valeurVolume valeur'>{entry.identifier}</p></td>
+            <td><p className='valeurDate valeur'>{entry.ticketNumber}</p></td>
+            <td><p className='valeurDate valeur'>{entry.dateAndTimeOpening}</p></td>
+            <td><SupprimerTrade id={entry._id} collection={collectionValues} /></td>
+            <td><ModifierTrade id={entry._id} collection={collectionValues} /></td>
+            <td><ImageUploader id={entry._id} collection={collectionValues} /></td>
+            <td>{renderToggleButton(entry._id)}</td>
+          </tr>
+          <div className="tradConteneur" key={entry._id}>
+            <div className='donnee'>          
+            </div>
+            <div className="filtreConteneur">
+              <div className="filtre" style={{ display: filtreOuvert[entry._id] ? 'block' : 'none' }}>
+                <div className="IT"><p>Trade durant une annonce économique</p><CaseRadio titre={`Trade durant une annonce économique ${entry._id}`}nomOption1="oui"nomOption2="non"selectedCaseOption={(annonceEcoCaseValues.find(item => item.id === entry._id) || {}).valeurAnnEco || ''} onChange={(newValue) => updateAnnEcoCaseValeur(entry._id, newValue, annonceEcoCaseValues, setAnnonceEcoCaseValues)}/></div>
+                <div className="IT"><p>Position</p><CaseRadio titre={`Position ${entry._id}`} nomOption1="Signal"nomOption2="Influence" selectedCaseOption={(positionValues.find(item => item.id === entry._id) || {}).valuePosition || ''} onChange={(newValue) => updatePositionOption(entry._id, newValue, positionValues, setPositionValues)}/></div>
+                <div className="IT"><p>Type d'ordre</p><CaseRadio titre={`Type d'ordre ${entry._id}`} nomOption1="Market"nomOption2="Conditional" selectedCaseOption={(typeOrdreValues.find(item => item.id === entry._id) || {}).valueTypeOrdre || ''} onChange={(newValue) => updateTypeOrdreOption(entry._id, newValue, typeOrdreValues, setTypeOrdreValues)}/></div>
+                <div className="IT"><p>Violation de la stratégie</p><CaseRadio titre={`Violation de la stratégie ${entry._id}`} nomOption1="oui"nomOption2="non" selectedCaseOption={(violeStrategieValues.find(item => item.id === entry._id) || {}).valueVioleStrategie || ''} onChange={(newValue) => updateVioleStrategieOption(entry._id, newValue, violeStrategieValues, setVioleStrategieValues)}/></div>
+                <div className="IT"><p>Type de sortie</p><CaseRadio titre={`Type de sortie ${entry._id}`} nomOption1="Technique"nomOption2="Emotion" selectedCaseOption={(sortieValues.find(item => item.id === entry._id) || {}).valueSortie || ''} onChange={(newValue) => updateSortieOption(entry._id, newValue, sortieValues, setSortieValues)}/></div>
+                <div className="IT"><p>Etat psychologique</p><Selector options={psychologieOptions}value={(psychologieValues.find(item => item.id === entry._id) || {}).valuePsy || ''} onChange={(selected) => updatePsychologieOption(entry._id, selected, psychologieValues, setPsychologieValues)}/></div>
+                <div className="IT"><p>Time frame d'entrée</p><Selector options={timeFrameOptions}value={(timeEntreeValues.find(item => item.id === entry._id) || {}).valueTimeEntree || ''} onChange={(selected) => updateTimeEntreeOption(entry._id, selected, timeEntreeValues, setTimeEntreeValues)}/></div>
+                <div className="IT"><p>Time frame setup</p><Selector options={timeFrameOptions}value={(timeSetupValues.find(item => item.id === entry._id) || {}).valueTimeSetup || ''} onChange={(selected) => updateTimeSetupOption(entry._id, selected, timeSetupValues, setTimeSetupValues)}/></div>
                 <div className="IT"><p>indicateur 1</p><Selector options={indicateurOptions}value={(indicateur1Values.find(item => item.id === entry._id) || {}).valueIndicateur1 || ''}onChange={(selected) => updateIndicateur1Option(entry._id, selected, indicateur1Values, setIndicateur1Values)}/></div>
                 <div className="IT"><p>indicateur 2</p><Selector options={indicateurOptions}value={(indicateur2Values.find(item => item.id === entry._id) || {}).valueIndicateur2 || ''}onChange={(selected) => updateIndicateur2Option(entry._id, selected, indicateur2Values, setIndicateur2Values)}/></div>
                 <div className="IT"><p>indicateur 3</p><Selector options={indicateurOptions}value={(indicateur3Values.find(item => item.id === entry._id) || {}).valueIndicateur3 || ''}onChange={(selected) => updateIndicateur3Option(entry._id, selected, indicateur3Values, setIndicateur3Values)}/></div>
-              </div>
-              <div className="IT"><p>Strategie</p><Selector options={strategieOption}value={strategieValues.find(item => item.id === entry._id)?.valueStrategie || ''} onChange={(selected) =>updateStrategieOption(entry._id, selected, strategieValues, setStrategieValues)}/></div>
-              <div className="IT"><p>Porte feuille</p><Selector options={porteFeuilleValues}value={porteFeuilleSelectedOption.find(item => item.id === entry._id)?.valuePorteFeuille || ''} onChange={(selected) =>updatePorteFeuilleOption(entry._id, selected, porteFeuilleSelectedOption, setPorteFeuilleSelectedOption)}/></div>
-            </div>
-            <div className="description">
-              <div className="tagBlocks">
-                {tagBlocks[entry._id]?.map((block, index) => (
-                  <div key={index} className="tagBlock">
-                    {block}
-                    <button className="tagBlockRemoveButton" onClick={() => removeTagBlock(entry._id, index)}>x</button>
+                <div className="IT"><p>Strategie</p><Selector options={strategieOption}value={(strategieValues.find(item => item.id === entry._id) || {}).valueStrategie || ''} onChange={(selected) =>updateStrategieOption(entry._id, selected, strategieValues, setStrategieValues)}/></div>
+                <div className="IT"><p>Déplacer ce trade dans un autre porte feuille</p><Selector options={porteFeuilleValues}value={(porteFeuilleSelectedOption.find(item => item.id === entry._id) || {}).valuePorteFeuille || ''} onChange={(selected) =>updatePorteFeuilleOption(entry._id, selected, porteFeuilleSelectedOption, setPorteFeuilleSelectedOption)}/></div>
+                <div className="description">
+                  <div className="tagBlocks">
+                    {tagBlocks[entry._id]?.map((block, index) => (
+                      <div key={index} className="tagBlock">
+                        {block}
+                        <button className="tagBlockRemoveButton" onClick={() => removeTagBlock(entry._id, index)}>x</button>
+                      </div>
+                    ))}
+                    <input style={{ border: 'none', width: '100%' }} type="text"placeholder="Entrez du texte" value={inputValues[entry._id] || ''}
+                    onChange={(event) => handleInputChange(event, entry._id)} onKeyDown={(event) => handleInputKeyDown(event, entry._id)} className="tagInput"/>
                   </div>
-                ))}
-                <input type="text"placeholder="Entrez du texte" value={inputValues[entry._id] || ''}
-                onChange={(event) => handleInputChange(event, entry._id)} onKeyDown={(event) => handleInputKeyDown(event, entry._id)} className="tagInput"/>
-            </div>
+                </div>
+                {/*
+                <p>Entrez des notes</p>
+                <TextArea cols="100" rows="5" placeholder="Entrez du texte" onChange={(event) =>updateNoteOption(entry._id, event.target.value, note, setNote)} />*/}
+                <TexteZone placeholder="Entrez du texte" value={entry.note} onChange={(newValue) =>updateNoteOption(entry._id, newValue, note, setNote)}/>
               </div>
-              {/*<p>Entrez un tag</p>
-              <Input type="text" placeholder="Entrez du texte" onChange={(event) =>updateTagOption(entry._id, event.target.value, tag, setTag)}/>*/}
-              <p>Entrez des notes</p>
-              <TextArea cols="100" rows="5" placeholder="Entrez du texte" onChange={(event) =>updateNoteOption(entry._id, event.target.value, note, setNote)} />
-            
-            <div className="actionTradeIndividuel">
-              <SupprimerTrade id={entry._id} collection={collectionValues} />
-              <ModifierTrade id={entry._id} collection={collectionValues} />
-              <Button label="Ne pas renseigner ce trade" onClick={() => masquerTrade(entry._id)} />
-              <ImageUploader id={entry._id} collection={collectionValues} />
             </div>
           </div>
-        </div>
-      ))}
+        </React.Fragment>
+        );
+      } else {
+        return null;
+      }
+    })}
+        </tbody>
+        <tfoot>
+          <tr>
+            <Button label="<"onClick={() => setCurrentPage(currentPage - 1)}disabled={currentPage === 1}/>
+            <span>Page {currentPage}</span>
+            <Button label=">"onClick={() => setCurrentPage(currentPage + 1)}disabled={endIndex >= journalData.length}/>
+          </tr>
+      </tfoot>
+      </table>
     </div>
   );
 };

@@ -4,16 +4,11 @@
 }
 
 .cadre-infos {
-    top: 100px;
     width: 100%;
-    height: 1500px;
+    height: 100vh;
     position: relative;
     display: block;
     padding: 50px;
-    border: 5px solid rgb(186, 211, 232);
-    background-color: aliceblue;
-    border-radius: 10px;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.326);
 }
 
 .cadre-infos h1 {

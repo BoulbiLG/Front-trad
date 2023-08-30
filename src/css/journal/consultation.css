@@ -1,8 +1,3 @@
-.consultation {
-    padding: 20px;
-    border: 1px solid black;
-    border-radius: 5px;
-}
 
 .tradConteneurConsultation {
     display: flex;
@@ -15,6 +10,11 @@
     padding: 5px;
     transition: all 0.2s;
     cursor: pointer;
+}
+
+.actionInput {
+    display: flex;
+    align-items: center;
 }
 
 .tradConteneurConsultation:hover {
@@ -49,11 +49,12 @@
 
 .contenuMontreConsultation .info {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .contenuMontreConsultation .texte {
-    border: 1px solid black;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
     padding: 20px;
     border-radius: 5px;
 }
@@ -76,6 +77,40 @@ td {
 
 table {
     border: none; 
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+}
+
+.ligne {
+    background-color: white;
+}
+
+.ligne:hover {
+    background-color: rgb(17, 92, 158);
+    cursor: pointer;
+}
+
+.tagConteneur {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+}
+
+.tagConteneur p {
+    margin:  5px 0;
+}
+
+.tagInfo {
+    display: flex;
+    align-items: center;
+    padding: 5px;    
+}
+
+hr {
+    margin: 20px 0;
 }
 
 @keyframes arrive {

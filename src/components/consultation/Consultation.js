@@ -1,26 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Button from '../Button';
 import Selector from '../Selector';
 import Input from '../Input';
 import RecuperationImage from './RecuperationImage';
 import '../../css/journal/consultation.css';
-import { fetchJournalData } from './API';
+import { fetchJournalData, requeteSuppressoinTag } from './API';
 import { fetchCollectionOptions } from './Options';
 
-const Consultation = () => {
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+const Consultation = ({ miseAjourDonne }) => {
+
+  const headCells = [
+    { id: '_id', label: 'ID' },
+    { id: 'ticketNumber', label: 'Ticket number' },
+    { id: 'identifier', label: 'Identifier' },
+    { id: 'magicNumber', label: 'Magic number' },
+    { id: 'dateAndTimeOpening', label: 'Date and time opening' },
+    { id: 'typeOfTransaction', label: 'Type of transaction' },
+    { id: 'priceClosure', label: 'Price closure' },
+    { id: 'volume', label: 'Volume' },
+    { id: 'symbol', label: 'Symbol' },
+    { id: 'priceOpening', label: 'Price opening' },
+  ];
+
+  const [miseAjourJournalData, setMiseAjourJournalData] = useState(0);
+
   const [collectionValues, setCollectionValues] = useState([]);
   const [collectionOption, setCollectionOption] = useState([]);
   const [journalData, setJournalData] = useState([]);
   const [tradeAffichage, setTradeAffichage] = useState('cache');
   const [tradeIDpopup, setTradeIDpopup] = useState();
   const [rechercheDonnee, setRechercheDonnee] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const masquerTrade = () => {
     setTradeAffichage('cache');
   };
 
-  const afficherTrade = selectedData => {
+  const afficherTrade = (selectedData) => {
     setTradeAffichage('montre');
     setTradeIDpopup(selectedData);
   };
@@ -31,23 +57,11 @@ const Consultation = () => {
     setCollectionValues(selectedValue);
   };
 
-  const onDragEnd = result => {
-    if (!result.destination) {
-      return;
-    }
-
-    const columns = Array.from(journalData);
-    const [reorderedColumn] = columns.splice(result.source.index, 1);
-    columns.splice(result.destination.index, 0, reorderedColumn);
-
-    setJournalData(columns);
-  };
-
   useEffect(() => {
     fetchJournalData(username, collectionValues, rechercheDonnee)
-      .then(data => {setJournalData(data); console.log(journalData)})
+      .then(data => {setJournalData(data);})
       .catch(() => setJournalData([]));
-  }, [username, collectionValues, rechercheDonnee]);
+  }, [username, collectionValues, rechercheDonnee, miseAjourJournalData, miseAjourDonne]);
 
   useEffect(() => {
     const fetchCollection = async () => {
@@ -58,60 +72,110 @@ const Consultation = () => {
     fetchCollection();
   }, [username]);
 
+  /************************************* */
+
+  const [columns, setColumns] = useState(headCells);
+
+  const itemsPerPage = 3;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderedColumns = Array.from(columns);
+    const [removed] = reorderedColumns.splice(result.source.index, 1);
+    reorderedColumns.splice(result.destination.index, 0, removed);
+
+    setColumns(reorderedColumns);
+  };
+
+  const onDeleteTag = async (tag) => {
+    try {
+      const message = await requeteSuppressoinTag(tradeIDpopup._id, collectionValues, tag);
+      //console.log(message);
+      const updatedTags = tradeIDpopup.tag.filter(t => t !== tag);
+      setTradeIDpopup(prevTrade => ({ ...prevTrade, tag: updatedTags }));
+      setMiseAjourJournalData(prevCounter => prevCounter + 1);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <div className="consultation">
       <h3>Consultation</h3>
-      <Selector
-        options={collectionOption}
-        value={collectionValues}
-        onChange={changementSelectorChangeCollection}
-      />
-      <Input
-        placeholder="Recherchez un trade avec un tag"
-        value={rechercheDonnee}
-        onChange={event => {
-          setRechercheDonnee(event.target.value);
-        }}
-      />
+      <div className="actionInput">
+        <p>Dans quelle collection</p>
+        <Selector options={collectionOption}value={collectionValues}onChange={changementSelectorChangeCollection}/>
+        <p>Rechercher par tags</p>
+        <Input placeholder="Recherchez un trade avec un tag"value={rechercheDonnee}onChange={event => {setRechercheDonnee(event.target.value);}}/>
+      </div>
         <div className="carteConsultation">
-            <DragDropContext onDragEnd={onDragEnd}>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Numéro de ticket</th>
-                    <th>Volume</th>
-                </tr>
-                </thead>
-                <Droppable droppableId="column" direction="vertical">
-                {provided => (
-                    <tbody {...provided.droppableProps} ref={provided.innerRef}>
-                    {journalData.map((column, columnIndex) => (
-                        <Draggable
-                        key={columnIndex}
-                        draggableId={`column-${columnIndex}`}
-                        index={columnIndex}
+        <Box sx={{ width: '100%' }}>
+          <Paper sx={{ width: '100%', mb: 2 }}>
+            <TableContainer>
+              <Table aria-labelledby="tableTitle">
+                <TableHead>
+                  <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId="droppable" direction="horizontal">
+                      {(provided, snapshot) => (
+                        <TableRow
+                          ref={provided.innerRef}
+                          style={{ overflowX: 'auto' }}
+                          {...provided.droppableProps}
                         >
-                        {provided => (
-                            <tr
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            key={column._id} onClick={() => afficherTrade(column)}
-                            >
-                            <td>{column._id}</td>
-                            <td>{column.ticketNumber}</td>
-                            <td>{column.volume}</td>
-                            </tr>
-                        )}
-                        </Draggable>
-                    ))}
-                    {provided.placeholder}
-                    </tbody>
-                )}
-                </Droppable>
-            </table>
-            </DragDropContext>
+                          {columns.map((headCell, index) => (
+                            <Draggable key={headCell.id} draggableId={headCell.id} index={index}>
+                              {(provided) => (
+                                <TableCell
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                >
+                                  {headCell.label}
+                                </TableCell>
+                              )}
+                            </Draggable>
+                          ))}
+                        </TableRow>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
+                  </TableHead>
+                <TableBody>
+                  
+                  {journalData.slice(startIndex, endIndex).map((row) => (
+                    <TableRow className='ligne' key={row.id} onClick={() => afficherTrade(row)}>
+                      {columns.map((column) => (
+                        <TableCell key={column.id}>{row[column.id]}</TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          <div className="pagination">
+            <Button
+              label="<"
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Précédent
+            </Button>
+            <span>Page {currentPage}</span>
+            <Button
+              label=">"
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={endIndex >= journalData.length}
+            >
+              Suivant
+            </Button>
+          </div>
+        </Box>
             </div>
             {tradeAffichage === 'montre' ? (
                 <div className="cadreConsultation">
@@ -155,9 +219,20 @@ const Consultation = () => {
                                 <p>timeSetup: {tradeIDpopup.timeSetup}</p>
                                 <p>journeeDeTilt: {tradeIDpopup.journeeDeTilt}</p>
                                 <p>sortieManuelle: {tradeIDpopup.sortieManuelle}</p>
-                                <p>tag: {tradeIDpopup.tag}</p>
-                                <p>note: {tradeIDpopup.note}</p>
+                                <p className="note" dangerouslySetInnerHTML={{ __html: tradeIDpopup.note }} />
+                                <hr />
+                                <p>Tags</p>
+                                <div className='tagConteneur'>
+                                {tradeIDpopup && tradeIDpopup.tag && tradeIDpopup.tag.map((tag, index) => (
+                                  <div className='tagInfo' key={index}>
+                                    <p>{tag}</p>
+                                    <button onClick={() => onDeleteTag(tag)}>x</button>
+                                  </div>
+                                ))}
+                              </div>
                             </div>
+
+                            
                             <div className="photo">
                                 <RecuperationImage imageId={tradeIDpopup._id}/>
                             </div>

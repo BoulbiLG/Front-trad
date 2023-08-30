@@ -5,7 +5,7 @@ const username = sessionStorage.getItem('username');
 export const recuperationTradeOption = [
     { value: "tout", label: "Tout" },
     { value: "nonrenseigne", label: "Non renseigné" },
-    { value: "renseigne", label: "Renseigné" },
+    { value: "renseigne", label: "Renseigné" }
 ];
 
 let recuperationCollectionOption = [];

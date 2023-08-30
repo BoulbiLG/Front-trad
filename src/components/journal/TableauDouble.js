@@ -8,25 +8,11 @@ export const updateAnnEcoCaseValeur = (id, newValue, annonceEcoCaseValeurs, setA
     } else {
       updatedValues.push({ id, valeurAnnEco: newValue });
     }
-    console.log('Updated annonceEcoCaseValeurs:', updatedValues);
+    //console.log('Updated annonceEcoCaseValeurs:', updatedValues);
     return updatedValues;
   });
 };
   
-// psychologie
-export const updatePsychologieOption = (id, selectedValue, psychologieValues, setPsychologieValues) => {
-  setPsychologieValues(prevPsychologieValues => {
-      const updatedValues = [...prevPsychologieValues];
-      const entryIndex = updatedValues.findIndex(item => item.id === id);
-      if (entryIndex !== -1) {
-          updatedValues[entryIndex].valuePsy = selectedValue;
-      } else {
-          updatedValues.push({ id, valuePsy: selectedValue });
-      }
-      console.log('Updated psychologieValues:', updatedValues);
-      return updatedValues;
-  });
-};
 // position
 export const updatePositionOption = (id, selectedValue, positionValues, setPositionValues) => {
   setPositionValues( prevPositionValues => {
@@ -37,7 +23,7 @@ export const updatePositionOption = (id, selectedValue, positionValues, setPosit
     } else {
       updatedValues.push({ id, valuePosition: selectedValue });
     }
-    console.log('Updated positionValues:', updatedValues);
+    //console.log('Updated positionValues:', updatedValues);
     return updatedValues;
   });
 };
@@ -52,7 +38,7 @@ export const updateTypeOrdreOption = (id, selectedValue, typeOrdreValues, setTyp
     } else {
       updatedValues.push({ id, valueTypeOrdre: selectedValue });
     }
-    console.log('Updated typeOrdreValues:', updatedValues);
+    //console.log('Updated typeOrdreValues:', updatedValues);
     return updatedValues;
   });
 };
@@ -67,7 +53,7 @@ export const updateVioleStrategieOption = (id, selectedValue, violeStrategieValu
     } else {
       updatedValues.push({ id, valueVioleStrategie: selectedValue });
     }
-    console.log('Updated violeStrategieValues:', updatedValues);
+    //console.log('Updated violeStrategieValues:', updatedValues);
     return updatedValues;
   });
 };
@@ -82,8 +68,23 @@ export const updateSortieOption = (id, selectedValue, sortieValues, setSortieVal
     } else {
       updatedValues.push({ id, valueSortie: selectedValue });
     }
-    console.log('Updated sortieValues:', updatedValues);
+    //console.log('Updated sortieValues:', updatedValues);
     return updatedValues;
+  });
+};
+
+// psychologie
+export const updatePsychologieOption = (id, selectedValue, psychologieValues, setPsychologieValues) => {
+  setPsychologieValues(prevPsychologieValues => {
+      const updatedValues = [...prevPsychologieValues];
+      const entryIndex = updatedValues.findIndex(item => item.id === id);
+      if (entryIndex !== -1) {
+          updatedValues[entryIndex].valuePsy = selectedValue;
+      } else {
+          updatedValues.push({ id, valuePsy: selectedValue });
+      }
+      //console.log('Updated psychologieValues:', updatedValues);
+      return updatedValues;
   });
 };
 
@@ -97,7 +98,7 @@ export const updateIndicateur1Option = (id, selectedValue, indicateur1Values, se
     } else {
       updatedValues.push({ id, valueIndicateur1: selectedValue });
     }
-    console.log('Updated indicateur1Values:', updatedValues);
+    //console.log('Updated indicateur1Values:', updatedValues);
     return updatedValues;
   });
 };
@@ -112,7 +113,7 @@ export const updateIndicateur2Option = (id, selectedValue, indicateur2Values, se
     } else {
       updatedValues.push({ id, valueIndicateur2: selectedValue });
     }
-    console.log('Updated indicateur2Values:', updatedValues);
+    //console.log('Updated indicateur2Values:', updatedValues);
     return updatedValues;
   });
 };
@@ -127,7 +128,7 @@ export const updateIndicateur3Option = (id, selectedValue, indicateur3Values, se
     } else {
       updatedValues.push({ id, valueIndicateur3: selectedValue });
     }
-    console.log('Updated indicateur3Values:', updatedValues);
+    //console.log('Updated indicateur3Values:', updatedValues);
     return updatedValues;
   });
 };
@@ -138,11 +139,11 @@ export const updateStrategieOption = (id, selectedValue, strategieValues, setStr
     const updatedValues = [...prevStrategieValues];
     const entryIndex = updatedValues.findIndex(item => item.id === id);
     if (entryIndex !== -1) {
-      updatedValues[entryIndex].strategieValues = selectedValue;
+      updatedValues[entryIndex].valueStrategie = selectedValue;
     } else {
-      updatedValues.push({ id, strategieValues: selectedValue });
+      updatedValues.push({ id, valueStrategie: selectedValue });
     }
-    console.log('Updated strategieValues:', updatedValues);
+    //console.log('Updated strategieValues:', updatedValues);
     return updatedValues;
   });
 };
@@ -157,12 +158,12 @@ export const updateTimeEntreeOption = (id, selectedValue, timeEntreeValues, setT
     } else {
       updatedValues.push({ id, valueTimeEntree: selectedValue });
     }
-    console.log('Updated timeEntreeValues:', updatedValues);
+    //console.log('Updated timeEntreeValues:', updatedValues);
     return updatedValues;
   });
 };
 
-// time entree
+// time setup
 export const updateTimeSetupOption = (id, selectedValue, timeSetupValues, setTimeSetupValues) => {
   setTimeSetupValues( prevTimeSetupValues => {
     const updatedValues = [...prevTimeSetupValues];
@@ -172,7 +173,7 @@ export const updateTimeSetupOption = (id, selectedValue, timeSetupValues, setTim
     } else {
       updatedValues.push({ id, valueTimeSetup: selectedValue });
     }
-    console.log('Updated timeSetupValues:', updatedValues);
+    //console.log('Updated timeSetupValues:', updatedValues);
     return updatedValues;
   });
 };
@@ -189,13 +190,13 @@ export const updatePorteFeuilleOption = (id, selectedValue, porteFeuilleSelected
   const entryIndex = updatedValues.findIndex(item => item.id === id);
   if (entryIndex !== -1) {
     updatedValues[entryIndex].valuePorteFeuille = selectedValue;
-    console.log(updatedValues);
+    //console.log(updatedValues);
   } else {
     updatedValues.push({ id, valuePorteFeuille: selectedValue });
-    console.log(updatedValues);
+    //console.log(updatedValues);
   }
   setPorteFeuilleSelectedOption(updatedValues);
-  console.log('Updated porteFeuilleSelectedOption:', updatedValues);
+  //console.log('Updated porteFeuilleSelectedOption:', updatedValues);
 };
 
 // tag
@@ -204,13 +205,13 @@ export const updateTagOption = (id, selectedValue, tagSelectedOption, setTagSele
   const entryIndex = updatedValues.findIndex(item => item.id === id);
   if (entryIndex !== -1) {
     updatedValues[entryIndex].valueTag = selectedValue;
-    console.log(updatedValues);
+    //console.log(updatedValues);
   } else {
     updatedValues.push({ id, valueTag: selectedValue });
-    console.log(updatedValues);
+    //console.log(updatedValues);
   }
   setTagSelectedOption(updatedValues);
-  console.log('Updated tagSelectedOption:', updatedValues);
+  //console.log('Updated tagSelectedOption:', updatedValues);
 };
 
 // note
@@ -219,11 +220,11 @@ export const updateNoteOption = (id, selectedValue, noteSelectedOption, setNoteS
   const entryIndex = updatedValues.findIndex(item => item.id === id);
   if (entryIndex !== -1) {
     updatedValues[entryIndex].valueNote = selectedValue;
-    console.log(updatedValues);
+    //console.log(updatedValues);
   } else {
     updatedValues.push({ id, valueNote: selectedValue });
-    console.log(updatedValues);
+    //console.log(updatedValues);
   }
   setNoteSelectedOption(updatedValues);
-  console.log('Updated noteSelectedOption:', updatedValues);
+  //console.log('Updated noteSelectedOption:', updatedValues);
 };
