@@ -315,9 +315,10 @@ const Journal = () => {
       <thead>
         <tr>
           <th>ID</th>
-          <th>Identifier</th>
           <th>Ticket number</th>
+          <th>Symbol</th>
           <th>Date opening</th>
+          <th>Profit</th>
           <th></th>
           <th></th>
           <th></th>
@@ -331,9 +332,10 @@ const Journal = () => {
         <React.Fragment key={entry._id}>
           <tr key={entry._id}>
             <td><p className='valeurVolume valeur'>{entry._id}</p></td>
-            <td><p className='valeurVolume valeur'>{entry.identifier}</p></td>
             <td><p className='valeurDate valeur'>{entry.ticketNumber}</p></td>
+            <td><p className='valeurDate valeur'>{entry.symbol}</p></td>
             <td><p className='valeurDate valeur'>{entry.dateAndTimeOpening}</p></td>
+            <td><p className='valeurDate valeur'>{entry.profit}</p></td>
             <td><SupprimerTrade id={entry._id} collection={collectionValues} /></td>
             <td><ModifierTrade id={entry._id} collection={collectionValues} /></td>
             <td><ImageUploader id={entry._id} collection={collectionValues} /></td>
