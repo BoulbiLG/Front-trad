@@ -14,19 +14,15 @@ h3 {
     margin: 5px 0;
     width: 100%;
 }
-/*
-.tradConteneur {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border: 1px solid black;
-    border-radius: 5px;
+
+.ligneTrade {
     background-color: white;
-    margin: 5px 0;
-    padding: 5px;
-    width: 100%;
+    cursor: pointer;
 }
-*/
+
+.ligneTrade:hover td {
+    background-color: aliceblue;
+}
 
 tfoot tr {
     display: flex;
@@ -36,15 +32,16 @@ tfoot tr {
 .donnee-table {
     border-collapse: collapse;
     width: 100%;
-  }
-  
-  .donnee-table th, .donnee-table td {
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .donnee-table th {
-  }
+}
+
+.donnee-table th, .donnee-table td {
+padding: 8px;
+text-align: left;
+}
+
+.donnee-table th {
+}
+
 .donnee {
     display: flex;
 }
@@ -105,4 +102,50 @@ ul {
 li {
     display: flex;
     align-items: center;
+}
+
+.tradConteneur {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.279);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    animation: noir 1s ease forwards;
+}
+
+.filtreConteneur {
+    width: 900px;
+    padding: 20px;
+    animation: arrive 0.3s ease forwards;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagination {
+    display: flex;
+}
+
+@keyframes arrive {
+    from {
+        transform: translateY(100px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes noir {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.277);
+    }
 }

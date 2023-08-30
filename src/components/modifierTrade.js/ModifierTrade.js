@@ -108,7 +108,7 @@ const ModifierTrade = ({ id, collection }) => {
             theme="light"
             />
             <ToastContainer />
-            <Button backgroundColor="#007bff" color="white" label='Modifier ce trade' onClick={afficherModifierTrade} />
+            <Button backgroundColor="#007bff" color="white" label='Editer ce trade' onClick={afficherModifierTrade} />
             {modifierTradeAffichage === "affiche" ? (
                 <div className="cadreModifierTrade">
                     <div className="contenuMontreModifierTrade">
