@@ -231,10 +231,8 @@ const Consultation = ({ miseAjourDonne }) => {
                                 ))}
                               </div>
                             </div>
-
-                            
                             <div className="photo">
-                                <RecuperationImage imageId={tradeIDpopup._id}/>
+                                <RecuperationImage imageIds={[tradeIDpopup._id]}/>
                             </div>
                         </div>
                         <div className="basConsultation">

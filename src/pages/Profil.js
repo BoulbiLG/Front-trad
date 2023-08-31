@@ -35,7 +35,6 @@ const Profil = () => {
       setUsername(usernameFromSession);
       setEmail(emailFromSession);
     } else {
-      // Rediriger vers la page d'accueil si les sessions n'existent pas
       navigate('/');
     }
   }, [navigate]);
@@ -54,7 +53,7 @@ const Profil = () => {
           <div className="cadre-infos">
             <h1>{username}</h1>
             <p>{email}</p>
-            <div className="section">
+            <div className="sectionProfil">
               <Button backgroundColor="#d51f1f" className='deconnexion' label='deconnexion' onClick={deconnexion} />
               <Button label="Statistiques" onClick={statAffichage} />
               <Button label="Stratégie" onClick={strategieAffichage} />

@@ -1,0 +1,77 @@
+.conteneurImage {
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.lol {
+    width: 200px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.imagePetiteImg {
+    width: 200px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    position: relative;
+    margin: 0 auto;
+    transition: all 0.3s;
+}
+
+.imagePetiteImg:hover {
+    filter: brightness(125%);
+    box-shadow: 0 0 10px rgb(108, 108, 108);
+}
+
+.imageGrandeConteneur {
+    animation: arrive 0.3s ease forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.imageGrande {
+    border-radius: 10px;
+    background-color: rgb(24, 16, 16);
+    padding: 20px;
+}
+
+.imageGrandeImg {
+    border-radius: 10px;
+    max-width: 1280px;
+    max-height: 720px;
+}
+
+@keyframes arrive {
+    from {
+        transform: translateY(100px);
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        transform: translateY(0);
+        background-color: rgba(0, 0, 0, 0.277);
+    }
+}
+
+@keyframes disparait {
+    from {
+        transform: translateY(0);
+        background-color: rgba(0, 0, 0, 0.277);
+    }
+    to {
+        transform: translateY(100px);
+        background-color: rgba(0, 0, 0, 0);
+    }
+}

@@ -1,43 +1,9 @@
-/*import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const ImageDisplay = ({ imageId }) => {
-    const [imageURL, setImageURL] = useState('');
-
-    useEffect(() => {
-        const fetchImage = async () => {
-        try {
-            const response = await axios.get(`https://apipython2.onrender.com/recuperationImage?imageId=${imageId}`, {
-            responseType: 'arraybuffer',
-            });
-
-            const blob = new Blob([response.data], { type: 'image/jpeg' });
-            const imageUrl = URL.createObjectURL(blob);
-            setImageURL(imageUrl);
-        } catch (error) {
-            console.error('Une erreur est survenue lors de la récupération de l\'image :', error);
-        }
-        };
-
-        fetchImage();
-    }, [imageId]);
-
-    return (
-        <div>
-        {imageURL && <img src={imageURL} alt="" />}
-        </div>
-    );
-};
-
-export default ImageDisplay;
-*/
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from '../Button';
 import '../../css/journal/recuperationImageJournal.css';
 
-const ImageDisplay = ({ imageIds }) => {
+const RecuperationImageJournal = ({ imageIds }) => {
 
     const [imageURLs, setImageURLs] = useState([]);
     const [imageIdsFromAPI, setImageIdsFromAPI] = useState([]);
@@ -115,6 +81,10 @@ const ImageDisplay = ({ imageIds }) => {
                             alt=""
                             onClick={() => handleImageClick(index)}
                         />
+                        <Button
+                            label='Supprimer'
+                            onClick={() => suppressionImage(imageInfo.additionalInfo.image_ids[index])}
+                        />
                     </div>
                     {selectedImageIndex !== null && (
                         <div className="imageGrandeConteneur">
@@ -137,4 +107,4 @@ const ImageDisplay = ({ imageIds }) => {
     );
 };
 
-export default ImageDisplay;
+export default RecuperationImageJournal;

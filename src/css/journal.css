@@ -15,6 +15,7 @@ h3 {
     width: 100%;
 }
 
+/*======================== TABLE =========================*/
 .ligneTrade {
     background-color: white;
     cursor: pointer;
@@ -50,6 +51,8 @@ text-align: left;
     margin: 10px;
 }
 
+/*======================== TRADE =========================*/
+
 .filtreInput {
     display: flex;
     flex-wrap: wrap;
@@ -74,6 +77,8 @@ text-align: left;
     display: flex;
 }
 
+/*======================== TAG =========================*/
+
 .tagBlocks {
     border: 1px solid black;
     padding: 5px;
@@ -95,14 +100,7 @@ text-align: left;
     padding: 0;
 }
 
-ul {
-    display: flex;
-}
-
-li {
-    display: flex;
-    align-items: center;
-}
+/*======================== TRADE DIV POP UP =========================*/
 
 .tradConteneur {
     position: fixed;
@@ -118,7 +116,7 @@ li {
 }
 
 .filtreConteneur {
-    width: 900px;
+    width: 90%;
     padding: 20px;
     animation: arrive 0.3s ease forwards;
     background-color: white;
@@ -126,26 +124,53 @@ li {
     overflow-x: hidden;
     display: flex;
     justify-content: space-between;
+    height: 90vh;
 }
 
 .pagination {
     display: flex;
 }
 
+.edition {
+    display: flex;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.section2 {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.boutonAction {
+    display: flex;
+    justify-content: space-between;
+}
+
+.image {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.img1 {
+    width: 200px;
+    height: 100px;
+}
+
 @keyframes arrive {
     from {
         transform: translateY(100px);
-    }
-    to {
-        transform: translateY(0);
-    }
-}
-
-@keyframes noir {
-    from {
         background-color: rgba(0, 0, 0, 0);
     }
     to {
+        transform: translateY(0);
         background-color: rgba(0, 0, 0, 0.277);
     }
 }
