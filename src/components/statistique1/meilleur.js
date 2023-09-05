@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Selector from '../Selector';
+import Selector from '../inputComposant/Selector';
 import { meilleurOptions } from './Options';
 import axios from 'axios';
 

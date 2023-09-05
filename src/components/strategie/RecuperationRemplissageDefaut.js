@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 //import CaseRadio from '../CaseRadio';
-import Button from '../Button';
+import Button from '../inputComposant/Button';
 //import Selector from '../Selector';
 //import Input from '../Input';
 import axios from 'axios';

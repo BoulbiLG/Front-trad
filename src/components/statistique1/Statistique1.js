@@ -11,9 +11,9 @@ timeFrameOptions, fetchCollectionOptions } from './Options';
 import { soumissionsFormulaire } from './API';
 import { verificationFiltre } from './XY';
 
-import CaseRadio from '../CaseRadio';
-import Button from '../Button';
-import Selector from '../Selector';
+import CaseRadio from '../inputComposant/CaseRadio';
+import Button from '../inputComposant/Button';
+import Selector from '../inputComposant/Selector';
 import Meilleur from './meilleur';
 
 const Statistique1 = ({ selectedOption }) => {

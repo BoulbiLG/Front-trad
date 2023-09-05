@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import Button from '../Button';
-import Input from '../Input';
+import Button from '../inputComposant/Button';
+import Input from '../inputComposant/Input';
 import '../../css/strategie.css';
 import RemplissageDefaut from './RemplissageDefaut';
 

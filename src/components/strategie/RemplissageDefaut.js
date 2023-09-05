@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import CaseRadio from '../CaseRadio';
-import Button from '../Button';
-import Selector from '../Selector';
-import Input from '../Input';
+import CaseRadio from '../inputComposant/CaseRadio';
+import Button from '../inputComposant/Button';
+import Selector from '../inputComposant/Selector';
+import Input from '../inputComposant/Input';
 import RecuperationRemplissageDefaut from './RecuperationRemplissageDefaut';
 import '../../css/strategie/remplissageDefaut.css';
 

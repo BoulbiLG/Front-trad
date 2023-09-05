@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/profil.css';
 import NavBar from '../components/NavBar';
-import Button from '../components/Button';
+import Button from '../components/inputComposant/Button';
 
 import Statistique1 from '../components/statistique1/Statistique1';
 //import Statistique2 from '../components/Statistique2/Statistique2';
 import Strategie from '../components/strategie/Strategie';
-import Journal from '../components/journal/Journal';
+import Journal from '../components/journalSection/journal/Journal';
 
 const Profil = () => {
   const navigate = useNavigate();
