@@ -31,10 +31,11 @@ const ImageUploader = ({ id, collection }) => {
           'Content-Type': 'multipart/form-data',
         },
       });
-
       console.log(response.data);
-
       setImageUploaderStatus('Image envoyée avec succès !');
+      let randomVariable = Math.random();
+      setGlobalImage(randomVariable);
+      console.log(globalImage);
     } catch (error) {
       console.error('Une erreur est survenue lors de l\'envoi de l\'image :', error);
       setImageUploaderStatus('Une erreur est survenue lors de l\'envoi de l\'image.');
@@ -46,9 +47,6 @@ const ImageUploader = ({ id, collection }) => {
       handleImageUpload(image);
     });
     setSelectedImages([]);
-    let randomVariable = Math.random();
-    setGlobalImage(randomVariable);
-    console.log(globalImage);
   };
 
   const handleFileChange = (event) => {

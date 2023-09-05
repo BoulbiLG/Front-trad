@@ -13,40 +13,40 @@ const RecuperationImageJournal = ({ imageIds }) => {
     const [imageIdsFromAPI, setImageIdsFromAPI] = useState([]);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
-    useEffect(() => {
-        const fetchImages = async () => {
-            try {
-                const imagePromises = imageIds.map(async (imageId) => {
-                    if (imageId != null && imageId != undefined && imageId != "" ) {
-                        const response = await axios.get(`https://apipython2.onrender.com/recuperationImage?imageId=${imageId}`, {
-                            responseType: 'arraybuffer',
-                        });
+    
+    const fetchImages = async () => {
+        console.log("grvfdsvgf");
+        try {
+            const imagePromises = imageIds.map(async (imageId) => {
+                if (imageId != null && imageId != undefined && imageId != "" ) {
+                    const response = await axios.get(`https://apipython2.onrender.com/recuperationImage?imageId=${imageId}`, {
+                        responseType: 'arraybuffer',
+                    });
+    
+                    const imageUrl = URL.createObjectURL(new Blob([response.data], { type: 'image/jpeg' }));
         
-                        const imageUrl = URL.createObjectURL(new Blob([response.data], { type: 'image/jpeg' }));
-            
-                        const additionalInfoResponse = await axios.get(`https://apipython2.onrender.com/recuperationDonneeImage?imageId=${imageId}`);
-                        const additionalInfo = additionalInfoResponse.data;
-            
-                        const idsFromAPI = response.headers['image_id'];
-                        if (idsFromAPI) {
-                            setImageIdsFromAPI(idsFromAPI.split(','));
-                        }
-            
-                        return {
-                            imageUrl,
-                            additionalInfo
-                        };
+                    const additionalInfoResponse = await axios.get(`https://apipython2.onrender.com/recuperationDonneeImage?imageId=${imageId}`);
+                    const additionalInfo = additionalInfoResponse.data;
+        
+                    const idsFromAPI = response.headers['image_id'];
+                    if (idsFromAPI) {
+                        setImageIdsFromAPI(idsFromAPI.split(','));
                     }
-                });
         
-                const imagesWithInfo = await Promise.all(imagePromises);
-                setImageURLs(imagesWithInfo);
-        
-            } catch (error) {
-                console.error('erreur recuperation des images :', error);
-            }
-        };
-    }, [globalImage]);
+                    return {
+                        imageUrl,
+                        additionalInfo
+                    };
+                }
+            });
+    
+            const imagesWithInfo = await Promise.all(imagePromises);
+            setImageURLs(imagesWithInfo);
+    
+        } catch (error) {
+            console.error('erreur recuperation des images :', error);
+        }
+    };
 
     const suppressionImage = async (imageId) => {
         try {
@@ -75,6 +75,10 @@ const RecuperationImageJournal = ({ imageIds }) => {
     const handleImageClick = (index) => {
         setSelectedImageIndex(index);
     };
+
+    useEffect(() => {
+        fetchImages();
+    }, [globalImage]);
 
     return (
         <div className='conteneurImage'>

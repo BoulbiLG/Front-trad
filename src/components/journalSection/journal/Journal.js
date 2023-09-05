@@ -144,7 +144,7 @@ const Journal = () => {
 
   useEffect(() => {
     fetchJournalData(username, selectedOptionTypeTrade, collectionValues)
-    .then((data) => setJournalData(data))
+    .then((data) => {setJournalData(data); console.log(data);})
     .catch(() => setJournalData([]));
   }, [selectedOptionTypeTrade, username, collectionValues, GlobalTrade]);
 
@@ -381,10 +381,10 @@ const Journal = () => {
                       <p>Profit: {entry.profit}</p>
                       <p>Max profit: {entry.maxProfit}</p>
                       <p>Max loss: {entry.maxLoss}</p>
-                      <p>Capital risk: {entry.capitalRisk}</p>
-                      <p>Percent: {entry.percent}</p>
+                      <p>Capital risk: {entry.Capitalrisk}</p>
+                      <p>Percent: {entry.Percent}</p>
                       <p>Balance: {entry.balance}</p>
-                      <p>Equity: {entry.equity}</p>
+                      <p>Equity: {entry.Equity}</p>
                     </div>
                     <div className="filtre">
                       <p>RR: {entry.RR}</p>
@@ -399,15 +399,20 @@ const Journal = () => {
                       <p>Kill zone: {entry.killzone}</p>
                       <div className="IT"><p>Time frame d'entrée</p><Selector options={timeFrameOptions}value={(timeEntreeValues.find(item => item.id === entry._id) || {}).valueTimeEntree || ''} onChange={(selected) => updateTimeEntreeOption(entry._id, selected, timeEntreeValues, setTimeEntreeValues)}/></div>
                       <div className="IT"><p>Time frame setup</p><Selector options={timeFrameOptions}value={(timeSetupValues.find(item => item.id === entry._id) || {}).valueTimeSetup || ''} onChange={(selected) => updateTimeSetupOption(entry._id, selected, timeSetupValues, setTimeSetupValues)}/></div>
-                      <p>Multi: {entry.multi}</p>
+                      <p>Multi: {entry.Multi}</p>
                       <p>Trade count: {entry.tradeCount}</p>
-                      <p>Total trade: {entry.totalTrade}</p>
-                      <p>Day: {entry.day}</p>
+                      <p>Total trade: {entry.totaltrade}</p>
+                      <p>Day: {entry.Day}</p>
                     </div>
                     <div className="noteZone">
                       <p>Tilt: {entry.tilt}</p>
-                      <p>Over risk: {entry.overRisk}</p>
-                      <p>Over trade: {entry.overTrade}</p>
+                      {entry.tilt && entry.tilt.map((tilt, index) => (
+                        <div className='tiltInfo' key={index}>
+                          <p>{tilt}</p>
+                        </div>
+                      ))}
+                      <p>Over risk: {entry.overrisk}</p>
+                      <p>Over trade: {entry.overtrading}</p>
                       <div className="IT"><p>Trade durant une annonce économique</p><CaseRadio titre={`Trade durant une annonce économique ${entry._id}`}nomOption1="oui"nomOption2="non"selectedCaseOption={(annonceEcoCaseValues.find(item => item.id === entry._id) || {}).valeurAnnEco || ''} onChange={(newValue) => updateAnnEcoCaseValeur(entry._id, newValue, annonceEcoCaseValues, setAnnonceEcoCaseValues)}/></div>
                       <div className="IT"><p>Position</p><CaseRadio titre={`Position ${entry._id}`} nomOption1="Signal"nomOption2="Influence" selectedCaseOption={(positionValues.find(item => item.id === entry._id) || {}).valuePosition || ''} onChange={(newValue) => updatePositionOption(entry._id, newValue, positionValues, setPositionValues)}/></div>
                       {/*<div className="IT"><p>Type d'ordre</p><CaseRadio titre={`Type d'ordre ${entry._id}`} nomOption1="Market"nomOption2="Conditional" selectedCaseOption={(typeOrdreValues.find(item => item.id === entry._id) || {}).valueTypeOrdre || ''} onChange={(newValue) => updateTypeOrdreOption(entry._id, newValue, typeOrdreValues, setTypeOrdreValues)}/></div>*/}
