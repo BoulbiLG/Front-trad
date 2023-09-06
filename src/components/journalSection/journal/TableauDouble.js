@@ -228,3 +228,43 @@ export const updateNoteOption = (id, selectedValue, noteSelectedOption, setNoteS
   setNoteSelectedOption(updatedValues);
   //console.log('Updated noteSelectedOption:', updatedValues);
 };
+
+
+
+// VIDAGE DES TABLEAUX A DOUBLE ENTREES
+
+// position
+export const deletePositionOption = (id, setPositionValues) => {
+  setPositionValues(prevPositionValues => {
+    const updatedValues = prevPositionValues.filter(item => item.id !== id);
+    console.log(updatedValues);
+    return updatedValues;
+  });
+};
+
+// annonce économique
+export const deleteAnnonceEconomiqueOption = (id, setAnnonceEcoCaseValeurs) => {
+  setAnnonceEcoCaseValeurs(prevPositionValues => {
+    const updatedValues = prevPositionValues.filter(item => item.id !== id);
+    console.log(updatedValues);
+    return updatedValues;
+  });
+};
+
+// viole stratégie
+export const deleteVioleSTrategieOption = (id, setVioleStrategieValues) => {
+  setVioleStrategieValues(prevPositionValues => {
+    const updatedValues = prevPositionValues.filter(item => item.id !== id);
+    console.log(updatedValues);
+    return updatedValues;
+  });
+};
+
+// type de sortie
+export const deleteTypeSortieOption = (id, setSortieValues) => {
+  setSortieValues(prevPositionValues => {
+    const updatedValues = prevPositionValues.filter(item => item.id !== id);
+    console.log(updatedValues);
+    return updatedValues;
+  });
+};

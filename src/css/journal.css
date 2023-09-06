@@ -207,11 +207,7 @@ text-align: left;
 }
 
 .tradConteneur .image {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(242, 242, 242);
-    box-shadow: 0 1px 1px rgb(181, 181, 181);
-    border-radius: 5px;
+
 }
 
 .img1 {

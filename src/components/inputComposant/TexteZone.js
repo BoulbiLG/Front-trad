@@ -38,8 +38,8 @@ const TexteZone = ({ placeholder, value, onChange }) => {
   };
 
   return (
-    <div>
-      <TextEditor value={textValue} onChange={handleTextChange} />
+    <div style={{ backgroundColor: 'white', borderRadius: '10px' }}>
+      <TextEditor value={textValue} onChange={handleTextChange}/>
     </div>
   );
 };

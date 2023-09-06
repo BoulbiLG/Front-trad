@@ -24,13 +24,7 @@ const Input = ({ type, placeholder, value, onChange, bord }) => {
   };
 
   return (
-    <input
-      type="text"
-      placeholder={placeholder}
-      value={inputValue}
-      onChange={handleInputChange}
-      style={style}
-    />
+    <input type="text"placeholder={placeholder}value={inputValue}onChange={handleInputChange}style={style}/>
   );
 };
 

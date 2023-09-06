@@ -7,7 +7,7 @@ import getArgumentDate from './ArgumentDate';
 import { getArgumentFiltre } from './ArgumentIndice';
 import getArgumentPsychologie from './argumentPsychologie';
 import { dateOptions, indiceOptions, forexOptions, actionOptions, psychologieOptions, fetchStrategieOptions, fetchIndicateurOptions,
-timeFrameOptions, fetchCollectionOptions } from './Options';
+timeFrameOptions, fetchCollectionOptions, forexIndiceActionOptions } from './Options';
 import { soumissionsFormulaire } from './API';
 import { verificationFiltre } from './XY';
 
@@ -17,6 +17,9 @@ import Selector from '../inputComposant/Selector';
 import Meilleur from './meilleur';
 
 const Statistique1 = ({ selectedOption }) => {
+
+  // changement de selecteur forex / action / indice
+  const [forexActionIndiceValues, setForexActionIndiceValues] = useState('indice');
 
   const [collectionValues, setCollectionValues] = useState([]);
   const [collectionOption, setCollectionOption] = useState([]);
@@ -124,6 +127,7 @@ const Statistique1 = ({ selectedOption }) => {
       <div className="">
       <div className="inputFiltreXY"><p>Collection dans laquelle chercher</p><Selector options={collectionOption} value={collectionValues} onChange={changementSelectorChangeCollection} /></div>
       </div>
+      <p>Date</p>
       <Selector options={dateOptions} value={dateSelectedOption} onChange={(selected) => setdateSelectedOption(selected)} />
       {dateSelectedOption === "choixLibre" && (
         <div>
@@ -131,9 +135,26 @@ const Statistique1 = ({ selectedOption }) => {
           <DatePicker selected={endDate} onChange={handleEndDateChange} />
         </div>
       )}
-      <Selector options={indiceOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
-      <Selector options={forexOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
-      <Selector options={actionOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
+      <p>Indice / forex / action</p>
+      <Selector optionDefaut="faux" options={forexIndiceActionOptions} value={forexActionIndiceValues} onChange={(selected) => setForexActionIndiceValues(selected)} />
+      {forexActionIndiceValues === "indice" ? (
+        <div>
+          <p>Indice</p>
+          <Selector options={indiceOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
+        </div>
+      ) : null }
+      {forexActionIndiceValues === "forex" ? (
+        <div>
+          <p>Forex</p>
+          <Selector options={forexOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
+        </div>
+      ) : null }
+      {forexActionIndiceValues === "action" ? (
+        <div>
+          <p>Action</p>
+          <Selector options={actionOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
+        </div>
+      ) : null }
       <div className="inputFiltreXY"><p>take profit</p><CaseRadio titre="Take profit" nomOption1="Atteint" nomOption2="Dépassé" nomOption3="Non atteint" selectedCaseOption={takeProfit} onChange={valeurTakeProfitChange} /></div>
       <div className="inputFiltreXY"><p>stop loss</p><CaseRadio titre="Stop loss" nomOption1="Atteint" nomOption2="Partiel" selectedCaseOption={stopLoss} onChange={valeurStopLossChange} /></div>
       <div className="inputFiltreXY"><p>BE</p><CaseRadio titre="-0.5RR < BE < 0.5RR" nomOption1=" " selectedCaseOption={rrRange} onChange={valeurRrRangeChange} /></div>

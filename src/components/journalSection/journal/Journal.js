@@ -24,14 +24,11 @@ import { fetchJournalData, applyModifications, fetchStrategieOptions, fetchPorte
 // mise a jour des tableaux ./TableauDouble.js
 import { updateAnnEcoCaseValeur, updatePsychologieOption, updatePositionOption, updateTypeOrdreOption, updateVioleStrategieOption, 
 updateSortieOption, updateIndicateur1Option, updateIndicateur2Option, updateIndicateur3Option, updateStrategieOption, updateTimeEntreeOption, 
-updateTimeSetupOption, updatePorteFeuilleOption, updateTagOption, updateNoteOption } from './TableauDouble';
+updateTimeSetupOption, updatePorteFeuilleOption, updateTagOption, updateNoteOption, deletePositionOption, deleteAnnonceEconomiqueOption,
+deleteVioleSTrategieOption, deleteTypeSortieOption } from './TableauDouble';
 
 // recuperation options de ./Options.js
 import { recuperationTradeOption, psychologieOptions, fetchIndicateurOptions, timeFrameOptions, fetchCollectionOptions } from './Options';
-
-// redux
-//import { useDispatch, useSelector } from 'react-redux';
-//import { setSelectedOptionTypeTrade, setCollectionValues } from '../../../actions/journalActions';
 
 
 
@@ -315,7 +312,7 @@ const Journal = () => {
       {/*======================================= FILTRE RECUPERATION TRADE / ACTIONS TRADE ========================================*/}
 
       <div className="selecteurRecuperation">
-        <p>Type de trade à récupérer</p><Selector options={recuperationTradeOption} defaultOption={selectedOptionTypeTrade} onChange={(selectedValue) => {setSelectedOptionTypeTrade(selectedValue);setSelectedOptionTypeTrade(selectedValue);}} />
+        <p>Type de trade à récupérer</p><Selector optionDefaut="faux" options={recuperationTradeOption} defaultOption={selectedOptionTypeTrade} onChange={(selectedValue) => {setSelectedOptionTypeTrade(selectedValue);setSelectedOptionTypeTrade(selectedValue);}} />
         <p>Dans quelle collection chercher</p><Selector options={collectionOption} value={collectionValues} onChange={(selectedValue) => {setCollectionValues(selectedValue);setCollectionValues(selectedValue);}} />
         <p>Quel remplisseur automatique appliquer</p><Selector options={remplissageOption} value={remplissageValeur} onChange={(selected) => {setRemplissageValeur(selected)}} />
       </div>
@@ -427,11 +424,11 @@ const Journal = () => {
                       ))}
                       <div className="IT"><p>Over risk: </p><p>{entry.overrisk}</p></div>
                       <div className="IT"><p>Over trade: </p><p>{entry.overTradingFormatee}</p></div>
-                      <div className="IT"><p>Trade durant une annonce économique</p><CaseRadio titre={`Trade durant une annonce économique ${entry._id}`}nomOption1="oui"nomOption2="non"selectedCaseOption={(annonceEcoCaseValues.find(item => item.id === entry._id) || {}).valeurAnnEco || ''} onChange={(newValue) => updateAnnEcoCaseValeur(entry._id, newValue, annonceEcoCaseValues, setAnnonceEcoCaseValues)}/></div>
-                      <div className="IT"><p>Position</p><CaseRadio titre={`Position ${entry._id}`} nomOption1="Signal"nomOption2="Influence" selectedCaseOption={(positionValues.find(item => item.id === entry._id) || {}).valuePosition || ''} onChange={(newValue) => updatePositionOption(entry._id, newValue, positionValues, setPositionValues)}/></div>
+                      <div className="IT"><p>Trade durant une annonce économique</p><CaseRadio titre={`Trade durant une annonce économique ${entry._id}`}nomOption1="oui"nomOption2="non"selectedCaseOption={(annonceEcoCaseValues.find(item => item.id === entry._id) || {}).valeurAnnEco || ''} onChange={(newValue) => updateAnnEcoCaseValeur(entry._id, newValue, annonceEcoCaseValues, setAnnonceEcoCaseValues)} onButtonClick={() => {deleteAnnonceEconomiqueOption(entry._id, setAnnonceEcoCaseValues)}}/></div>
+                      <div className="IT"><p>Position</p><CaseRadio titre={`Position ${entry._id}`} nomOption1="Signal"nomOption2="Influence" selectedCaseOption={(positionValues.find(item => item.id === entry._id) || {}).valuePosition || ''} onChange={(newValue) => updatePositionOption(entry._id, newValue, positionValues, setPositionValues)}  onButtonClick={() => {deletePositionOption(entry._id, setPositionValues)}}/></div>
                       {/*<div className="IT"><p>Type d'ordre</p><CaseRadio titre={`Type d'ordre ${entry._id}`} nomOption1="Market"nomOption2="Conditional" selectedCaseOption={(typeOrdreValues.find(item => item.id === entry._id) || {}).valueTypeOrdre || ''} onChange={(newValue) => updateTypeOrdreOption(entry._id, newValue, typeOrdreValues, setTypeOrdreValues)}/></div>*/}
-                      <div className="IT"><p>Violation de la stratégie</p><CaseRadio titre={`Violation de la stratégie ${entry._id}`} nomOption1="oui"nomOption2="non" selectedCaseOption={(violeStrategieValues.find(item => item.id === entry._id) || {}).valueVioleStrategie || ''} onChange={(newValue) => updateVioleStrategieOption(entry._id, newValue, violeStrategieValues, setVioleStrategieValues)}/></div>
-                      <div className="IT"><p>Type de sortie</p><CaseRadio titre={`Type de sortie ${entry._id}`} nomOption1="Technique"nomOption2="Emotion" selectedCaseOption={(sortieValues.find(item => item.id === entry._id) || {}).valueSortie || ''} onChange={(newValue) => updateSortieOption(entry._id, newValue, sortieValues, setSortieValues)}/></div>
+                      <div className="IT"><p>Violation de la stratégie</p><CaseRadio titre={`Violation de la stratégie ${entry._id}`} nomOption1="oui"nomOption2="non" selectedCaseOption={(violeStrategieValues.find(item => item.id === entry._id) || {}).valueVioleStrategie || ''} onChange={(newValue) => updateVioleStrategieOption(entry._id, newValue, violeStrategieValues, setVioleStrategieValues)} onButtonClick={() => {deleteVioleSTrategieOption(entry._id, setVioleStrategieValues)}}/></div>
+                      <div className="IT"><p>Type de sortie</p><CaseRadio titre={`Type de sortie ${entry._id}`} nomOption1="Technique"nomOption2="Emotion" selectedCaseOption={(sortieValues.find(item => item.id === entry._id) || {}).valueSortie || ''} onChange={(newValue) => updateSortieOption(entry._id, newValue, sortieValues, setSortieValues)} onButtonClick={() => {deleteTypeSortieOption(entry._id, setSortieValues)}}/></div>
                       <div className="IT"><p>Etat psychologique</p><Selector options={psychologieOptions}value={(psychologieValues.find(item => item.id === entry._id) || {}).valuePsy || ''} onChange={(selected) => updatePsychologieOption(entry._id, selected, psychologieValues, setPsychologieValues)}/></div>
                       <div className="IT"><p>Strategie</p><Selector options={strategieOption}value={(strategieValues.find(item => item.id === entry._id) || {}).valueStrategie || ''} onChange={(selected) =>updateStrategieOption(entry._id, selected, strategieValues, setStrategieValues)}/></div>
                       <div className="IT"><p>Déplacer ce trade dans un autre porte feuille</p><Selector options={porteFeuilleValues}value={(porteFeuilleSelectedOption.find(item => item.id === entry._id) || {}).valuePorteFeuille || ''} onChange={(selected) =>updatePorteFeuilleOption(entry._id, selected, porteFeuilleSelectedOption, setPorteFeuilleSelectedOption)}/></div>
@@ -448,6 +445,7 @@ const Journal = () => {
                           onChange={(event) => handleInputChange(event, entry._id)} onKeyDown={(event) => handleInputKeyDown(event, entry._id)} className="tagInput"/>
                         </div>
                       </div>
+                      <p>Entrez des notes</p>
                       <TexteZone placeholder="Entrez du texte" value={entry.note} onChange={(newValue) =>updateNoteOption(entry._id, newValue, note, setNote)}/>
                     </div>
                   </div>

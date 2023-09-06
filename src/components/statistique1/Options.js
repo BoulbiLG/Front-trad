@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+export const forexIndiceActionOptions = [
+  { value: "indice", label: "Indice" },
+  { value: 'forex', label: 'Forex' },
+  { value: 'action', label: 'Actions' }
+];
+
 export const dateOptions = [
   { value: "aujourd'hui", label: "Aujourd'hui" },
   { value: 'semaineEnCours', label: 'Semaine en cours' },

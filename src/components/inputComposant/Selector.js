@@ -10,6 +10,10 @@ class InputSelector extends Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({ selectedValue: '', isFilled: false });
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.value !== this.props.value) {
       this.setState({ selectedValue: this.props.value });
@@ -25,13 +29,15 @@ class InputSelector extends Component {
   }
 
   render() {
-    const { options, required } = this.props;
+    const { options, required, optionDefaut } = this.props;
     const { selectedValue, isFilled } = this.state;
 
     return (
       <div>
         <select value={selectedValue} onChange={(e) => this.selectorValeurChange(e)}>
-          <option value="" disabled={!required}>Sélectionnez une option</option>
+          {optionDefaut === undefined ? (
+            <option value="" disabled={!required}>Sélectionnez une option</option>
+          ) : null}
           {options.map((option, index) => (
             <option key={index} value={option.value}>
               {option.label}

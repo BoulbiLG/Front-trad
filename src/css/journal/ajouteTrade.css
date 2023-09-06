@@ -14,7 +14,6 @@
 .contenuMontre {
     padding: 20px;
     animation: arrive 0.3s ease forwards;
-    height: 900px;
     width: 700px;
     background-color: white;
     overflow-y: scroll;
@@ -22,6 +21,7 @@
 }
 
 .bas {
+    margin-top: 20px;
     display: flex;
     width: 100vw;
 }
