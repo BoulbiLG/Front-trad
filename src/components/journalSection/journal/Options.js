@@ -26,14 +26,16 @@ export const fetchCollectionOptions = async (username) => {
 
   
 export const psychologieOptions = [
-    { value: "frustration", label: "frustration" },
-    { value: "colère", label: "colère" },
-    { value: "impatience", label: "impatience" },
-    { value: "peur", label: "peur" },
-    { value: "doute", label: "doute" },
-    { value: "revanche", label: "revanche" },
-    { value: "jeu", label: "jeu" },
-    { value: "rattrapage", label: "rattrapage" },
+    { value: "frustration", label: "Frustration" },
+    { value: "colère", label: "Colère" },
+    { value: "impatience", label: "Impatience" },
+    { value: "peur", label: "Peur" },
+    { value: "doute", label: "Doute" },
+    { value: "revanche", label: "Revanche" },
+    { value: "jeu", label: "Jeu" },
+    { value: "rattrapage", label: "Rattrapage" },
+    { value: "confiant", label: "Confiant" },
+    { value: "euphorique", label: "Euphorique" },
 ];
 
 export const fetchIndicateurOptions = async () => {
