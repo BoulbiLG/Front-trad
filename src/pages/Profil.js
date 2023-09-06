@@ -5,27 +5,16 @@ import NavBar from '../components/NavBar';
 import Button from '../components/inputComposant/Button';
 
 import Statistique1 from '../components/statistique1/Statistique1';
-//import Statistique2 from '../components/Statistique2/Statistique2';
 import Strategie from '../components/strategie/Strategie';
 import Journal from '../components/journalSection/journal/Journal';
+import Consultation from '../components/journalSection/consultation/Consultation';
 
 const Profil = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [affichageFenetre, setAffichageFenetre] = useState('journal');
-
-  const statAffichage = () => {
-    setAffichageFenetre('stat');
-  };
-
-  const strategieAffichage = () => {
-    setAffichageFenetre('strategie');
-  };
-
-  const journalAffichage = () => {
-    setAffichageFenetre('journal');
-  };
+  const [affichageFenetre, setAffichageFenetre] = useState('dashboard');
+  const [affichageFenetreJournal, setAffichageFenetreJournal] = useState('consultation');
 
   useEffect(() => {
     const usernameFromSession = sessionStorage.getItem('username');
@@ -55,9 +44,9 @@ const Profil = () => {
             <p>{email}</p>
             <div className="sectionProfil">
               <Button backgroundColor="#d51f1f" className='deconnexion' label='deconnexion' onClick={deconnexion} />
-              <Button label="Statistiques" onClick={statAffichage} />
-              <Button label="Stratégie" onClick={strategieAffichage} />
-              <Button label="Journal" onClick={journalAffichage} />
+              <Button label="Dashboard" onClick={() => {setAffichageFenetre('dashboard')}} />
+              <Button label="Journal" onClick={() => {setAffichageFenetre('journal')}} />
+              <Button label="Statistiques" onClick={() => {setAffichageFenetre('stat')}} />
             </div>
             <div className="selecteur">
               <div className='toutesLesCoches'>
@@ -68,13 +57,28 @@ const Profil = () => {
                     </div>
                   </div>
                 ) : null}
-                {affichageFenetre === "strategie" ? (
-                  <Strategie />
+                {affichageFenetre === "dashboard" ? (
+                  <div className="dashboard">
+                    <h1>Dashboard</h1>
+                    <p>Rien pour le moment</p>
+                  </div>
                 ) : null}
                 {affichageFenetre === "journal" ? (
                   <div>
-                    
-                    <Journal />
+                    <div className="journalSection">
+                      <Button label="Consultation" onClick={() => {setAffichageFenetreJournal('consultation')}} />
+                      <Button label="Edition" onClick={() => {setAffichageFenetreJournal('edition')}} />
+                      <Button label="Creation" onClick={() => {setAffichageFenetreJournal('creation')}} />
+                    </div>
+                    {affichageFenetreJournal === "consultation" ? (
+                      <Consultation/>
+                    ) : null}
+                    {affichageFenetreJournal === "edition" ? (
+                      <Journal />
+                    ) : null}
+                    {affichageFenetreJournal === "creation" ? (
+                      <Strategie />
+                    ) : null}
                   </div>
                 ) : null}
               </div>

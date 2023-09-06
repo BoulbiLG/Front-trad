@@ -8,6 +8,8 @@ import { GlobalProvider as VariableIndicateurProvider } from './variableGlobal/v
 import { GlobalProvider as VariableCollectionProvider } from './variableGlobal/variableCollection';
 import { GlobalProvider as VariableStrategieProvider } from './variableGlobal/variableStrategie';
 import { GlobalProvider as VariableRemplissageProvider } from './variableGlobal/variableRemplissage';
+import { GlobalProvider as VariableTagProvider } from './variableGlobal/variableTag';
+import { GlobalProvider as VariableNoteProvider } from './variableGlobal/variableNote';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Home from './pages/Home';
 import Register from './pages/Register';
@@ -16,30 +18,34 @@ import Profil from './pages/Profil';
 
 function App() {
   return (
-    <VariableRemplissageProvider>
-        <VariableStrategieProvider>
-          <VariableCollectionProvider>
-            <VariableIndicateurProvider>
-              <VariableImageProvider>
-                <VariableTradeProvider>
-                  <VariableGlobalProvider>
-                    <DragDropContext>
-                      <Router>
-                        <Routes>
-                          <Route path="/" element={<Home />} />
-                          <Route path="/register" element={<Register />} />
-                          <Route path="/login" element={<Login />} />
-                          <Route path="/profil" element={<Profil />} />
-                        </Routes>
-                      </Router>
-                    </DragDropContext>
-                  </VariableGlobalProvider>
-                </VariableTradeProvider>
-              </VariableImageProvider>
-            </VariableIndicateurProvider>
-          </VariableCollectionProvider>
-        </VariableStrategieProvider>
-    </VariableRemplissageProvider>
+    <VariableNoteProvider>
+      <VariableTagProvider>
+        <VariableRemplissageProvider>
+            <VariableStrategieProvider>
+              <VariableCollectionProvider>
+                <VariableIndicateurProvider>
+                  <VariableImageProvider>
+                    <VariableTradeProvider>
+                      <VariableGlobalProvider>
+                        <DragDropContext>
+                          <Router>
+                            <Routes>
+                              <Route path="/" element={<Home />} />
+                              <Route path="/register" element={<Register />} />
+                              <Route path="/login" element={<Login />} />
+                              <Route path="/profil" element={<Profil />} />
+                            </Routes>
+                          </Router>
+                        </DragDropContext>
+                      </VariableGlobalProvider>
+                    </VariableTradeProvider>
+                  </VariableImageProvider>
+                </VariableIndicateurProvider>
+              </VariableCollectionProvider>
+            </VariableStrategieProvider>
+        </VariableRemplissageProvider>
+      </VariableTagProvider>
+    </VariableNoteProvider>
   );
 }
 

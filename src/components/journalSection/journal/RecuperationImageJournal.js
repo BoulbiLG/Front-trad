@@ -18,7 +18,7 @@ const RecuperationImageJournal = ({ imageIds }) => {
         console.log("grvfdsvgf");
         try {
             const imagePromises = imageIds.map(async (imageId) => {
-                if (imageId != null && imageId != undefined && imageId != "" ) {
+                if (imageId !== null && imageId !== undefined && imageId !== "" ) {
                     const response = await axios.get(`https://apipython2.onrender.com/recuperationImage?imageId=${imageId}`, {
                         responseType: 'arraybuffer',
                     });
@@ -50,7 +50,7 @@ const RecuperationImageJournal = ({ imageIds }) => {
 
     const suppressionImage = async (imageId) => {
         try {
-            if (imageId != null && imageId != undefined && imageId != "" ) {
+            if (imageId !== null && imageId !== undefined && imageId !== "" ) {
                 const response = await axios.delete(`https://apipython2.onrender.com/suppressionImage?id=${imageId}`);
                 console.log('Image supprimée avec succès:', response.data);
                 
@@ -85,34 +85,25 @@ const RecuperationImageJournal = ({ imageIds }) => {
             {imageURLs.map((imageInfo, index) => (
                 <div key={index}>
                     <div className="imagePetit">
-                        <img
-                            className='imagePetiteImg'
-                            src={`${imageInfo.imageUrl}`}
-                            alt=""
-                            onClick={() => handleImageClick(index)}
-                        />
-                        <Button
-                            label='Supprimer'
-                            onClick={() => suppressionImage(imageInfo.additionalInfo.image_ids[index])}
-                        />
+                        {/*<div className="imagePetiteImg" style={{background: `url(${imageInfo.imageUrl})`, backgroundPosition: "center", backgroundSize: "cover"}}></div>*/}
+                        <img className='imagePetiteImg'src={`${imageInfo.imageUrl}`}alt=""onClick={() => handleImageClick(index)} />
+                        <div className="suppressionImage">
+                            <Button className="btnSupprimer" label='Supprimer'onClick={() => suppressionImage(imageInfo.additionalInfo.image_ids[index])} />
+                        </div>
                     </div>
                     {selectedImageIndex !== null && (
                         <div className="imageGrandeConteneur">
                             <div className="imageGrande">
-                                <img
-                                    className='imageGrandeImg'
-                                    src={`${imageInfo.imageUrl}`}
-                                    alt=""
-                                />
-                                <Button
-                                    label='Fermer'
-                                    onClick={() => setSelectedImageIndex(null)}
-                                />
+                                <img className='imageGrandeImg'src={`${imageInfo.imageUrl}`}alt="" />
+                                <Button label='Fermer'onClick={() => setSelectedImageIndex(null)} />
                             </div>
                         </div>
                     )}
                 </div>
             ))}
+            {imageURLs == undefined || imageURLs.length < 1 ? (
+                <p>Aucune image disponible.</p>
+            ) : null}
         </div>
     );
 };

@@ -37,7 +37,7 @@ const Login = () => {
 
       sessionStorage.setItem('username', user_data.username);
       sessionStorage.setItem('email', user_data.email);
-      sessionStorage.setItem('raffraichissement', 0);
+      sessionStorage.setItem('auth', 'true');
 
       navigate('/profil');
     } catch (error) {

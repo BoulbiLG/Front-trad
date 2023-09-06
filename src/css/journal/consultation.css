@@ -25,6 +25,10 @@
     filter: brightness(80%);
 }
 
+.carteConsultation {
+    overflow-x: scroll;
+}
+
 .cadreConsultation {
     position: fixed;
     display: flex;
@@ -40,16 +44,17 @@
 
 .contenuMontreConsultation {
     animation: arrive 0.3s ease forwards;
-    height: 90vh;
     width: 90vw;
     background-color: white;
     padding: 20px;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .contenuMontreConsultation .info {
+    margin-bottom: 20px;
     display: flex;
-    justify-content: space-between;
 }
 
 .contenuMontreConsultation .texte {
@@ -57,6 +62,26 @@
     box-shadow: 0 1px 1px rgb(181, 181, 181);
     padding: 20px;
     border-radius: 5px;
+    flex: 2;
+}
+
+.contenuMontreConsultation .complementaire {
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
+    border-radius: 5px;
+    flex: 2;
+    margin: 0 20px;
+}
+
+.contenuMontreConsultation .photo {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
+    border-radius: 5px;
+    flex: 1;
 }
 
 .contenuMontreConsultation .photo {
@@ -64,11 +89,6 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-.basConsultation {
-    position: absolute;
-    bottom: 0;
 }
 
 td {
@@ -109,7 +129,7 @@ table {
     padding: 5px;    
 }
 
-hr {
+.tradConteneurConsultation .texte hr {
     margin: 20px 0;
 }
 

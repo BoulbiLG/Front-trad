@@ -7,13 +7,20 @@
 }
 
 nav {
-    position: relative;
-    max-width: 700px;
-    margin: 0 auto;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 20px;
+}
+
+.logo {
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    padding: 10px;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
 }
 
 /*--------- onglet simple ---------*/
@@ -24,6 +31,7 @@ nav {
     position: relative;
     display: inline-block;
     transition: all 0.3s;
+    margin: 0 10px;
 }
   
 .simple::after {

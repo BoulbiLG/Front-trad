@@ -17,18 +17,22 @@ import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useGlobalTrade } from '../../../variableGlobal/variableTrade';
+import { useGlobalTag } from '../../../variableGlobal/variableTag';
+import { useGlobalNote } from '../../../variableGlobal/variableNote';
 
 const Consultation = ({ miseAjourDonne }) => {
 
   // RAFFRAICHISSEMENT AUTO
   const { globalTrade } = useGlobalTrade();
+  const { globalTag } = useGlobalTag();
+  const { globalNote } = useGlobalNote();
 
   const headCells = [
     { id: '_id', label: 'ID' },
     { id: 'ticketNumber', label: 'Ticket number' },
     { id: 'identifier', label: 'Identifier' },
     { id: 'magicNumber', label: 'Magic number' },
-    { id: 'dateAndTimeOpening', label: 'Date and time opening' },
+    { id: 'dateOpeningFormatee', label: 'Date and time opening' },
     { id: 'typeOfTransaction', label: 'Type of transaction' },
     { id: 'priceClosure', label: 'Price closure' },
     { id: 'volume', label: 'Volume' },
@@ -61,12 +65,14 @@ const Consultation = ({ miseAjourDonne }) => {
     setCollectionValues(selectedValue);
   };
 
+  // RECUPERATION TRADE
   useEffect(() => {
     fetchJournalData(username, collectionValues, rechercheDonnee)
       .then(data => {setJournalData(data);})
       .catch(() => setJournalData([]));
-  }, [username, collectionValues, rechercheDonnee, miseAjourJournalData, miseAjourDonne, globalTrade]);
+  }, [username, collectionValues, rechercheDonnee, miseAjourJournalData, globalTrade, globalTag, globalNote]);
 
+  // RECUPERATION COLLECTION
   useEffect(() => {
     const fetchCollection = async () => {
       const collectionOptions = await fetchCollectionOptions(username);
@@ -74,7 +80,7 @@ const Consultation = ({ miseAjourDonne }) => {
       setCollectionValues(collectionOptions[0].value);
     };
     fetchCollection();
-  }, [username, globalTrade]);
+  }, [username, globalTrade, globalTag, globalNote]);
 
   /************************************* */
 
@@ -99,7 +105,6 @@ const Consultation = ({ miseAjourDonne }) => {
   const onDeleteTag = async (tag) => {
     try {
       const message = await requeteSuppressoinTag(tradeIDpopup._id, collectionValues, tag);
-      //console.log(message);
       const updatedTags = tradeIDpopup.tag.filter(t => t !== tag);
       setTradeIDpopup(prevTrade => ({ ...prevTrade, tag: updatedTags }));
       setMiseAjourJournalData(prevCounter => prevCounter + 1);
@@ -166,21 +171,9 @@ const Consultation = ({ miseAjourDonne }) => {
             </TableContainer>
           </Paper>
           <div className="pagination">
-            <Button
-              label="<"
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Précédent
-            </Button>
+            <Button label="<"onClick={() => setCurrentPage(currentPage - 1)}disabled={currentPage === 1} />
             <span>Page {currentPage}</span>
-            <Button
-              label=">"
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={endIndex >= journalData.length}
-            >
-              Suivant
-            </Button>
+            <Button label=">"onClick={() => setCurrentPage(currentPage + 1)}disabled={endIndex >= journalData.length} />
           </div>
         </Box>
             </div>
@@ -188,63 +181,68 @@ const Consultation = ({ miseAjourDonne }) => {
                 <div className="cadreConsultation">
                     <div className="contenuMontreConsultation">
                         <div className="info">
-                            <div className="texte">
-                                <p>ID: {tradeIDpopup._id}</p>
-                                <p>ticketNumber: {tradeIDpopup.ticketNumber}</p>
-                                <p>identifier: {tradeIDpopup.identifier}</p>
-                                <p>magicNumber: {tradeIDpopup.magicNumber}</p>
-                                <p>dateAndTimeOpening: {tradeIDpopup.dateAndTimeOpening}</p>
-                                <p>typeOfTransaction: {tradeIDpopup.typeOfTransaction}</p>
-                                <p>orderType: {tradeIDpopup.orderType}</p>
-                                <p>volume: {tradeIDpopup.volume}</p>
-                                <p>volume_remain: {tradeIDpopup.volume_remain}</p>
-                                <p>symbol: {tradeIDpopup.symbol}</p>
-                                <p>priceOpening: {tradeIDpopup.priceOpening}</p>
-                                <p>stopLoss: {tradeIDpopup.stopLoss}</p>
-                                <p>takeProfit: {tradeIDpopup.takeProfit}</p>
-                                <p>dateAndTimeClosure: {tradeIDpopup.dateAndTimeClosure}</p>
-                                <p>priceClosure: {tradeIDpopup.priceClosure}</p>
-                                <p>swap: {tradeIDpopup.swap}</p>
-                                <p>profit: {tradeIDpopup.profit}</p>
-                                <p>commision: {tradeIDpopup.commision}</p>
-                                <p>closurePosition: {tradeIDpopup.closurePosition}</p>
-                                <p>Balance: {tradeIDpopup.balance}</p>
-                                <p>broker: {tradeIDpopup.broker}</p>
-                                <p>TPR: {tradeIDpopup.TPR}</p>
-                                <p>psychologie: {tradeIDpopup.psychologie}</p>
-                                <p>annonceEconomique: {tradeIDpopup.annonceEconomique}</p>
-                                <p>position: {tradeIDpopup.position}</p>
-                                <p>durée: {tradeIDpopup.durée}</p>
-                                <p>typeOrdre: {tradeIDpopup.typeOrdre}</p>
-                                <p>violeStrategie: {tradeIDpopup.violeStrategie}</p>
-                                <p>sortie: {tradeIDpopup.sortie}</p>
-                                <p>indicateur1: {tradeIDpopup.indicateur1}</p>
-                                <p>indicateur2: {tradeIDpopup.indicateur2}</p>
-                                <p>indicateur3: {tradeIDpopup.indicateur3}</p>
-                                <p>strategie: {tradeIDpopup.strategie}</p>
-                                <p>timeEntree: {tradeIDpopup.timeEntree}</p>
-                                <p>timeSetup: {tradeIDpopup.timeSetup}</p>
-                                <p>journeeDeTilt: {tradeIDpopup.journeeDeTilt}</p>
-                                <p>sortieManuelle: {tradeIDpopup.sortieManuelle}</p>
-                                <p className="note" dangerouslySetInnerHTML={{ __html: tradeIDpopup.note }} />
-                                <hr />
-                                <p>Tags</p>
-                                <div className='tagConteneur'>
-                                {tradeIDpopup && tradeIDpopup.tag && tradeIDpopup.tag.map((tag, index) => (
-                                  <div className='tagInfo' key={index}>
-                                    <p>{tag}</p>
-                                    <button onClick={() => onDeleteTag(tag)}>x</button>
-                                  </div>
-                                ))}
+                          <div className="texte">
+                            <div className="IT"><p>ID: </p><p>{tradeIDpopup._id}</p></div>
+                            <div className="IT"><p>ticketNumber: </p><p>{tradeIDpopup.ticketNumber}</p></div>
+                            <div className="IT"><p>identifier: </p><p>{tradeIDpopup.identifier}</p></div>
+                            <div className="IT"><p>magicNumber: </p><p>{tradeIDpopup.magicNumber}</p></div>
+                            <div className="IT"><p>dateAndTimeOpening: </p><p>{tradeIDpopup.dateOpeningFormatee}</p></div>
+                            <div className="IT"><p>dateAndTimeClosure: </p><p>{tradeIDpopup.dateClosureFormatee}</p></div>
+                            <div className="IT"><p>typeOfTransaction: </p><p>{tradeIDpopup.typeOfTransaction}</p></div>
+                            <div className="IT"><p>orderType: </p><p>{tradeIDpopup.orderType}</p></div>
+                            <div className="IT"><p>volume: </p><p>{tradeIDpopup.volume}</p></div>
+                            <div className="IT"><p>volume_remain: </p><p>{tradeIDpopup.volume_remain}</p></div>
+                            <div className="IT"><p>symbol: </p><p>{tradeIDpopup.symbol}</p></div>
+                            <div className="IT"><p>priceOpening: </p><p>{tradeIDpopup.priceOpening}</p></div>
+                            <div className="IT"><p>stopLoss: </p><p>{tradeIDpopup.stopLoss}</p></div>
+                            <div className="IT"><p>takeProfit: </p><p>{tradeIDpopup.takeProfit}</p></div>
+                            <div className="IT"><p>priceClosure: </p><p>{tradeIDpopup.priceClosure}</p></div>
+                            <div className="IT"><p>swap: </p><p>{tradeIDpopup.swap}</p></div>
+                            <div className="IT"><p>profit: </p><p>{tradeIDpopup.profit}</p></div>
+                            <div className="IT"><p>commision: </p><p>{tradeIDpopup.commision}</p></div>
+                            <div className="IT"><p>closurePosition: </p><p>{tradeIDpopup.closurePosition}</p></div>
+                            <div className="IT"><p>Balance: </p><p>{tradeIDpopup.balance}</p></div>
+                            <div className="IT"><p>broker: </p><p>{tradeIDpopup.broker}</p></div>
+                            <div className="IT"><p>TPR: </p><p>{tradeIDpopup.TPRFormatee}</p></div>
+                            <div className="IT"><p>psychologie: </p><p>{tradeIDpopup.psychologie}</p></div>
+                            <div className="IT"><p>annonceEconomique: </p><p>{tradeIDpopup.annonceEconomiqueFormatee}</p></div>
+                            <div className="IT"><p>position: </p><p>{tradeIDpopup.position}</p></div>
+                            <div className="IT"><p>durée: </p><p>{tradeIDpopup.durée}</p></div>
+                            <div className="IT"><p>typeOrdre: </p><p>{tradeIDpopup.typeOrdre}</p></div>
+                            <div className="IT"><p>violeStrategie: </p><p>{tradeIDpopup.violeStrategieFormatee}</p></div>
+                            <div className="IT"><p>sortie: </p><p>{tradeIDpopup.sortie}</p></div>
+                          </div>
+                          <div className="complementaire">
+                            <div className="IT"><p>indicateur1: </p><p>{tradeIDpopup.indicateur1}</p></div>
+                            <div className="IT"><p>indicateur2: </p><p>{tradeIDpopup.indicateur2}</p></div>
+                            <div className="IT"><p>indicateur3: </p><p>{tradeIDpopup.indicateur3}</p></div>
+                            <div className="IT"><p>strategie: </p><p>{tradeIDpopup.strategie}</p></div>
+                            <div className="IT"><p>timeEntree: </p><p>{tradeIDpopup.timeEntree}</p></div>
+                            <div className="IT"><p>timeSetup: </p><p>{tradeIDpopup.timeSetup}</p></div>
+                            <div className="IT"><p>journeeDeTilt: </p><p>{tradeIDpopup.journeeDeTilt}</p></div>
+                            <div className="IT"><p>sortieManuelle: </p><p>{tradeIDpopup.sortieManuelleFormatee}</p></div>
+                            <h4>Notes</h4>
+                            <p className="note" dangerouslySetInnerHTML={{ __html: tradeIDpopup.note }} />
+                            <br />
+                            <hr />
+                            <br />
+                            <h4>Tags</h4>
+                            <div className='tagConteneur'>
+                            {tradeIDpopup && tradeIDpopup.tag && tradeIDpopup.tag.map((tag, index) => (
+                              <div className='tagInfo' key={index}>
+                                <p>{tag}</p>
+                                <button onClick={() => onDeleteTag(tag)}>x</button>
                               </div>
-                            </div>
-                            <div className="photo">
-                                <RecuperationImage imageIds={[tradeIDpopup._id]}/>
-                            </div>
+                            ))}
+                          </div>
                         </div>
-                        <div className="basConsultation">
-                            <Button label='Fermer' onClick={masquerTrade}/>
-                        </div>
+                        <div className="photo">
+                            <RecuperationImage imageIds={[tradeIDpopup._id]}/>
+                        </div>      
+                      </div>
+                      <div className="basConsultation">
+                        <Button label='Fermer' onClick={masquerTrade}/>
+                      </div>
                     </div>
                 </div>
             ) : null}

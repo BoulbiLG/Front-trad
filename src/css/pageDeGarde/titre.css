@@ -1,0 +1,54 @@
+.titreConteneur {
+    margin: 50px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centralisation {
+    padding: 25px 0;
+}
+
+.paragraphe {
+    max-width: 800px;
+}
+
+.titreH1 {
+    position: relative;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.titreConteneur h1 {
+    font-size: 3rem;
+}
+
+.boutonCommencerDiv {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+}
+
+.boutonCommencer {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.boutonCommencer:hover {
+    filter: brightness(125%);
+}
+
+.boutonCommencer:active {
+    filter: brightness(150%);
+}

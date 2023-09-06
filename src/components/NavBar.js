@@ -10,15 +10,19 @@ const NavBar = () => {
 
   return (
     <nav>
-      <Link className='onglet simple' to="/">Accueil</Link>
-      <Link className='onglet simple' to="/">machin</Link>
-      <Link className='onglet simple' to="/">machin</Link>
-      {!isAuthenticated && (
-        <Link className='onglet login' to="/login">Se connecter</Link>
-      )}
-      {isAuthenticated && userId && (
-        <Link className='onglet login' to="profil">Mon profil</Link>
-      )}
+      <Link className='onglet simple' to="/"><img src="" alt="" />Logo</Link>
+      <div className="navigation">
+        <Link className='onglet simple' to="/">Home</Link>
+        <Link className='onglet simple' to="/">Pricing</Link>
+        <Link className='onglet simple' to="/">Blog</Link>
+        <Link className='onglet simple' to="/">Support</Link>
+        {!isAuthenticated && (
+          <Link className='onglet login' to="/login">Se connecter</Link>
+        )}
+        {isAuthenticated && (
+          <Link className='onglet login' to="profil">Mon profil</Link>
+        )}
+      </div>
     </nav>
   );
 };

@@ -62,7 +62,7 @@ text-align: left;
 .IT {
     display: flex;
     align-items: center;
-    margin: 0;
+    margin: 5px 0;
 }
 
 .filtreInput {
@@ -86,6 +86,11 @@ text-align: left;
     display: flex;
     background-color: white;
     border-radius: 5px;
+}
+
+.tagBlock {
+    display: flex;
+    align-items: center;
 }
 
 .tag {
@@ -114,9 +119,11 @@ text-align: left;
     width: 100vw;
     height: 100vh;
     animation: noir 1s ease forwards;
+    overflow: hidden;
 }
 
 .filtreConteneur {
+    overflow: hidden;
     width: 90%;
     padding: 20px;
     animation: arrive 0.3s ease forwards;
@@ -128,25 +135,70 @@ text-align: left;
     height: 90vh;
 }
 
-.pagination {
+.tradConteneur .enTete {
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.tradConteneur .section hr {
+    margin: 0;   
+}
+
+.tradConteneur .enTete p {
+    margin: 0 5px;
+}
+
+.tradConteneur .info {
+    flex: 1;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
+    border-radius: 5px;
+    width: auto;
+}
+
+.tradConteneur .filtre {
+    margin: 0 20px;
+    flex: 1;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
+    border-radius: 5px;
+    width: auto;
+}
+
+.tradConteneur .noteZone {
+    flex: 1;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
+    border-radius: 5px;
+    width: auto;
+}
+
+.tradConteneur .pagination {
     display: flex;
 }
 
-.edition {
+.tradConteneur .edition {
     display: flex;
 }
 
-.section {
+.tradConteneur .section {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
+    overflow: hidden;
 }
 
-.section2 {
+.tradConteneur .section2 {
     display: flex;
     width: 100%;
-    justify-content: space-between;
 }
 
 .boutonAction {
@@ -154,10 +206,12 @@ text-align: left;
     justify-content: space-between;
 }
 
-.image {
+.tradConteneur .image {
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    border-radius: 5px;
 }
 
 .img1 {

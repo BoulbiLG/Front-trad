@@ -15,6 +15,8 @@ import "../../../css/journal.css"
 import Consultation from '../consultation/Consultation';
 import TexteZone from '../../inputComposant/TexteZone';
 import { useGlobalTrade } from '../../../variableGlobal/variableTrade';
+import { useGlobalTag } from '../../../variableGlobal/variableTag';
+import { useGlobalNote } from '../../../variableGlobal/variableNote';
 
 // fetch recuperation options ./API.js
 import { fetchJournalData, applyModifications, fetchStrategieOptions, fetchPorteFeuilleOptions, recuperationSeulRemplissage, recuperationNomRemplissage } from './API';
@@ -37,11 +39,12 @@ import { recuperationTradeOption, psychologieOptions, fetchIndicateurOptions, ti
 
 
 
-
 const Journal = () => {
 
     // RAFFRAICHISSEMENT AUTO
     const { GlobalTrade } = useGlobalTrade();
+    const { globalTag, setGlobalTag } = useGlobalTag();
+    const { globalNote, setGlobalNote } = useGlobalNote();
 
     // VARIABLES IMPORTANTES
 
@@ -213,7 +216,12 @@ const Journal = () => {
     setTag([]);
     setTagBlocks([]);
     genererNombreAleatoire();
-    toast.success(modificationStatus, { position: "top-left", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light"});
+    const randomVariable = Math.random();
+    setGlobalTag(randomVariable);
+    setGlobalNote(randomVariable);
+    console.log(globalTag);
+    console.log(globalNote);
+    //toast.success(modificationStatus, { position: "top-left", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light"});
   })
   .catch(() => setJournalData([]));
   } catch (error) {setModificationStatus('Une erreur est survenue lors de l\'application des modifications');}};
@@ -302,7 +310,6 @@ const Journal = () => {
   return (
 
     <div>
-      <Consultation miseAjourDonne={miseAjourDonne}/>
       <h3>Edition</h3>
 
       {/*======================================= FILTRE RECUPERATION TRADE / ACTIONS TRADE ========================================*/}
@@ -343,7 +350,7 @@ const Journal = () => {
                   <td key="ticketNumber" onClick={() => toggleFiltre(entry._id)}><p className='valeurDate valeur'>{entry.ticketNumber}</p></td>
                   <td key="symbol" onClick={() => toggleFiltre(entry._id)}><p className='valeurDate valeur'>{entry.symbol}</p></td>
                   <td key="typeOrdre" onClick={() => toggleFiltre(entry._id)}><p className='valeurDate valeur'>{entry.typeOrdre}</p></td>
-                  <td key="dateAndTimeOpening" onClick={() => toggleFiltre(entry._id)}><p className='valeurDate valeur'>{entry.dateAndTimeOpening}</p></td>
+                  <td key="dateAndTimeOpening" onClick={() => toggleFiltre(entry._id)}><p className='valeurDate valeur'>{entry.dateOpeningFormatee}</p></td>
                   <td key="profit" onClick={() => toggleFiltre(entry._id)}><p className='valeurDate valeur'>{entry.profit}</p></td>
                 </tr>
               </React.Fragment>
@@ -361,58 +368,65 @@ const Journal = () => {
             <div className="tradConteneur" key={entry._id} style={{ display: filtreOuvert[entry._id] ? 'flex' : 'none' }}>
               <div className="filtreConteneur">
                 <div className="section">
+                  {/* 
+                  <div className="enTete">
+                    <p>ID: {entry._id}</p>
+                    <p>Symbol: {entry.symbol}</p>
+                    <p>Order type: {entry.orderType}</p>
+                    <p>Type order: {entry.typeOrdre}</p>
+                  </div>
+                  */}
                   <div className="section2">
                     <div className="info">
-                      <p>ID: {entry._id}</p><hr />
-                      <p>Date and time opening: {entry.dateAndTimeOpening}</p>
-                      <p>Date and time closure: {entry.dateAndTimeClosure}</p>
-                      <p>Symbol: {entry.symbol}</p>
-                      <p>Type of transaction: {entry.typeOfTransaction}</p>
-                      <p>Order type: {entry.orderType}</p>
-                      <p>Limit: {entry.limit}</p>
-                      <p>Volume: {entry.volume}</p>
-                      <p>Price opening: {entry.priceOpening}</p>
-                      <p>Price closure: {entry.priceClosure}</p>
-                      <p>Duration: {entry.duration}</p>
-                      <p>Stop loss: {entry.stopLoss}</p>
-                      <p>Stop loss open: {entry.SLOpen}</p>
-                      <p>Take profit: {entry.takeProfit}</p>
-                      <p>Take profit open: {entry.TPOpen}</p>
-                      <p>Profit: {entry.profit}</p>
-                      <p>Max profit: {entry.maxProfit}</p>
-                      <p>Max loss: {entry.maxLoss}</p>
-                      <p>Capital risk: {entry.Capitalrisk}</p>
-                      <p>Percent: {entry.Percent}</p>
-                      <p>Balance: {entry.balance}</p>
-                      <p>Equity: {entry.Equity}</p>
+                      <div className="IT"><p>Date and time opening: </p><p>{entry.dateOpeningFormatee}</p></div>
+                      <div className="IT"><p>Date and time closure: </p><p>{entry.dateClosureFormatee}</p></div>
+                      <div className="IT"><p>Symbol: </p><p>{entry.symbol}</p></div>
+                      <div className="IT"><p>Type of transaction: </p><p>{entry.typeOfTransaction}</p></div>
+                      <div className="IT"><p>Order type: </p><p>{entry.orderType}</p></div>
+                      <div className="IT"><p>Limit: </p><p>{entry.limitFormatee}</p></div>
+                      <div className="IT"><p>Volume: </p><p>{entry.volume}</p></div>
+                      <div className="IT"><p>Price opening: </p><p>{entry.priceOpening}</p></div>
+                      <div className="IT"><p>Price closure: </p><p>{entry.priceClosure}</p></div>
+                      <div className="IT"><p>Duration: </p><p>{entry.duration}</p></div>
+                      <div className="IT"><p>Stop loss: </p><p>{entry.stopLoss}</p></div>
+                      <div className="IT"><p>Stop loss open: </p><p>{entry.SLOpen}</p></div>
+                      <div className="IT"><p>Take profit: </p><p>{entry.takeProfit}</p></div>
+                      <div className="IT"><p>Take profit open: </p><p>{entry.TPOpen}</p></div>
+                      <div className="IT"><p>Profit: </p><p>{entry.profit}</p></div>
+                      <div className="IT"><p>Max profit: </p><p>{entry.maxProfit}</p></div>
+                      <div className="IT"><p>Max loss: </p><p>{entry.maxLoss}</p></div>
+                      <div className="IT"><p>Capital risk: </p><p>{entry.Capitalrisk}</p></div>
+                      <div className="IT"><p>Percent: </p><p>{entry.Percent}</p></div>
+                      <div className="IT"><p>Balance: </p><p>{entry.balance}</p></div>
+                      <div className="IT"><p>Equity: </p><p>{entry.Equity}</p></div>
                     </div>
                     <div className="filtre">
-                      <p>RR: {entry.RR}</p>
-                      <p>RR open: {entry.RROpen}</p>
-                      <p>RRT: {entry.RRT}</p>
-                      <div className="IT"><p>indicateur 1</p><Selector options={indicateurOptions}value={(indicateur1Values.find(item => item.id === entry._id) || {}).valueIndicateur1 || ''}onChange={(selected) => updateIndicateur1Option(entry._id, selected, indicateur1Values, setIndicateur1Values)}/></div>
-                      <div className="IT"><p>indicateur 2</p><Selector options={indicateurOptions}value={(indicateur2Values.find(item => item.id === entry._id) || {}).valueIndicateur2 || ''}onChange={(selected) => updateIndicateur2Option(entry._id, selected, indicateur2Values, setIndicateur2Values)}/></div>
-                      <div className="IT"><p>indicateur 3</p><Selector options={indicateurOptions}value={(indicateur3Values.find(item => item.id === entry._id) || {}).valueIndicateur3 || ''}onChange={(selected) => updateIndicateur3Option(entry._id, selected, indicateur3Values, setIndicateur3Values)}/></div>
-                      <p>Highest price: {entry.highestPrice}</p>
-                      <p>Lowest price: {entry.lowestPrice}</p>
-                      <p>Session: {entry.session}</p>
-                      <p>Kill zone: {entry.killzone}</p>
+                      <div className="IT"><p>RR: </p><p>{entry.RR}</p></div>
+                      <div className="IT"><p>RR open: </p><p>{entry.RROpen}</p></div>
+                      <div className="IT"><p>RRT: </p><p>{entry.RRT}</p></div>
+                      <p>indicateur 1</p><Selector options={indicateurOptions}value={(indicateur1Values.find(item => item.id === entry._id) || {}).valueIndicateur1 || ''}onChange={(selected) => updateIndicateur1Option(entry._id, selected, indicateur1Values, setIndicateur1Values)}/>
+                      <p>indicateur 2</p><Selector options={indicateurOptions}value={(indicateur2Values.find(item => item.id === entry._id) || {}).valueIndicateur2 || ''}onChange={(selected) => updateIndicateur2Option(entry._id, selected, indicateur2Values, setIndicateur2Values)}/>
+                      <p>indicateur 3</p><Selector options={indicateurOptions}value={(indicateur3Values.find(item => item.id === entry._id) || {}).valueIndicateur3 || ''}onChange={(selected) => updateIndicateur3Option(entry._id, selected, indicateur3Values, setIndicateur3Values)}/>
+                      <div className="IT"><p>Highest price: </p><p>{entry.highestPrice}</p></div>
+                      <div className="IT"><p>Lowest price: </p><p>{entry.lowestPrice}</p></div>
+                      <div className="IT"><p>Session: </p><p>{entry.session}</p></div>
+                      <div className="IT"><p>Kill zone: </p><p>{entry.killzoneFormatee}</p></div>
                       <div className="IT"><p>Time frame d'entrée</p><Selector options={timeFrameOptions}value={(timeEntreeValues.find(item => item.id === entry._id) || {}).valueTimeEntree || ''} onChange={(selected) => updateTimeEntreeOption(entry._id, selected, timeEntreeValues, setTimeEntreeValues)}/></div>
                       <div className="IT"><p>Time frame setup</p><Selector options={timeFrameOptions}value={(timeSetupValues.find(item => item.id === entry._id) || {}).valueTimeSetup || ''} onChange={(selected) => updateTimeSetupOption(entry._id, selected, timeSetupValues, setTimeSetupValues)}/></div>
-                      <p>Multi: {entry.Multi}</p>
-                      <p>Trade count: {entry.tradeCount}</p>
-                      <p>Total trade: {entry.totaltrade}</p>
-                      <p>Day: {entry.Day}</p>
+                      <div className="IT"><p>Multi: </p><p>{entry.multiFormatee}</p></div>
+                      <div className="IT"><p>Trade count: </p><p>{entry.tradeCount}</p></div>
+                      <div className="IT"><p>Total trade: </p><p>{entry.totaltrade}</p></div>
+                      <div className="IT"><p>Day: </p><p>{entry.Day}</p></div>
                     </div>
                     <div className="noteZone">
-                      <p>Tilt: {entry.tilt}</p>
+                      <div className="IT"><p>Tilt: </p><p>{entry.tilt}</p></div>
                       {entry.tilt && entry.tilt.map((tilt, index) => (
                         <div className='tiltInfo' key={index}>
                           <p>{tilt}</p>
                         </div>
                       ))}
-                      <p>Over risk: {entry.overrisk}</p>
-                      <p>Over trade: {entry.overtrading}</p>
+                      <div className="IT"><p>Over risk: </p><p>{entry.overrisk}</p></div>
+                      <div className="IT"><p>Over trade: </p><p>{entry.overTradingFormatee}</p></div>
                       <div className="IT"><p>Trade durant une annonce économique</p><CaseRadio titre={`Trade durant une annonce économique ${entry._id}`}nomOption1="oui"nomOption2="non"selectedCaseOption={(annonceEcoCaseValues.find(item => item.id === entry._id) || {}).valeurAnnEco || ''} onChange={(newValue) => updateAnnEcoCaseValeur(entry._id, newValue, annonceEcoCaseValues, setAnnonceEcoCaseValues)}/></div>
                       <div className="IT"><p>Position</p><CaseRadio titre={`Position ${entry._id}`} nomOption1="Signal"nomOption2="Influence" selectedCaseOption={(positionValues.find(item => item.id === entry._id) || {}).valuePosition || ''} onChange={(newValue) => updatePositionOption(entry._id, newValue, positionValues, setPositionValues)}/></div>
                       {/*<div className="IT"><p>Type d'ordre</p><CaseRadio titre={`Type d'ordre ${entry._id}`} nomOption1="Market"nomOption2="Conditional" selectedCaseOption={(typeOrdreValues.find(item => item.id === entry._id) || {}).valueTypeOrdre || ''} onChange={(newValue) => updateTypeOrdreOption(entry._id, newValue, typeOrdreValues, setTypeOrdreValues)}/></div>*/}
@@ -422,6 +436,7 @@ const Journal = () => {
                       <div className="IT"><p>Strategie</p><Selector options={strategieOption}value={(strategieValues.find(item => item.id === entry._id) || {}).valueStrategie || ''} onChange={(selected) =>updateStrategieOption(entry._id, selected, strategieValues, setStrategieValues)}/></div>
                       <div className="IT"><p>Déplacer ce trade dans un autre porte feuille</p><Selector options={porteFeuilleValues}value={(porteFeuilleSelectedOption.find(item => item.id === entry._id) || {}).valuePorteFeuille || ''} onChange={(selected) =>updatePorteFeuilleOption(entry._id, selected, porteFeuilleSelectedOption, setPorteFeuilleSelectedOption)}/></div>
                       <div className="description">
+                        <p>Entrez des tags</p>
                         <div className="tagBlocks">
                           {tagBlocks[entry._id]?.map((block, index) => (
                             <div key={index} className="tagBlock">

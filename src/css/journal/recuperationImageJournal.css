@@ -54,6 +54,13 @@
     max-height: 720px;
 }
 
+.imagePetit .suppressionImage {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @keyframes arrive {
     from {
         transform: translateY(100px);

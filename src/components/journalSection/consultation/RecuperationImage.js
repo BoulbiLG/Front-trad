@@ -103,6 +103,9 @@ const ImageDisplay = ({ imageIds }) => {
                     )}
                 </div>
             ))}
+            {imageURLs == undefined || imageURLs.length < 1 ? (
+                <p>Aucune image disponible.</p>
+            ) : null}
         </div>
     );
 };
