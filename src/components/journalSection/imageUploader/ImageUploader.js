@@ -97,9 +97,9 @@ const ImageUploader = ({ id, collection }) => {
         <Button label='Ajouter des images' onClick={afficherImageUploader}/>
         {imageUploaderAffichage === "affiche" ? (
         <div className="cadreImageUploader">
-            <div className="contenuMontreImageUploader">
+            <div className="contenuMontreImageUploader" onDrop={handleDrop} onDragOver={handleDragOver} onClick={() => document.getElementById('image-input').click()}>
                 <div className="divImageUploader">
-                    <div className="upload-div" onDrop={handleDrop} onDragOver={handleDragOver} onClick={() => document.getElementById('image-input').click()}>
+                    <div className="upload-div">
                         <div className="placeholder">Cliquer pour ajouter des images</div>
                         <input id="image-input" type="file" multiple hidden onChange={handleFileChange} />
                     </div>

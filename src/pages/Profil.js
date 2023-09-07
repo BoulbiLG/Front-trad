@@ -15,6 +15,7 @@ const Profil = () => {
   const [email, setEmail] = useState('');
   const [affichageFenetre, setAffichageFenetre] = useState('dashboard');
   const [affichageFenetreJournal, setAffichageFenetreJournal] = useState('consultation');
+  const [affichageFenetreStatistique, setAffichageFenetreStatistique] = useState('precise');
 
   useEffect(() => {
     const usernameFromSession = sessionStorage.getItem('username');
@@ -53,7 +54,19 @@ const Profil = () => {
                 {affichageFenetre === "stat" ? (
                   <div className="">
                     <div className="">
-                      <Statistique1 />
+                    <div className="journalStatistique">
+                      <Button label="Statistiques précises" onClick={() => {setAffichageFenetreStatistique('precise')}} />
+                      <Button label="Statistiques générales" onClick={() => {setAffichageFenetreStatistique('generale')}} />
+                    </div>
+                      {affichageFenetreStatistique === "precise" ? (
+                        <Statistique1 />
+                      ) : null}
+                      {affichageFenetreStatistique === "generale" ? (
+                        <div className="statistiqueGeneral">
+                          <h1>statistiques générales</h1>
+                          <p>Rien pour le moment</p>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 ) : null}
