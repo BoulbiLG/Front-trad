@@ -24,7 +24,6 @@ export const fetchCollectionOptions = async (username) => {
   }
 };
 
-  
 export const psychologieOptions = [
     { value: "frustration", label: "Frustration" },
     { value: "colère", label: "Colère" },

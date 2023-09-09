@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "../../css/statistique.css"
+import "../../../css/statistique.css"
 
 import getArgumentDate from './ArgumentDate';
 import { getArgumentFiltre } from './ArgumentIndice';
@@ -11,9 +11,9 @@ timeFrameOptions, fetchCollectionOptions, forexIndiceActionOptions } from './Opt
 import { soumissionsFormulaire } from './API';
 import { verificationFiltre } from './XY';
 
-import CaseRadio from '../inputComposant/CaseRadio';
-import Button from '../inputComposant/Button';
-import Selector from '../inputComposant/Selector';
+import CaseRadio from '../../inputComposant/CaseRadio';
+import Button from '../../inputComposant/Button';
+import Selector from '../../inputComposant/Selector';
 import Meilleur from './meilleur';
 
 const Statistique1 = ({ selectedOption }) => {

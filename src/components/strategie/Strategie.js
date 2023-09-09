@@ -4,8 +4,9 @@ import Button from '../inputComposant/Button';
 import Input from '../inputComposant/Input';
 import '../../css/strategie.css';
 import RemplissageDefaut from './RemplissageDefaut';
+import RemplissageFiltre from '../statistiqueSection/generale/remplissage/RemplissageFiltre';
 
-const Strategie = ({ selectedOption }) => {
+const Strategie = () => {
   const [nomStrategie, setNomStrategie] = useState('');
   const [strategies, setStrategies] = useState([]);
   const [nomIndicateur, setNomIndicateur] = useState('');
@@ -140,37 +141,45 @@ const handleNomPorteFeuilleChange = (event) => {
 
   return (
     <div className='contenuStratIndic'>
-      <div className="strategie">
-        <Input type="text" placeholder="Nom de la stratégie" value={nomStrategie} onChange={handleNomStrategieChange} />
-        <Button label="Créer une nouvelle stratégie" onClick={createStrategie} />
-        {strategies.map((strategie) => (
-          <div key={strategie._id}>
-            <p>{strategie.nomStrategie}</p>
-            <Button label="Supprimer" onClick={() => deleteStrategie(strategie.nomStrategie)} />
-          </div>
-        ))}
+      <div className="principal">
+        <div className="strategie">
+          <h3>Stratégie</h3>
+          <Input type="text" placeholder="Nom de la stratégie" value={nomStrategie} onChange={handleNomStrategieChange} />
+          <Button label="Créer une nouvelle stratégie" onClick={createStrategie} />
+          {strategies.map((strategie) => (
+            <div key={strategie._id}>
+              <p>{strategie.nomStrategie}</p>
+              <Button label="Supprimer" onClick={() => deleteStrategie(strategie.nomStrategie)} />
+            </div>
+          ))}
+        </div>
+        <div className="indicateur">
+          <h3>Indicateur</h3>
+          <Input type="text" placeholder="Nom de l'indicateur" value={nomIndicateur} onChange={handleNomIndicateurChange} />
+          <Button label="Créer un nouvel indicateur" onClick={createIndicateur} />
+          {indicateur.map((indicateur) => (
+            <div key={indicateur._id}>
+              <p>{indicateur.nomIndicateur}</p>
+              <Button label="Supprimer" onClick={() => deleteIndicateur(indicateur.nomIndicateur)} />
+            </div>
+          ))}
+        </div>
+        <div className="porteFeuille">
+          <h3>Porte feuille</h3>
+          <Input type="text" placeholder="Nom du portefeuille" value={nomPorteFeuille} onChange={handleNomPorteFeuilleChange} />
+          <Button label="Créer un nouveau porte feuille" onClick={createPorteFeuille} />
+          {porteFeuille.map((porteFeuille) => (
+            <div key={porteFeuille._id}>
+              <p>{porteFeuille.nomSeul}</p>
+              <Button label="Supprimer" onClick={() => deletePorteFeuille(porteFeuille.nomComplet)} />
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="indicateur">
-        <Input type="text" placeholder="Nom de l'indicateur" value={nomIndicateur} onChange={handleNomIndicateurChange} />
-        <Button label="Créer un nouvel indicateur" onClick={createIndicateur} />
-        {indicateur.map((indicateur) => (
-          <div key={indicateur._id}>
-            <p>{indicateur.nomIndicateur}</p>
-            <Button label="Supprimer" onClick={() => deleteIndicateur(indicateur.nomIndicateur)} />
-          </div>
-        ))}
+      <div className="annexe">
+        <RemplissageDefaut />
+        <RemplissageFiltre />
       </div>
-      <div className="porteFeuille">
-        <Input type="text" placeholder="Nom du portefeuille" value={nomPorteFeuille} onChange={handleNomPorteFeuilleChange} />
-        <Button label="Créer un nouveau porte feuille" onClick={createPorteFeuille} />
-        {porteFeuille.map((porteFeuille) => (
-          <div key={porteFeuille._id}>
-            <p>{porteFeuille.nomSeul}</p>
-            <Button label="Supprimer" onClick={() => deletePorteFeuille(porteFeuille.nomComplet)} />
-          </div>
-        ))}
-      </div>
-      <RemplissageDefaut />
     </div>
   );
 };

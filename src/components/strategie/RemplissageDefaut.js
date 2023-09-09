@@ -57,6 +57,7 @@ const RemplissageDefaut = () => {
 
     return (
         <div className="contenuRemplissage">
+            <h3>Remplissage automatique des trades</h3>
             <Button label='Créer un nouveau remplissage' onClick={affichageRemplissageDefaut} />
             { remplissageDefautAffichage === 'montre' ? (
                 <div className='cadreRemplissage'>

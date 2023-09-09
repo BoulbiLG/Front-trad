@@ -1,4 +1,44 @@
 .contenuStratIndic {
     display: flex;
+    flex-direction: column;
+}
+
+.contenuStratIndic .principal {
+    display: flex;
     justify-content: space-around;
+    margin: 20px 0 10px 0;
+}
+
+.contenuStratIndic .annexe {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0 20px 0;
+}
+
+.contenuStratIndic .strategie {
+    flex: 1;
+    padding: 20px;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.contenuStratIndic .indicateur {
+    flex: 1;
+    padding: 20px;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
+    border-radius: 5px;
+    margin: 0 20px;
+}
+
+.contenuStratIndic .porteFeuille {
+    flex: 1;
+    padding: 20px;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
+    border-radius: 5px;
 }

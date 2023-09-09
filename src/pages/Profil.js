@@ -4,10 +4,11 @@ import '../css/profil.css';
 import NavBar from '../components/NavBar';
 import Button from '../components/inputComposant/Button';
 
-import Statistique1 from '../components/statistique1/Statistique1';
+import Statistique1 from '../components/statistiqueSection/precise/Statistique1';
 import Strategie from '../components/strategie/Strategie';
 import Journal from '../components/journalSection/journal/Journal';
 import Consultation from '../components/journalSection/consultation/Consultation';
+import AjouteFiltre from '../components/statistiqueSection/generale/ajoutFiltre/AjouteFiltre';
 
 const Profil = () => {
   const navigate = useNavigate();
@@ -63,8 +64,7 @@ const Profil = () => {
                       ) : null}
                       {affichageFenetreStatistique === "generale" ? (
                         <div className="statistiqueGeneral">
-                          <h1>statistiques générales</h1>
-                          <p>Rien pour le moment</p>
+                          <AjouteFiltre />
                         </div>
                       ) : null}
                     </div>
@@ -72,7 +72,7 @@ const Profil = () => {
                 ) : null}
                 {affichageFenetre === "dashboard" ? (
                   <div className="dashboard">
-                    <h1>Dashboard</h1>
+                    <h3>Dashboard</h3>
                     <p>Rien pour le moment</p>
                   </div>
                 ) : null}

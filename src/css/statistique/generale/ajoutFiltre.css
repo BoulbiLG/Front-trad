@@ -1,0 +1,64 @@
+.ajoutFiltreConteneur .filtreConteneurGlobal {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.ajoutFiltreConteneur .carteFiltre {
+    background-color: white;
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.ajoutFiltreConteneur .filtreConteneur {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.ajoutFiltreConteneur .ajouterFiltre {
+    display: flex;
+    align-items: center;
+}
+
+.ajoutFiltreConteneur .filtre {
+    display: flex;
+}
+
+.ajoutFiltreConteneur .filtreOptionsDynamique {
+    margin-left: 20px;
+}
+
+.ajoutFiltreConteneur .ajouterFiltre .action {
+    display: flex;
+}
+
+.ajoutFiltreConteneur .filtreDeBaseGlobal {
+    margin-left: 20px;
+}
+
+.ajoutFiltreConteneur .filtreDate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ajoutFiltreConteneur .datePicker {
+    display: flex;
+    justify-content: center;
+}
+
+.ajoutFiltreConteneur .dateDebut, .ajoutFiltreConteneur .dateFin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
