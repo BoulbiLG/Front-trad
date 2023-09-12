@@ -13,11 +13,10 @@
 }
 
 .ajoutFiltreConteneur .filtreConteneur {
-    width: 1000px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
     background-color: rgb(242, 242, 242);
     box-shadow: 0 1px 1px rgb(181, 181, 181);
     padding: 20px;
@@ -27,23 +26,21 @@
 
 .ajoutFiltreConteneur .ajouterFiltre {
     display: flex;
+    border-radius: 5px;
     align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 1px 1px rgb(181, 181, 181);
+    padding: 20px;
 }
 
 .ajoutFiltreConteneur .filtre {
     display: flex;
 }
 
-.ajoutFiltreConteneur .filtreOptionsDynamique {
-    margin-left: 20px;
-}
-
 .ajoutFiltreConteneur .ajouterFiltre .action {
     display: flex;
-}
-
-.ajoutFiltreConteneur .filtreDeBaseGlobal {
-    margin-left: 20px;
 }
 
 .ajoutFiltreConteneur .filtreDate {

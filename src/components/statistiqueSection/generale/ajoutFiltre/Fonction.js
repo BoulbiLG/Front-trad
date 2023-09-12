@@ -4,12 +4,33 @@
 
 
 // VOLUME / VOLUME REMAIN / PROFIT
-export const VolVolRemProAjoutValueFiltre = (event, index, setVariableValue, tableauFiltreValue, setTableauFiltreValue) => {
+
+export const volAjoutValueFiltre = (event, index, setVariableValue, tableauFiltreValue, setTableauFiltreValue) => {
     const nouvelleValeur = parseFloat(event.target.value);
     index = 0;
     setVariableValue(nouvelleValeur);
     const nouveauTableauFiltreValue = [...tableauFiltreValue];
-    nouveauTableauFiltreValue[index] = { filtreDeBase: nouvelleValeur };
+    nouveauTableauFiltreValue[index] =  { volume: nouvelleValeur };
+    setTableauFiltreValue(nouveauTableauFiltreValue);
+    console.log(tableauFiltreValue);
+};
+
+export const volRemAjoutValueFiltre = (event, index, setVariableValue, tableauFiltreValue, setTableauFiltreValue) => {
+    const nouvelleValeur = parseFloat(event.target.value);
+    index = 0;
+    setVariableValue(nouvelleValeur);
+    const nouveauTableauFiltreValue = [...tableauFiltreValue];
+    nouveauTableauFiltreValue[index] =  { volume_remain: nouvelleValeur };
+    setTableauFiltreValue(nouveauTableauFiltreValue);
+    console.log(tableauFiltreValue);
+};
+
+export const proAjoutValueFiltre = (event, index, setVariableValue, tableauFiltreValue, setTableauFiltreValue) => {
+    const nouvelleValeur = parseFloat(event.target.value);
+    index = 0;
+    setVariableValue(nouvelleValeur);
+    const nouveauTableauFiltreValue = [...tableauFiltreValue];
+    nouveauTableauFiltreValue[index] =  { profit: nouvelleValeur };
     setTableauFiltreValue(nouveauTableauFiltreValue);
     console.log(tableauFiltreValue);
 };

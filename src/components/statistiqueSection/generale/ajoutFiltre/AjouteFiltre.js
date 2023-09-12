@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Button from '../../../inputComposant/Button';
 import Selector from '../../../inputComposant/Selector';
 import Input from '../../../inputComposant/Input';
-import { filtreEntreeOptions, filtreOptions, typeOfTransactionOptions, recuperationNomRemplissageFiltre } from './Options';
+import { filtreEntreeOptions, filtreOptions, typeOfTransactionOptions, recuperationNomRemplissageFiltre, standardOptions, fetchCollectionOptions } from './Options';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../../../../css/statistique/generale/ajoutFiltre.css';
 import { symbolAjoutValueFiltre, typeTransactionAjoutValueFiltre, dateDebutAjoutValueFiltre, dateFinAjoutValueFiltre,
-VolVolRemProAjoutValueFiltre, } from './Fonction';
-import { recuperationRemplissageFiltre } from './API';
+volAjoutValueFiltre, volRemAjoutValueFiltre, proAjoutValueFiltre } from './Fonction';
+import { recuperationRemplissageFiltre, recuperationTradeParFiltre } from './API';
+import { verificationStandardOption } from './Standard';
 
 const AjouteFiltre = () => {
 
@@ -16,10 +17,17 @@ const AjouteFiltre = () => {
 
     const [tableauFiltre, setTableauFiltre] = useState([]);
     const [tableauFiltreValue, setTableauFiltreValue] = useState([]);
+    const [filtreData, setFiltreData] = useState([]);
+    const [collectionValues, setCollectionValues] = useState('');
+    const [collectionOption, setCollectionOption] = useState([]);
 
     const [filtreOptionsDynamique, setFiltreOptionsDynamique] = useState(filtreOptions);
     const [filtreEntreeValue, setFiltreEntreeValue] = useState();
     const [filtreTemporaireValue, setFiltreTemporaireValue] = useState();
+
+    const [standardValue, setStandardValue] = useState('');
+    //const [standardOptions, setStandardOptions] = useState([]);
+
     const [nomRemplissageValue, setNomRemplissageValue] = useState('');
     const [nomRemplissageOptions, setNomRemplissageOptions] = useState([]);
 
@@ -32,8 +40,26 @@ const AjouteFiltre = () => {
     const [volumeRemainValue, setVolumeRemainValue] = useState(null);
     const [profitValue, setProfitValue] = useState(null);
 
+    // RECUPERATION COLLECTION
     useEffect(() => {
+        const fetchCollection = async () => {
+            const collectionOptions = await fetchCollectionOptions(username);
+            setCollectionOption(collectionOptions);
+        }
+        fetchCollection();
+    }, [username]);
+
+    // RECUPERATION TRADE PAR FILTRE
+    useEffect(() => {
+        const fetchFiltreData = async () => {
+            const recuperationData = await recuperationTradeParFiltre(tableauFiltreValue, collectionValues);
+            setFiltreData(recuperationData);
+        };
+        fetchFiltreData();
+    }, [symboleValue, typeTransactionValue, startDateValue, endDateValue, volumeValue, volumeRemainValue, profitValue, collectionValues]);
+
     // REMPLISSAGE
+    useEffect(() => {
         const fetchRemplissageData = async () => {
             if (nomRemplissageValue !== null && nomRemplissageValue !== undefined && nomRemplissageValue !== '' && nomRemplissageValue !== 'aucun') {
                 const remplissageData = await recuperationRemplissageFiltre(nomRemplissageValue, setFiltreOptionsDynamique, setSymboleValue, 
@@ -50,8 +76,8 @@ const AjouteFiltre = () => {
         fetchRemplissageData();
     }, [nomRemplissageValue]);
 
+    // REMPLISSAGE NOM OPTIONS
     useEffect(() => {
-        // REMPLISSAGE NOM OPTIONS
         const fetchNomRemplissage = async () => {
             const nomRemplissageData = await recuperationNomRemplissageFiltre();
             setNomRemplissageOptions(nomRemplissageData);
@@ -84,7 +110,6 @@ const AjouteFiltre = () => {
         }
         setFiltreTemporaireValue('');
     }
-    
 
     const supprimerUnFiltre = (type) => {
         console.log(type);
@@ -107,6 +132,14 @@ const AjouteFiltre = () => {
             <div className="filtreConteneurGlobal">
                 <div className="filtreConteneur">
                     <div className="ajouterFiltre">
+                    <div className='collectionOptions'>
+                            <p>Collection</p>
+                            <Selector options={collectionOption} value={collectionValues} onChange={(selectedValue) => {setCollectionValues(selectedValue)}}/>
+                        </div>
+                        <div className='standardOptions'>
+                            <p>Standard</p>
+                            <Selector options={standardOptions} value={standardValue} onChange={(selectedValue) => {verificationStandardOption(selectedValue, setStandardValue, setTableauFiltre)}}/>
+                        </div>
                         <div className='remplissageOptions'>
                             <p>Remplissage automatique</p>
                             <Selector options={nomRemplissageOptions} value={nomRemplissageValue} onChange={(selectedValue) => {setNomRemplissageValue(selectedValue)}}/>
@@ -135,19 +168,19 @@ const AjouteFiltre = () => {
                                                 {filtre.type === 'volume' ? (
                                                     <div className='carteFiltre'>
                                                         <p>Volume</p>
-                                                        <Input type="number" value={volumeValue} placeholder={"Entrez un volume"} onChange={(event) => { VolVolRemProAjoutValueFiltre(event, index, setVolumeValue, tableauFiltreValue, setTableauFiltreValue); }}/>
+                                                        <Input type="number" value={volumeValue} placeholder={"Entrez un volume"} onChange={(event) => { volAjoutValueFiltre(event, index, setVolumeValue, tableauFiltreValue, setTableauFiltreValue); }}/>
                                                     </div>
                                                 ) : null}
                                                 {filtre.type === 'volume_remain' ? (
                                                     <div className='carteFiltre'>
                                                         <p>Volume remain</p>
-                                                        <Input type="number" value={volumeRemainValue} placeholder={"Entrez un volume remain"} onChange={(event) => { VolVolRemProAjoutValueFiltre(event, index, setVolumeRemainValue, tableauFiltreValue, setTableauFiltreValue); }}/>
+                                                        <Input type="number" value={volumeRemainValue} placeholder={"Entrez un volume remain"} onChange={(event) => { volRemAjoutValueFiltre(event, index, setVolumeRemainValue, tableauFiltreValue, setTableauFiltreValue); }}/>
                                                     </div>
                                                 ) : null}
                                                 {filtre.type === 'profit' ? (
                                                     <div className='carteFiltre'>
                                                         <p>Profit</p>
-                                                        <Input type="number" value={profitValue} placeholder={"Entrez un profit"} onChange={(event) => { VolVolRemProAjoutValueFiltre(event, index, setProfitValue, tableauFiltreValue, setTableauFiltreValue); }}/>
+                                                        <Input type="number" value={profitValue} placeholder={"Entrez un profit"} onChange={(event) => { proAjoutValueFiltre(event, index, setProfitValue, tableauFiltreValue, setTableauFiltreValue); }}/>
                                                     </div>
                                                 ) : null}
                                             </div>

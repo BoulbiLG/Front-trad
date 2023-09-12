@@ -171,8 +171,7 @@ export const timeFrameOptions = [
   {value: "Weekly", label: "Weekly"}
 ]
 
-let recuperationCollectionOption = [
-];
+let recuperationCollectionOption = [];
 
 export const fetchCollectionOptions = async (username) => {
   try {

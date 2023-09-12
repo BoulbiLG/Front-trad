@@ -6,14 +6,11 @@ import axios from 'axios';
 const Meilleur = ({ collection }) => {
 
     let collectionArgument = collection
-    console.log(collection);
 
     const [meilleurValue, setMeilleurValue] = useState(meilleurOptions[0].value);
     const [responseData, setResponseData] = useState([]);
 
     const username = sessionStorage.getItem('username');
-
-    console.log(meilleurValue);
 
     useEffect(() => {
         axios.get(`https://apipython2.onrender.com/best?meilleur=${meilleurValue}&username=${username}&collection=${collectionArgument}`)
