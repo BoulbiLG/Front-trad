@@ -10,7 +10,7 @@ nav {
  display: flex;
  align-items: center;
  justify-content: space-between;
- padding: 20px;
+ padding: 30px;
 }
 
 .logo {
@@ -26,7 +26,9 @@ nav {
 /*--------- onglet simple ---------*/
 
 .onglet {
-    color: rgb(0, 0, 0);
+    color: #2e4857;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
     text-decoration: none;
     position: relative;
     display: inline-block;
@@ -54,11 +56,10 @@ nav {
 /*--------- bouton de connexion ---------*/
 
 .login {
-    border: 1px solid rgb(0, 0, 0);
     border-radius: 5px;
-    padding: 1.5vh 2vw;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
+    padding: 1.7vh 2vw;
+    background-color: rgb(8, 0, 255);
+    color: rgb(255, 255, 255);
     cursor: pointer;
 }
 

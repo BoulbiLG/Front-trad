@@ -1,0 +1,52 @@
+.reviewConteneur {
+    margin-top: 10vh;
+    background-color: #bbcaff55;
+}
+
+.reviewConteneur .titre {
+    padding: 10vh 10vw;
+}
+
+.reviewConteneur .tousLesCommentaire {
+    display: flex;
+    justify-content: start;
+}
+
+.reviewConteneur .titre h1 {
+    color: #2e4857;
+    font-size: 4rem;
+    margin-bottom: 10vh;
+}
+
+.reviewConteneur .commentaireConteneur {
+    width: 600px;
+    height: 300px;
+    background-color: white;
+    border-radius: 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2vw;
+    margin: 0 20px;
+}
+
+.reviewConteneur .commentaireConteneur h4 {
+    font-size: 1.5rem;
+}
+
+.reviewConteneur .commentaireConteneur .paragraphe {
+}
+
+.reviewConteneur .commentaireConteneur p {
+    color: #2e4857;
+    font-size: 1.2rem; 
+}
+
+.reviewConteneur .commentaireConteneur .conteneurImage {
+    display: flex;
+    justify-content: start;
+}
+
+.reviewConteneur .commentaireConteneur img {
+    width: 200px;    
+}

@@ -9,6 +9,7 @@ import Strategie from '../components/strategie/Strategie';
 import Journal from '../components/journalSection/journal/Journal';
 import Consultation from '../components/journalSection/consultation/Consultation';
 import AjouteFiltre from '../components/statistiqueSection/generale/ajoutFiltre/AjouteFiltre';
+import Test from '../components/statistiqueSection/generale/graphique/Test';
 
 const Profil = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Profil = () => {
     sessionStorage.setItem('auth', 'false');
     sessionStorage.removeItem('userData');
     navigate('/login');
-  };  
+  };
 
   return (
     <>

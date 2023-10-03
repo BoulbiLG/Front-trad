@@ -3,7 +3,77 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url("../../Assets/fondLignePoint.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 100px;
 }
+
+.titreConteneur::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -205px;
+    width: 100%;
+    height: 50px;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  }
+
+/* ==================== VIDEO ==================== */
+
+.titreConteneur .videoConteneur {
+    border-radius: 50px;
+    height: 480px;
+    background-color: #bbcaff55;
+    padding: 30px;
+}
+
+.titreConteneur .bordureVideo {
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+    background-color: #1744df;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titreConteneur .videoBordure {
+    width: 150px;
+    height: 150px;
+    background-color: #2454ff;
+    padding: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titreConteneur .videoRond {
+    width: 100%;
+    height: 100%;
+    background-color: #426bff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titreConteneur .videoTriangle {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+}
+
+/* ==================== INFORMATION ==================== */
+
+.information {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 900px;
+}
+
 
 .centralisation {
     padding: 25px 0;
@@ -15,8 +85,7 @@
 
 .titreH1 {
     position: relative;
-    margin: 20px auto;
-    max-width: 600px;
+    max-width: 800px;
     text-align: center;
     width: 100%;
     display: flex;
@@ -24,23 +93,25 @@
 }
 
 .titreConteneur h1 {
-    font-size: 3rem;
+    color: #2e4857;
+    font-size: 4rem;
 }
 
 .boutonCommencerDiv {
     display: flex;
     justify-content: center;
-    margin: 50px 0;
 }
 
 .boutonCommencer {
-    padding: 10px 20px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    padding: 1.7vh 2vw;
     font-size: 16px;
     font-weight: bold;
     border-radius: 4px;
     border: none;
-    background-color: #007bff;
-    color: #fff;
+    background-color: rgb(8, 0, 255);
+    color: rgb(255, 255, 255);
     cursor: pointer;
     transition: all 0.2s;
 }

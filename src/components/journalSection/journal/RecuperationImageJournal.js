@@ -5,62 +5,33 @@ import '../../../css/journal/recuperationImageJournal.css';
 import { useGlobalImage } from '../../../variableGlobal/variableImage';
 
 const RecuperationImageJournal = ({ imageIds }) => {
-
-    // RAFFRAICHISSEMENT AUTO
     const { globalImage, setGlobalImage } = useGlobalImage();
-
     const [imageURLs, setImageURLs] = useState([]);
-    const [imageIdsFromAPI, setImageIdsFromAPI] = useState([]);
-    const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+    const [selectedImageIndexes, setSelectedImageIndexes] = useState([]);
+    const [images, setImages] = useState([]);
 
+    const fetchImages = () => {
+        axios.get(`https://apipython2.onrender.com/recuperationImage?imageId=${imageIds}`)
+        .then((response) => {
+            setImages(response.data);
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.error('Erreur lors de la récupération des images :', error);
+        });
+    }
     
-    const fetchImages = async () => {
-        console.log("grvfdsvgf");
-        try {
-            const imagePromises = imageIds.map(async (imageId) => {
-                if (imageId !== null && imageId !== undefined && imageId !== "" ) {
-                    const response = await axios.get(`https://apipython2.onrender.com/recuperationImage?imageId=${imageId}`, {
-                        responseType: 'arraybuffer',
-                    });
-    
-                    const imageUrl = URL.createObjectURL(new Blob([response.data], { type: 'image/jpeg' }));
-        
-                    const additionalInfoResponse = await axios.get(`https://apipython2.onrender.com/recuperationDonneeImage?imageId=${imageId}`);
-                    const additionalInfo = additionalInfoResponse.data;
-        
-                    const idsFromAPI = response.headers['image_id'];
-                    if (idsFromAPI) {
-                        setImageIdsFromAPI(idsFromAPI.split(','));
-                    }
-        
-                    return {
-                        imageUrl,
-                        additionalInfo
-                    };
-                }
-            });
-    
-            const imagesWithInfo = await Promise.all(imagePromises);
-            setImageURLs(imagesWithInfo);
-    
-        } catch (error) {
-            console.error('erreur recuperation des images :', error);
-        }
-    };
-
     const suppressionImage = async (imageId) => {
         try {
-            if (imageId !== null && imageId !== undefined && imageId !== "" ) {
+            if (imageId !== null && imageId !== undefined && imageId !== "") {
                 const response = await axios.delete(`https://apipython2.onrender.com/suppressionImage?id=${imageId}`);
                 console.log('Image supprimée avec succès:', response.data);
                 
-                const updatedImageURLs = imageURLs.filter(imageInfo =>
-                    !imageInfo.additionalInfo.image_ids.includes(imageId)
-                );
-                setImageURLs(updatedImageURLs);
+                // Mettez à jour l'état des images côté client
+                setImages(images.filter(image => image.imageID !== imageId));
+    
                 let randomVariable = Math.random();
                 setGlobalImage(randomVariable);
-                console.log(globalImage);
                 return response.data;
             }
         } catch (error) {
@@ -73,7 +44,7 @@ const RecuperationImageJournal = ({ imageIds }) => {
     };
 
     const handleImageClick = (index) => {
-        setSelectedImageIndex(index);
+        setSelectedImageIndexes([...selectedImageIndexes, index]);
     };
 
     useEffect(() => {
@@ -81,27 +52,26 @@ const RecuperationImageJournal = ({ imageIds }) => {
     }, [globalImage]);
 
     return (
-        <div className='conteneurImage'>
-            {imageURLs.map((imageInfo, index) => (
-                <div key={index}>
+        <div className='conteneurImageJournal'>
+            {images.map((image, index) => (
+                <div key={image.image_id}>
                     <div className="imagePetit">
-                        {/*<div className="imagePetiteImg" style={{background: `url(${imageInfo.imageUrl})`, backgroundPosition: "center", backgroundSize: "cover"}}></div>*/}
-                        <img className='imagePetiteImg'src={`${imageInfo.imageUrl}`}alt=""onClick={() => handleImageClick(index)} />
+                        <img className='imagePetiteImg' src={`data:image/jpeg;base64,${image.image_data}`} alt="" onClick={() => handleImageClick(index)} />
                         <div className="suppressionImage">
-                            <Button className="btnSupprimer" label='Supprimer'onClick={() => suppressionImage(imageInfo.additionalInfo.image_ids[index])} />
+                            <Button className="btnSupprimer" label='Supprimer' onClick={() => suppressionImage(image.imageID)} />
                         </div>
                     </div>
-                    {selectedImageIndex !== null && (
+                    {selectedImageIndexes.includes(index) && (
                         <div className="imageGrandeConteneur">
                             <div className="imageGrande">
-                                <img className='imageGrandeImg'src={`${imageInfo.imageUrl}`}alt="" />
-                                <Button label='Fermer'onClick={() => setSelectedImageIndex(null)} />
+                                <img className='imageGrandeImg' src={`data:image/jpeg;base64,${image.image_data}`} alt="" />
+                                <Button label='Fermer' onClick={() => setSelectedImageIndexes(selectedImageIndexes.filter(selectedIndex => selectedIndex !== index))} />
                             </div>
                         </div>
                     )}
                 </div>
             ))}
-            {imageURLs == undefined || imageURLs.length < 1 ? (
+            {images == undefined || images.length < 1 ? (
                 <p>Aucune image disponible.</p>
             ) : null}
         </div>

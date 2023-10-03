@@ -12,6 +12,18 @@
     margin: 5px 0;
 }
 
+.ajoutFiltreConteneur .graphique {
+    display: flex;
+}
+
+.ajoutFiltreConteneur .winrate {
+    flex: 1;
+}
+
+.ajoutFiltreConteneur .reste {
+    flex: 1;
+}
+
 .ajoutFiltreConteneur .filtreConteneur {
     width: 100%;
     display: flex;

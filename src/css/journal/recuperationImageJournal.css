@@ -1,9 +1,9 @@
-.conteneurImage {
+.conteneurImageJournal {
     border-radius: 10px;
+    display: flex;
 }
 
-.lol {
-    width: 200px;
+.conteneurImageJournal .lol {
     height: 100px;
     background-repeat: no-repeat;
     background-position: center;
@@ -12,9 +12,9 @@
     position: relative;
 }
 
-.imagePetiteImg {
-    width: 200px;
-    height: 100px;
+.conteneurImageJournal .imagePetiteImg {
+    max-width: 200px;
+    max-height: 100px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -24,12 +24,12 @@
     background-color: rgb(255, 255, 255);
 }
 
-.imagePetiteImg:hover {
+.conteneurImageJournal .imagePetiteImg:hover {
     filter: brightness(125%);
     box-shadow: 0 0 10px rgb(163, 163, 163);
 }
 
-.imageGrandeConteneur {
+.conteneurImageJournal .imageGrandeConteneur {
     animation: arrive 0.3s ease forwards;
     display: flex;
     align-items: center;
@@ -41,26 +41,26 @@
     height: 100%;
 }
 
-.imageGrande {
+.conteneurImageJournal .imageGrande {
     border-radius: 10px;
     background-color: rgb(24, 16, 16);
     padding: 20px;
 }
 
-.imageGrandeImg {
+.conteneurImageJournal .imageGrandeImg {
     border-radius: 10px;
     max-width: 1280px;
     max-height: 720px;
 }
 
-.imagePetit .suppressionImage {
+.conteneurImageJournal .imagePetit .suppressionImage {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.imagePetit {
+.conteneurImageJournal .imagePetit {
     padding: 5px;
     max-width: 300px;
     display: flex;

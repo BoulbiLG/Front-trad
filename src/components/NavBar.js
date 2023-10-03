@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/navBar.css';
-
+import logo from '../Assets/logo.png';
 const NavBar = () => {
   const isAuthenticated = sessionStorage.getItem('auth') === 'true';
   const userDataFromSession = JSON.parse(sessionStorage.getItem('userData'));
@@ -10,7 +10,7 @@ const NavBar = () => {
 
   return (
     <nav>
-      <Link className='onglet simple' to="/"><img src="" alt="" />Logo</Link>
+      <Link className='onglet simple' to="/"><img src={logo} alt="" /></Link>
       <div className="navigation">
         <Link className='onglet simple' to="/">Home</Link>
         <Link className='onglet simple' to="/">Pricing</Link>

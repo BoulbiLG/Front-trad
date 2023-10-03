@@ -1,0 +1,50 @@
+.presentationConteneur {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.presentationConteneur .conteneurSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.presentationConteneur .section1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.presentationConteneur .section1 .case1 {
+    padding: 0 5vw;
+    max-width: 600px;
+}
+
+.presentationConteneur .section1 .case1 .paragraphe {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: start;
+    max-width: 100%;
+    height: 550px;
+}
+
+.presentationConteneur .section1 h1 {
+    color: #2e4857;
+    font-size: 4rem;
+    margin-right: 50px;
+}
+
+.presentationConteneur .section1 p {
+    color: #767f98;
+}
+
+.presentationConteneur .section1 .case2 {
+    flex: 1;
+}
+
+.presentationConteneur .section1 .boutonCommencerDiv {
+    display: flex;
+    justify-content: start;
+}

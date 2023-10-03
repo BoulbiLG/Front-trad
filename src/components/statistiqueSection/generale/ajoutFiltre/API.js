@@ -1,31 +1,132 @@
 import axios from 'axios';
+import { format } from 'date-fns';
+import { formatISO } from 'date-fns';
 
-const apiUrl = 'https://apipython2.onrender.com';
-const headers = { 'Content-Type': 'application/json' };
+// http://localhost:1234
+// https://apipython2.onrender.com
+const apiUrl = 'http://localhost:1234';
 const username = sessionStorage.getItem('username');
 
-export const recuperationTradeParFiltre = async (tableauFiltreValue, collectionValues) => {
+export const recuperationTradeParFiltreDate = async (tableauFiltreValue, collectionValues, startDate, endDate) => {
+
+    const verificationDateValide = '1970-01-01T01:00:00.000Z';
+
+    const dateDebutBrut = new Date(startDate);
+    const dateDebut = format(dateDebutBrut, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    const dateDebutString = dateDebut.toLocaleString();
+    console.log(dateDebut);
+
+    const dateFinBrut = new Date(endDate);
+    const dateFin = format(dateFinBrut, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    const dateFinString = dateFin.toLocaleString();
+    console.log(dateFin);
+
     tableauFiltreValue = tableauFiltreValue.filter(item => item !== undefined);
-    console.log(tableauFiltreValue);
-    if (tableauFiltreValue !== null && tableauFiltreValue !== undefined && tableauFiltreValue !== '' && tableauFiltreValue.length !== 0) {
-        if (collectionValues !== null && collectionValues !== undefined && collectionValues !== '') {
-            try {
-                const response = await axios.get(`${apiUrl}/recuperationTradeParFiltre?collection=${collectionValues}`, tableauFiltreValue, { headers });
-                console.log(response.data);
-                return response.data;
-            } catch (error) {
-                if (error.response) {
-                    console.error("Réponse d'erreur de l'API:", error.response.data);
-                } else if (error.request) {
-                    console.error("Erreur de requête:", error.request);
-                } else {
-                    console.error("Erreur lors de la requête:", error.message);
+
+    if (dateDebutString != verificationDateValide && dateFinString != verificationDateValide) {
+        console.log("verification terminée");
+        console.log(dateDebutString);
+        console.log(dateFinString);
+        console.log(verificationDateValide);
+        if (collectionValues) {
+            const filtreDeBase = tableauFiltreValue[0].filtreDeBase;
+            tableauFiltreValue.shift();
+            console.log(tableauFiltreValue);
+            console.log(`${apiUrl}/${filtreDeBase}`);
+            const ok = JSON.stringify(tableauFiltreValue);
+            const params = {
+                dateDebut: dateDebut,
+                dateFin: dateFin,
+                collection: collectionValues,
+                username: username,
+                filtreDeBase: filtreDeBase,
+            }
+            if (filtreDeBase) {
+                if (tableauFiltreValue) {
+                    console.log(params);
+                    console.log(filtreDeBase);
+                    try {
+                        if(filtreDeBase == "Capitalrisk" || filtreDeBase == "psychologie" || filtreDeBase == "typeOrdre") {
+                            console.log("vérification accomplie")
+                            const response = await axios.get(`${apiUrl}/${filtreDeBase}`, { params });
+                            console.log(response.data);
+                            return response.data;
+                        }
+                        else {
+                            console.log("vérification rejetée")
+                            const response = await axios.get(`${apiUrl}/filtreAnnexe`, { params });
+                            console.log(response.data);
+                            return response.data;
+                        }
+                    } catch (error) {
+                        console.log(params);
+                        if (error.response) {
+                            console.error("Réponse d'erreur de l'API:", error.response.data);
+                        } else if (error.request) {
+                            console.error("Erreur de requête:", error.request);
+                        } else {
+                            console.error("Erreur lors de la requête:", error.message);
+                        }
+                        throw error;
+                    }
                 }
-                throw error;
             }
         }
     }
 };
+
+export const recuperationTradeParFiltre = async (tableauFiltreValue, collectionValues) => {
+    tableauFiltreValue = tableauFiltreValue.filter(item => item !== undefined);
+
+    if (tableauFiltreValue && tableauFiltreValue.length > 0) {
+        if (collectionValues) {
+            const filtreDeBase = tableauFiltreValue[0].filtreDeBase;
+            tableauFiltreValue.shift();
+            console.log(tableauFiltreValue);
+            console.log(`${apiUrl}/${filtreDeBase}`);
+            const ok = JSON.stringify(tableauFiltreValue);
+            const params = {
+                collection: collectionValues,
+                username: username,
+                filtreDeBase: filtreDeBase,
+                tableauFiltreValue: ok
+            }
+            if (filtreDeBase) {
+                if (tableauFiltreValue) {
+                    console.log(params);
+                    console.log(filtreDeBase);
+                    try {
+                        if(filtreDeBase == "Capitalrisk" || filtreDeBase == "psychologie" || filtreDeBase == "orderType") {
+                            console.log("vérification accomplie")
+                            const response = await axios.get(`${apiUrl}/filtreAnnexe`, { params });
+                            console.log(response.data);
+                            return response.data;
+                        }
+                        else {
+                            console.log("vérification rejetée")
+                            const response = await axios.get(`${apiUrl}/${filtreDeBase}`, { params });
+                            console.log(response.data);
+                            return response.data;
+                        }
+                    } catch (error) {
+                        console.log(params);
+                        if (error.response) {
+                            console.error("Réponse d'erreur de l'API:", error.response.data);
+                        } else if (error.request) {
+                            console.error("Erreur de requête:", error.request);
+                        } else {
+                            console.error("Erreur lors de la requête:", error.message);
+                        }
+                        throw error;
+                    }
+                }
+            }
+        }
+    }
+};
+
+
+
 
 export const recuperationNomRemplissageFiltre = async () => {
     try {

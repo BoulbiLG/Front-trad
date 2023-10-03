@@ -17,6 +17,7 @@ import TexteZone from '../../inputComposant/TexteZone';
 import { useGlobalTrade } from '../../../variableGlobal/variableTrade';
 import { useGlobalTag } from '../../../variableGlobal/variableTag';
 import { useGlobalNote } from '../../../variableGlobal/variableNote';
+import Lolll from './lolll';
 
 // fetch recuperation options ./API.js
 import { fetchJournalData, applyModifications, fetchStrategieOptions, fetchPorteFeuilleOptions, recuperationSeulRemplissage, recuperationNomRemplissage } from './API';

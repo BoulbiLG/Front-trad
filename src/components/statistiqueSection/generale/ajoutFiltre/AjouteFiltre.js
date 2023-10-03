@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import Button from '../../../inputComposant/Button';
-import Selector from '../../../inputComposant/Selector';
-import Input from '../../../inputComposant/Input';
-import { filtreEntreeOptions, filtreOptions, typeOfTransactionOptions, recuperationNomRemplissageFiltre, standardOptions, fetchCollectionOptions } from './Options';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import Button from '../../../inputComposant/Button';
+import Selector from '../../../inputComposant/Selector';
+import Input from '../inputComposant/Input';
+
 import '../../../../css/statistique/generale/ajoutFiltre.css';
-import { symbolAjoutValueFiltre, typeTransactionAjoutValueFiltre, dateDebutAjoutValueFiltre, dateFinAjoutValueFiltre,
-volAjoutValueFiltre, volRemAjoutValueFiltre, proAjoutValueFiltre } from './Fonction';
-import { recuperationRemplissageFiltre, recuperationTradeParFiltre } from './API';
-import { verificationStandardOption } from './Standard';
+
+import Winrate from '../graphique/Winrate';
+
+import { filtreOptions, recuperationNomRemplissageFiltre, winrateOptions, fetchCollectionOptions, fetchStrategieOptions, typeCalculOptions,
+riskRewardOptions, SLROptions, TPROptions, DDOptions, psychologieOptions, capitaleRiskOptions, typeOrdreOptions } from './Options';
+import { dateDebutAjoutValueFiltre, dateFinAjoutValueFiltre} from './Fonction';
+import { recuperationRemplissageFiltre, recuperationTradeParFiltre, recuperationTradeParFiltreDate } from './API';
+
+import { verificationStandardOption } from './standard/Winrate';
+import { RRverificationStandardOption } from './standard/RR';
+import { SLRverificationStandardOption } from './standard/SLR';
+import { TPRverificationStandardOption } from './standard/TPR';
+import { DDverificationStandardOption } from './standard/DD';
+import { TailleLotVerificationStandardOption } from './standard/TailleLot';
+import { PsychologieVerificationStandardOption } from './standard/Psychologie';
+import { TypeOrdreVerificationStandardOption } from './standard/TypeOrdre';
 
 const AjouteFiltre = () => {
 
@@ -20,43 +33,69 @@ const AjouteFiltre = () => {
     const [filtreData, setFiltreData] = useState([]);
     const [collectionValues, setCollectionValues] = useState('');
     const [collectionOption, setCollectionOption] = useState([]);
+    const [strategieOption, setStrategieOption] = useState([]);
 
     const [filtreOptionsDynamique, setFiltreOptionsDynamique] = useState(filtreOptions);
-    const [filtreEntreeValue, setFiltreEntreeValue] = useState();
     const [filtreTemporaireValue, setFiltreTemporaireValue] = useState();
 
+    const [typeCalculValue, setTypeCalculValue] = useState('');
     const [standardValue, setStandardValue] = useState('');
     //const [standardOptions, setStandardOptions] = useState([]);
 
     const [nomRemplissageValue, setNomRemplissageValue] = useState('');
     const [nomRemplissageOptions, setNomRemplissageOptions] = useState([]);
 
-    // VARIABLES DES INPUTS
+    // VARIABLES DES FILTRE DE BASE
+    const [volumeValue, setVolumeValue] = useState(null);
+    const [volumeRemainValue, setVolumeRemainValue] = useState(null);
+    const [profitValue, setProfitValue] = useState(null);
+    const [psychologieValue, setPsychologieValue] = useState(null);
+    const [winrateValue, setWinrateValue] = useState(null);
+
+    // VARIABLES DES FILTRE ANNEXE
     const [symboleValue, setSymboleValue] = useState('');
     const [typeTransactionValue, setTypeTransactionValue] = useState('');
     const [startDateValue, setStartDateValue] = useState(null);
     const [endDateValue, setEndDateValue] = useState(null);
-    const [volumeValue, setVolumeValue] = useState(null);
-    const [volumeRemainValue, setVolumeRemainValue] = useState(null);
-    const [profitValue, setProfitValue] = useState(null);
 
-    // RECUPERATION COLLECTION
     useEffect(() => {
+        // RECUPERATION COLLECTION
         const fetchCollection = async () => {
             const collectionOptions = await fetchCollectionOptions(username);
             setCollectionOption(collectionOptions);
         }
+        // STRATEGIE OPTIONS
+      const fetchOptions = async () => {
+        const strategieOption = await fetchStrategieOptions(username, setStrategieOption);
+        setStrategieOption(strategieOption);
+      };
         fetchCollection();
+        fetchOptions();
     }, [username]);
 
     // RECUPERATION TRADE PAR FILTRE
     useEffect(() => {
         const fetchFiltreData = async () => {
-            const recuperationData = await recuperationTradeParFiltre(tableauFiltreValue, collectionValues);
-            setFiltreData(recuperationData);
+            console.log(tableauFiltreValue);
+            if (tableauFiltreValue.length > 1) {
+                console.log('brisé');
+                const recuperationData = await recuperationTradeParFiltre(tableauFiltreValue, collectionValues);
+                setFiltreData(recuperationData);
+            }
         };
         fetchFiltreData();
-    }, [symboleValue, typeTransactionValue, startDateValue, endDateValue, volumeValue, volumeRemainValue, profitValue, collectionValues]);
+    }, [symboleValue, typeTransactionValue, volumeValue, volumeRemainValue, profitValue, collectionValues, psychologieValue,
+    tableauFiltreValue, startDateValue, endDateValue]);
+
+    // RECUPERATION TRADE PAR FILTRE AVEC DATE
+    useEffect(() => {
+        const fetchFiltreDataDate = async () => {
+            console.log(tableauFiltreValue);
+            const recuperationData = await recuperationTradeParFiltreDate(tableauFiltreValue, collectionValues, startDateValue, endDateValue);
+            setFiltreData(recuperationData);
+        };
+        fetchFiltreDataDate();
+    }, [collectionValues, tableauFiltreValue, startDateValue, endDateValue]);
 
     // REMPLISSAGE
     useEffect(() => {
@@ -132,30 +171,61 @@ const AjouteFiltre = () => {
             <div className="filtreConteneurGlobal">
                 <div className="filtreConteneur">
                     <div className="ajouterFiltre">
-                    <div className='collectionOptions'>
-                            <p>Collection</p>
+                        <div className='collectionOptions'> riskRewardOptions
+                            <p>portefeuille</p>
                             <Selector options={collectionOption} value={collectionValues} onChange={(selectedValue) => {setCollectionValues(selectedValue)}}/>
                         </div>
                         <div className='standardOptions'>
-                            <p>Standard</p>
-                            <Selector options={standardOptions} value={standardValue} onChange={(selectedValue) => {verificationStandardOption(selectedValue, setStandardValue, setTableauFiltre)}}/>
-                        </div>
-                        <div className='remplissageOptions'>
-                            <p>Remplissage automatique</p>
-                            <Selector options={nomRemplissageOptions} value={nomRemplissageValue} onChange={(selectedValue) => {setNomRemplissageValue(selectedValue)}}/>
-                        </div>
-                        <div className='filtreOptionsDynamique'>
-                            <p>Ajouter un filtre</p>
-                            <div className='action'>
-                                <Selector options={filtreOptionsDynamique} value={filtreTemporaireValue} onChange={(selectedValue) => {setFiltreTemporaireValue(selectedValue)}}/>
-                                <Button label="+" onClick={() => {ajouterUnFitre(filtreTemporaireValue)}} />
-                            </div>
-                        </div>
-                        <div className="filtreDeBaseGlobal">
-                            <p>Ajouter un filtre de base</p>
-                            <div className="action">
-                                <Selector options={filtreEntreeOptions} value={filtreEntreeValue} onChange={(selectedValue) => {ajouterUnFitreDepart(selectedValue)}}/>
-                            </div>
+                            <p>filtre</p>
+                            <Selector options={typeCalculOptions} value={typeCalculValue} onChange={(selectedValue) => {setTypeCalculValue(selectedValue)}}/>
+                            { typeCalculValue == 'winrate' ? (
+                                <><p>par</p>
+                                <Selector options={winrateOptions} value={standardValue} onChange={(selectedValue) => {verificationStandardOption(
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                )}}/></>
+                            ) : null }
+                            { typeCalculValue == 'riskReward' ? (
+                                <><p>par</p>
+                                <Selector options={riskRewardOptions} value={standardValue} onChange={(selectedValue) => {RRverificationStandardOption(
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                )}}/></>
+                            ) : null }
+                            { typeCalculValue == 'TPR' ? (
+                                <><p>par</p>
+                                <Selector options={TPROptions} value={standardValue} onChange={(selectedValue) => {TPRverificationStandardOption(
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                )}}/></>
+                            ) : null }
+                            { typeCalculValue == 'SLR' ? (
+                                <><p>par</p>
+                                <Selector options={SLROptions} value={standardValue} onChange={(selectedValue) => {SLRverificationStandardOption(
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                )}}/></>
+                            ) : null }
+                            { typeCalculValue == 'DD' ? (
+                                <><p>par</p>
+                                <Selector options={DDOptions} value={standardValue} onChange={(selectedValue) => {DDverificationStandardOption(
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                )}}/></>
+                            ) : null }
+                            { typeCalculValue == 'psychologie' ? (
+                                <><p>par</p>
+                                <Selector options={psychologieOptions} value={standardValue} onChange={(selectedValue) => {PsychologieVerificationStandardOption(
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                )}}/></>
+                            ) : null }
+                            { typeCalculValue == 'capitalRisk' ? (
+                                <><p>par</p>
+                                <Selector options={capitaleRiskOptions} value={standardValue} onChange={(selectedValue) => {TailleLotVerificationStandardOption(
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                )}}/></>
+                            ) : null }
+                            { typeCalculValue == 'typeOrdre' ? (
+                                <><p>par</p>
+                                <Selector options={typeOrdreOptions} value={standardValue} onChange={(selectedValue) => {TypeOrdreVerificationStandardOption(
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                )}}/></>
+                            ) : null }
                         </div>
                     </div>
                     <div className="filtre">
@@ -163,26 +233,9 @@ const AjouteFiltre = () => {
                             <div className="fitlreDeBase">
                                 {tableauFiltre.map((filtre, index) => (
                                     <div>
-                                        {filtre.filtre === 'filtreDeBase' ? (
-                                            <div>
-                                                {filtre.type === 'volume' ? (
-                                                    <div className='carteFiltre'>
-                                                        <p>Volume</p>
-                                                        <Input type="number" value={volumeValue} placeholder={"Entrez un volume"} onChange={(event) => { volAjoutValueFiltre(event, index, setVolumeValue, tableauFiltreValue, setTableauFiltreValue); }}/>
-                                                    </div>
-                                                ) : null}
-                                                {filtre.type === 'volume_remain' ? (
-                                                    <div className='carteFiltre'>
-                                                        <p>Volume remain</p>
-                                                        <Input type="number" value={volumeRemainValue} placeholder={"Entrez un volume remain"} onChange={(event) => { volRemAjoutValueFiltre(event, index, setVolumeRemainValue, tableauFiltreValue, setTableauFiltreValue); }}/>
-                                                    </div>
-                                                ) : null}
-                                                {filtre.type === 'profit' ? (
-                                                    <div className='carteFiltre'>
-                                                        <p>Profit</p>
-                                                        <Input type="number" value={profitValue} placeholder={"Entrez un profit"} onChange={(event) => { proAjoutValueFiltre(event, index, setProfitValue, tableauFiltreValue, setTableauFiltreValue); }}/>
-                                                    </div>
-                                                ) : null}
+                                        {filtre.type === "winrate" ? (
+                                            <div className='carteFiltre'>
+                                                <p>Winrate</p>
                                             </div>
                                         ) : null}
                                     </div>
@@ -190,33 +243,58 @@ const AjouteFiltre = () => {
                             </div>
                             {tableauFiltre.map((filtre, index) => (
                                 <div className='autreFiltre' key={index}>
-                                    {filtre.type === 'date' ? (
-                                        <div className='filtreDate carteFiltre'>
-                                            <div className="datePicker">
-                                                <div className="dateDebut">
-                                                    <p>Date du début</p>
-                                                    <DatePicker selected={startDateValue} onChange={(date) => {dateDebutAjoutValueFiltre(date, index, setStartDateValue, tableauFiltreValue, setTableauFiltreValue)}} />
-                                                </div>
-                                                <div className="dateFin">
-                                                    <p>Date de fin</p>
-                                                    <DatePicker selected={endDateValue} onChange={(date) => {dateFinAjoutValueFiltre(date, index, setEndDateValue, tableauFiltreValue, setTableauFiltreValue)}} />
-                                                </div>
-                                            </div>
-                                            <Button label='Supprimer ce filtre' onClick={() => {supprimerUnFiltre(filtre.type)}} />
-                                        </div>
-                                    ) : null}
                                     {filtre.type === "typeOfTransaction" ? (
                                         <div className='carteFiltre'>
                                             <p>Type of transaction</p>
-                                            <Selector options={typeOfTransactionOptions} value={typeTransactionValue} onChange={(selectedValue) => { typeTransactionAjoutValueFiltre(selectedValue, index, setTypeTransactionValue, tableauFiltreValue, setTableauFiltreValue); }}/>
-                                            <Button label='Supprimer ce filtre' onClick={() => {supprimerUnFiltre(filtre.type)}}/>
                                         </div>
                                     ) : null}
                                     {filtre.type === "symbol" ? (
                                         <div className='carteFiltre'>
                                             <p>Symbol</p>
-                                            <Input type="text" value={symboleValue} placeholder={"Entrez un symbol"} onChange={(event) => { symbolAjoutValueFiltre(event, index, setSymboleValue, tableauFiltreValue, setTableauFiltreValue); }}/>
-                                            <Button label='Supprimer ce filtre' onClick={() => {supprimerUnFiltre(filtre.type)}} />
+                                        </div>
+                                    ) : null}
+                                    {filtre.type === "psychologie" ? (
+                                        <div className='carteFiltre'>
+                                            <p>Psychologie</p>
+                                        </div>
+                                    ) : null}
+                                    {filtre.type === "balance" ? (
+                                        <div className='carteFiltre'>
+                                            <p>Draw down</p>
+                                        </div>
+                                    ) : null}
+                                    {filtre.type === "RR" ? (
+                                        <div className='carteFiltre'>
+                                            <p>Risk reward</p>
+                                        </div>
+                                    ) : null}
+                                    {filtre.type === "strategie" ? (
+                                        <div className='carteFiltre'>
+                                            <p>Strategie</p>
+                                        </div>
+                                    ) : null}
+                                    {filtre.type === 'capitalrisk' ? (
+                                        <div className='carteFiltre'>
+                                            <p>Capital risk</p>
+                                        </div>
+                                    ) : null}
+                                    {filtre.type === 'orderType' ? (
+                                        <div className='carteFiltre'>
+                                            <p>Order type</p>
+                                        </div>
+                                    ) : null}
+                                    {filtre.type === 'date' ? (
+                                        <div className='filtreDate carteFiltre'>
+                                            <div className="datePicker">
+                                                <div className="dateDebut">
+                                                    <p>Date du début</p>
+                                                    <DatePicker selected={startDateValue} onChange={(selectedValue) => {setStartDateValue(selectedValue)}} />
+                                                </div>
+                                                <div className="dateFin">
+                                                    <p>Date de fin</p>
+                                                    <DatePicker selected={endDateValue} onChange={(selectedValue) => {setEndDateValue(selectedValue)}} />
+                                                </div>
+                                            </div>
                                         </div>
                                     ) : null}
                                 </div>
@@ -224,6 +302,12 @@ const AjouteFiltre = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="graphique">
+                <div className="winrate">
+                    <Winrate reponseAPI={filtreData}/>
+                </div>
+                <div className="reste"></div>
             </div>
         </div>
     )

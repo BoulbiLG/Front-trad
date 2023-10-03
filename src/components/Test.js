@@ -12,7 +12,7 @@ const Homepage = () => {
                 <div className="overlap">
                     <div className="rectangle" />
                     <img className="img" alt="Rectangle" src="rectangle-171.svg" />
-                    <img className="img" alt="Mask group" src="mask-group.png" />
+                    <img className="img" alt="Mask group" src="Mask group.png" />
                     <div className="rectangle-2" />
                     <div className="rectangle-3" />
                     <p className="text-wrapper">
@@ -418,11 +418,11 @@ const Homepage = () => {
                     <div className="unlock-success-with">Unlock&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Success with TradeMentis</div>
                     <div className="group-40">
                         <div className="img-wrapper">
-                            <img className="group-41" alt="Group" src="group.png" />
+                            <img className="group-41" alt="Group" src="../../Assets/group 212.png" />
                         </div>
                     </div>
                 </div>
-                <img className="image" alt="Image" src="image-2.png" />
+                <img className="image" alt="Image" src="image_2.png" />
                 <div className="overlap-16">
                     <div className="group-42">
                         <div className="group-43">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../css/component/input.css';
+import '../../../../css/component/input.css';
 
 const Input = ({ type, placeholder, value, onChange, bord }) => {
   const [inputValue, setInputValue] = useState(value !== null ? value : '');
@@ -19,17 +19,27 @@ const Input = ({ type, placeholder, value, onChange, bord }) => {
     }
   };
 
+  const handleKeyDown = event => {
+    if (event.key === 'Enter') {
+      // Si la touche "Entrée" est pressée, déclencher l'événement onChange
+      onChange(event);
+    }
+  };
+
   const style = {
     border: bord === 'non' ? 'none' : '1px solid black',
   };
 
   return (
-    <input type="text" placeholder={placeholder} value={inputValue} onChange={handleInputChange} style={style}/>
+    <input
+      type="text"
+      placeholder={placeholder}
+      value={inputValue}
+      onChange={handleInputChange}
+      onKeyDown={handleKeyDown} // Ajoutez cet événement
+      style={style}
+    />
   );
 };
 
 export default Input;
-
-
-
-
