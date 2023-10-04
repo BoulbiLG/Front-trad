@@ -1,0 +1,27 @@
+.conteneurCarteQuestion {
+    padding: 2vh 2vw;
+    border: 1px solid #767f98;
+    border-radius: 1vh;
+    margin: 1vh 0;
+    transition: all 0.3s;
+    background-color: #ffffff55;
+    filter: brightness(100%);
+    cursor: pointer;
+}
+
+.conteneurCarteQuestion:hover {
+    filter: brightness(80%);
+}
+
+.conteneurCarteQuestion:active {
+    filter: brightness(60%);
+}
+
+.conteneurCarteQuestion .question {
+    display: flex;
+    justify-content: space-between;
+}
+
+.conteneurCarteQuestion .question p {
+    font-size: 2rem;
+}

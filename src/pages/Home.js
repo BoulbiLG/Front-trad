@@ -4,7 +4,9 @@ import '../css/home.css';
 import Titre from '../components/pageDeGarde/Titre';
 import Presentation from '../components/pageDeGarde/Presentation';
 import Review from '../components/pageDeGarde/Review';
-//import Test from '../components/Test';
+import Question from '../components/pageDeGarde/question/Question';
+import TakeControl from '../components/pageDeGarde/TakeControl';
+import Footer from '../components/pageDeGarde/Footer';
 
 const Home = () => {
   return (
@@ -14,6 +16,9 @@ const Home = () => {
         <Titre />
         <Presentation />
         <Review />
+        <Question />
+        <TakeControl />
+        <Footer />
     </div>
   </div>
   )

@@ -1,0 +1,32 @@
+.footerConteneur {
+    background-color: #bbcaff55;
+}
+
+.footerConteneur .section1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10vh 0;
+}
+
+.footerConteneur .section1 .image {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.footerConteneur .section1 .page {
+    margin: 5vh 0;
+    border: 1px solid #2e4857;
+    border-radius: 5vh;
+    padding: 3vh 10vw;
+}
+
+.footerConteneur .section2 {
+    background-color: #b8c6f955;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5vh 0;
+}

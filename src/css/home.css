@@ -4,13 +4,13 @@
 
 /*---------- LOGO ----------*/
 
-.logo {
+.homePageTout .logo {
     padding: 200px 0 50px 0;
     width: 100%;
     text-align: center;
 }
 
-.logo h1 {
+.homePageTout .logo h1 {
     animation: arrive 1s ease forwards;
     font-size: 5rem;
     font-weight: 900;

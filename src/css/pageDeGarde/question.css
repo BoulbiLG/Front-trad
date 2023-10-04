@@ -1,0 +1,43 @@
+.questionConteneur {
+    display: flex;
+    padding: 10vh 10vw;
+    background-color: #bbcaff55;
+}
+
+.questionConteneur hr {
+    margin: 3vh 0;
+    color: #767f98;
+}
+
+.questionConteneur .secondConteneur {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.questionConteneur .secondConteneur .titre {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.questionConteneur .secondConteneur .blocInformation {
+    background-color: white;
+    border-radius: 1vw;
+    margin: 5vh 0;
+    padding: 7vh 3vw;
+    box-shadow: 0 20px 50px #b6c4e9;
+}
+
+.questionConteneur .secondConteneur .blocInformation .sectionTitre {
+    display: flex;
+}
+
+.questionConteneur .secondConteneur .blocInformation h4 {
+    text-align: start;
+    font-weight: 100;
+}
+
+.questionConteneur .secondConteneur .blocInformation p {
+    color: #767f98;
+}

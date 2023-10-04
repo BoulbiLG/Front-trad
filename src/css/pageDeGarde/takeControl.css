@@ -1,0 +1,30 @@
+.takeControlConteneur {
+    background-color: #bbcaff55;
+    background-image: url('../../Assets/fondQuadrillage.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10vw;
+    height: 100vh;
+}
+
+.takeControlConteneur .secondConteneur {
+    width: 100%;
+}
+
+.takeControlConteneur .secondConteneur .titre {
+    max-width: 500px;
+    margin-bottom: 50px;
+}
+
+.takeControlConteneur .secondConteneur h3 {
+    font-size: 4rem;
+    color: white;
+}
+
+.takeControlConteneur .secondConteneur .boutonCommencer {
+    background-color: white;
+    color: black;
+}
