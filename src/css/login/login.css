@@ -1,0 +1,221 @@
+.loginConteneur {
+    background-color: white;
+}
+
+.loginConteneur .secondConteneur {
+    display: flex;
+}
+
+.loginConteneur .gauche {
+    flex: 1;
+    text-align: start;
+    padding: 1vh 0;
+    display: flex;
+    justify-content: center;
+}
+
+.loginConteneur .titre h1 {
+    font-size: 4rem;
+    color: #2e4857;
+    margin: 1vh 0;
+}
+
+.loginConteneur .paragraphe p {
+    color: #767f98;
+    margin: 3vh 0;
+}
+
+.loginConteneur .droite {
+    flex: 1;
+}
+
+.loginConteneur .contenu-form {
+    margin: 10vh 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.loginConteneur form {
+    margin: 3vh 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+    border-radius: 10px;
+    width: 500px;
+}
+
+.loginConteneur form div {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginConteneur form label {
+    color: #767f98;
+    text-align: start;
+}
+
+.loginConteneur form input {
+    outline: none;
+    padding: 15px;
+    border: 1px solid #767f98;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.loginConteneur .passwordForgot {
+    margin: 1vh 0 3vh 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.loginConteneur .passwordForgot .forgot {
+    color: rgb(8, 0, 255);
+    font-weight: 600;
+}
+
+.loginConteneur .passwordForgot .case {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.loginConteneur .passwordForgot .case p {
+    color: #767f98;
+    margin: 5px;
+}
+
+.loginConteneur form button {
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    padding: 1.7vh 2vw;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    background-color: rgb(8, 0, 255);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.loginConteneur .checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.loginConteneur form .checkbox input {
+    margin-right: 10px;
+}
+
+.loginConteneur .pasDeCompte {
+    margin: 5vh 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginConteneur .pasDeCompte p {
+    color: #767f98;
+}
+
+.loginConteneur .lien {
+    color: rgb(8, 0, 255);
+    margin: 2px;
+    font-weight: 600;
+}
+
+.loginConteneur .signWithGoogle {
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    padding: 1.7vh 2vw;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.loginConteneur .signWithGoogle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(8, 0, 255);
+    margin: 2vh 0;
+    padding: 1vh 2vw;
+}
+
+.loginConteneur .signWithGoogle img {
+    height: 3vh;
+    margin: 0 1vw;
+}
+
+/* ==================== DROITE ==================== */
+
+.loginConteneur .droite {
+    background: url('../../Assets/fondQuadrillage.svg');
+    background-repeat: no-repeat;
+    background-position: -1250px -80px;
+    background-size: 2300px;
+    height: 100vh;
+}
+
+.loginConteneur .logo {
+    position: fixed;
+    padding: 30px;
+}
+
+@media screen and (max-width: 1200px) {
+    .loginConteneur .droite {
+        display: none;
+    }
+
+    .loginConteneur .gauche {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .loginConteneur form {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .loginConteneur .gauche {
+        padding: 4vh 0;
+    }
+
+    .loginConteneur .passwordForgot {
+        flex-direction: column;
+    }
+
+    .loginConteneur .contenu-form {
+        width: 90%;
+    }
+
+    .loginConteneur form {
+        width: 100%;
+    }
+
+    .loginConteneur .titre h1 {
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .loginConteneur .titre h1 {
+        font-size: 2rem;
+    }
+}

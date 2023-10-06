@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import NavBar from '../components/NavBar';
-import '../css/register.css';
+import logo from '../Assets/logo.png';
+import logoGoogle from '../Assets/logoGoogle.png';
+import '../css/register/register.css';
 
 //création du composant
 const Register = () => {
@@ -44,33 +45,53 @@ const Register = () => {
   };
   
   return (
-    <div className="tout">
-      <NavBar />
-      <div className="contenu-form">
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Votre nom</label>
-            <input type="text" name="username" onChange={handleChange} placeholder="votrenom" required id='username'/>
-          </div>
-          <div>
-            <label htmlFor="email">Votre E-mail</label>
-            <input type="email" name="email" onChange={handleChange} placeholder="votreadresseemail@gmail.com" required id='email'/>
-          </div>
-          <div>
-            <label htmlFor="password">Votre mot de passe</label>
-            <input type="password" name="password" onChange={handleChange} placeholder="********" required id='password'/>
-          </div>
-          <label className='checkbox'>
-            <input
-              type="checkbox"
-              checked={acceptsTerms}
-              onChange={e => setAcceptsTerms(e.target.checked)}
-            />
-            J'accepte les conditions d'utilisation
-          </label>
-          <Link className='lien' to="/login">J'ai déjà un compte</Link>
-          <button className='bouton' type="submit">S'inscrire</button>
-        </form>
+    <div className="registerContenu">
+      <img src={logo} alt="" className='logo'/>
+      <div className="secondConteneur">
+        <div className='gauche'>
+          <div className="contenu-form">
+            <div className="titre">
+              <h1>Sign Up</h1>
+            </div>
+            <div className="paragraphe">
+              <p>Start journaling your trades today</p>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="username">Name*</label>
+                <input type="text" name="username" onChange={handleChange} placeholder="Enter your name" required id='username'/>
+              </div>
+              <div>
+                <label htmlFor="email">E-mail*</label>
+                <input type="email" name="email" onChange={handleChange} placeholder="Enter your email" required id='email'/>
+              </div>
+              <div>
+                <label htmlFor="password">Password*</label>
+                <input type="password" name="password" onChange={handleChange} placeholder="********" required id='password'/>
+              </div>
+              <label className='checkbox'>
+                <input
+                  type="checkbox"
+                  checked={acceptsTerms}
+                  onChange={e => setAcceptsTerms(e.target.checked)}
+                />
+                J'accepte les conditions d'utilisation
+              </label>
+              <button className='bouton' type="submit">S'inscrire</button>
+              <button className='signWithGoogle' type="submit">
+                  <img src={logoGoogle} alt="" />
+                  <p>Sign in with Google</p>
+              </button>
+              <div className="pasDeCompte">
+                <p>Already have an account ?</p>
+                <Link className='lien' to="/login">Log In</Link>
+              </div>
+            </form>
+            </div>
+        </div>
+        <div className="droite">
+
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,221 @@
+.registerContenu {
+    background-color: white;
+}
+
+.registerContenu .secondConteneur {
+    display: flex;
+}
+
+.registerContenu .gauche {
+    flex: 1;
+    text-align: start;
+    padding: 1vh 0;
+    display: flex;
+    justify-content: center;
+}
+
+.registerContenu .titre h1 {
+    font-size: 4rem;
+    color: #2e4857;
+    margin: 1vh 0;
+}
+
+.registerContenu .paragraphe p {
+    color: #767f98;
+    margin: 1vh 0;
+}
+
+.registerContenu .droite {
+    flex: 1;
+}
+
+.registerContenu .contenu-form {
+    margin: 5vh 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.registerContenu form {
+    margin: 3vh 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+    border-radius: 10px;
+    width: 500px;
+}
+
+.registerContenu form div {
+    display: flex;
+    flex-direction: column;
+}
+
+.registerContenu form label {
+    color: #767f98;
+    text-align: start;
+}
+
+.registerContenu form input {
+    outline: none;
+    padding: 15px;
+    border: 1px solid #767f98;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.registerContenu .passwordForgot {
+    margin: 1vh 0 3vh 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.registerContenu .passwordForgot .forgot {
+    color: rgb(8, 0, 255);
+    font-weight: 600;
+}
+
+.registerContenu .passwordForgot .case {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.registerContenu .passwordForgot .case p {
+    color: #767f98;
+    margin: 5px;
+}
+
+.registerContenu form button {
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    padding: 1.7vh 2vw;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    background-color: rgb(8, 0, 255);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.registerContenu .checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.registerContenu form .checkbox input {
+    margin-right: 10px;
+}
+
+.registerContenu .pasDeCompte {
+    margin: 5vh 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerContenu .pasDeCompte p {
+    color: #767f98;
+}
+
+.registerContenu .lien {
+    color: rgb(8, 0, 255);
+    margin: 2px;
+    font-weight: 600;
+}
+
+.registerContenu .signWithGoogle {
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    padding: 1.7vh 2vw;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.registerContenu .signWithGoogle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(8, 0, 255);
+    margin: 2vh 0;
+    padding: 1vh 2vw;
+}
+
+.registerContenu .signWithGoogle img {
+    height: 3vh;
+    margin: 0 1vw;
+}
+
+/* ==================== DROITE ==================== */
+
+.registerContenu .droite {
+    background: url('../../Assets/fondQuadrillage.svg');
+    background-repeat: no-repeat;
+    background-position: -1250px -80px;
+    background-size: 2300px;
+    height: 100vh;
+}
+
+.registerContenu .logo {
+    position: fixed;
+    padding: 30px;
+}
+
+@media screen and (max-width: 1200px) {
+    .registerContenu .droite {
+        display: none;
+    }
+
+    .registerContenu .gauche {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .registerContenu form {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .registerContenu .gauche {
+        padding: 4vh 0;
+    }
+
+    .registerContenu .passwordForgot {
+        flex-direction: column;
+    }
+
+    .registerContenu .contenu-form {
+        width: 90%;
+    }
+
+    .registerContenu form {
+        width: 100%;
+    }
+
+    .registerContenu .titre h1 {
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .registerContenu .titre h1 {
+        font-size: 2rem;
+    }
+}
