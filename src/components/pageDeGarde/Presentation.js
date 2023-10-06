@@ -16,10 +16,11 @@ const Presentation = () => {
         <div className="conteneurSection">
             <div className="section1">
                 <div className="case1">
+                    <div className="loupe">
+                        <img src={loupe} alt="" />
+                    </div>
                     <div className="paragraphe">
-                        <div className="loupe">
-                            <img src={loupe} alt="" />
-                        </div>
+                        
                         <h1>In-depth trader data analysis</h1>
                         <p>Our platform offers advanced data analysis, going far beyond what is currently available on the market.</p>
                         <p>We provide our users with detailed and relevant information on their trading performance, enabling them to

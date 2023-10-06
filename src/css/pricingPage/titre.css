@@ -1,0 +1,35 @@
+.ConteneurPricing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15vh 0;
+}
+
+.ConteneurPricing .secondConteneur {
+    text-align: center;
+}
+
+.ConteneurPricing .secondConteneur h1 {
+    font-size: 4rem;
+    margin: 3vh 0;
+}
+
+.ConteneurPricing .secondConteneur .paragraphe {
+    max-width: 500px;
+    margin: 5vh 0;
+}
+
+.ConteneurPricing .secondConteneur .boutonCommencer {
+    margin: 5vh 0;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    padding: 1.7vh 2vw;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    background-color: rgb(8, 0, 255);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: all 0.2s;
+}

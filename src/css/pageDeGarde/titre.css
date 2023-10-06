@@ -1,29 +1,31 @@
 .titreConteneur {
-    margin: 50px 0;
+    margin: 10vh 0;
     display: flex;
     justify-content: center;
     align-items: center;
     background-image: url("../../Assets/fondLignePoint.png");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center 100px;
 }
 
+/*
 .titreConteneur::after {
     content: "";
     position: absolute;
     left: 0;
-    bottom: -205px;
+    bottom: -1vh;
     width: 100%;
-    height: 50px;
+    height: 5vh;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
   }
+  /*
 
 /* ==================== VIDEO ==================== */
 
 .titreConteneur .videoConteneur {
+    margin: 2vh 10vw;
+    height: 50vh;
     border-radius: 50px;
-    height: 480px;
     background-color: #bbcaff55;
     padding: 30px;
 }
@@ -42,7 +44,7 @@
     width: 150px;
     height: 150px;
     background-color: #2454ff;
-    padding: 50px;
+    padding: 2vw;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -67,29 +69,29 @@
 
 /* ==================== INFORMATION ==================== */
 
-.information {
+.titreConteneur .information {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 900px;
 }
 
 
-.centralisation {
-    padding: 25px 0;
+.titreConteneur .centralisation {
+    padding: 25px 10vw;
 }
 
-.paragraphe {
+.titreConteneur .paragraphe {
+    margin: 2vh 10vw;
     max-width: 800px;
 }
 
-.titreH1 {
+.titreConteneur .titreH1 {
     position: relative;
     max-width: 800px;
     text-align: center;
-    width: 100%;
     display: flex;
     justify-content: center;
+    margin: 2vh 10vw;
 }
 
 .titreConteneur h1 {
@@ -97,12 +99,13 @@
     font-size: 4rem;
 }
 
-.boutonCommencerDiv {
+.titreConteneur .boutonCommencerDiv {
     display: flex;
     justify-content: center;
+    margin: 2vh 0;
 }
 
-.boutonCommencer {
+.titreConteneur .boutonCommencer {
     font-family: 'Roboto', sans-serif;
     letter-spacing: 1px;
     padding: 1.7vh 2vw;
@@ -116,10 +119,16 @@
     transition: all 0.2s;
 }
 
-.boutonCommencer:hover {
+.titreConteneur .boutonCommencer:hover {
     filter: brightness(125%);
 }
 
-.boutonCommencer:active {
+.titreConteneur .boutonCommencer:active {
     filter: brightness(150%);
+}
+
+@media screen and (max-width: 1000px) {
+    .titreConteneur::after {
+        bottom: -3vh;
+    }
 }

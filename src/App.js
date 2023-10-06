@@ -15,6 +15,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Profil from './pages/Profil';
+import PricingPage from './components/inputComposant/pricingPage/PricingPage';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                               <Route path="/register" element={<Register />} />
                               <Route path="/login" element={<Login />} />
                               <Route path="/profil" element={<Profil />} />
+                              <Route path="/pricing" element={<PricingPage />} />
                             </Routes>
                           </Router>
                         </DragDropContext>

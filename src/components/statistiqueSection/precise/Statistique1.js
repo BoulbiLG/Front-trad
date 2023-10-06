@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "../../../css/statistique.css"
+import "../../../css/statistique/precise/statistique.css";
 
 import getArgumentDate from './ArgumentDate';
 import { getArgumentFiltre } from './ArgumentIndice';
@@ -124,57 +124,58 @@ const Statistique1 = ({ selectedOption }) => {
   return (
     <div className='statistique1'>
       <div className="">
-      <div className="inputFiltreXY"><p>Collection dans laquelle chercher</p><Selector options={collectionOption} value={collectionValues} onChange={changementSelectorChangeCollection} /></div>
-      </div>
-      <p>Date</p>
-      <Selector options={dateOptions} value={dateSelectedOption} onChange={(selected) => setdateSelectedOption(selected)} />
-      {dateSelectedOption === "choixLibre" && (
-        <div>
-          <DatePicker selected={startDate} onChange={handleStartDateChange} />
-          <DatePicker selected={endDate} onChange={handleEndDateChange} />
+        <div className="inputFiltreXY">
+          <p>Collection dans laquelle chercher</p><Selector options={collectionOption} value={collectionValues} onChange={changementSelectorChangeCollection} /></div>
         </div>
-      )}
-      <p>Indice / forex / action</p>
-      <Selector optionDefaut="faux" options={forexIndiceActionOptions} value={forexActionIndiceValues} onChange={(selected) => setForexActionIndiceValues(selected)} />
-      {forexActionIndiceValues === "indice" ? (
-        <div>
-          <p>Indice</p>
-          <Selector options={indiceOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
+        <p>Date</p>
+        <Selector options={dateOptions} value={dateSelectedOption} onChange={(selected) => setdateSelectedOption(selected)} />
+        {dateSelectedOption === "choixLibre" && (
+          <div>
+            <DatePicker selected={startDate} onChange={handleStartDateChange} />
+            <DatePicker selected={endDate} onChange={handleEndDateChange} />
+          </div>
+        )}
+        <p>Indice / forex / action</p>
+        <Selector optionDefaut="faux" options={forexIndiceActionOptions} value={forexActionIndiceValues} onChange={(selected) => setForexActionIndiceValues(selected)} />
+        {forexActionIndiceValues === "indice" ? (
+          <div>
+            <p>Indice</p>
+            <Selector options={indiceOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
+          </div>
+        ) : null }
+        {forexActionIndiceValues === "forex" ? (
+          <div>
+            <p>Forex</p>
+            <Selector options={forexOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
+          </div>
+        ) : null }
+        {forexActionIndiceValues === "action" ? (
+          <div>
+            <p>Action</p>
+            <Selector options={actionOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
+          </div>
+        ) : null }
+        <div className="inputFiltreXY"><p>take profit</p><CaseRadio titre="Take profit" nomOption1="Atteint" nomOption2="Dépassé" nomOption3="Non atteint" selectedCaseOption={takeProfit} onChange={valeurTakeProfitChange} onButtonClick={() => {setTakeProfit(null)}}/></div>
+        <div className="inputFiltreXY"><p>stop loss</p><CaseRadio titre="Stop loss" nomOption1="Atteint" nomOption2="Partiel" selectedCaseOption={stopLoss} onChange={valeurStopLossChange} onButtonClick={() => {setStopLoss(null)}}/></div>
+        <div className="inputFiltreXY"><p>BE</p><CaseRadio titre="-0.5RR < BE < 0.5RR" nomOption1=" " selectedCaseOption={rrRange} onChange={valeurRrRangeChange} onButtonClick={() => {setRrRange(null)}}/></div>
+        <div className="inputFiltreXY"><p>sortie manuelle</p><CaseRadio titre="Sortie manuelle" nomOption1="succès" nomOption2="échec" selectedCaseOption={sortieManuelle} onChange={valeurSortieManuelleChange} onButtonClick={() => {setSortieManuelle(null)}}/></div>
+        <div className="inputFiltreXY"><p>journée de tilt</p><CaseRadio titre="Journée de tilt" nomOption1="oui" nomOption2="non" selectedCaseOption={tilt} onChange={valeurTiltChange} onButtonClick={() => {setTilt(null)}}/></div>
+        <div className="inputFiltreXY"><p>type d'ordre</p><CaseRadio titre="Type d'ordre" nomOption1="Sell" nomOption2="Buy" selectedCaseOption={buySell} onChange={valeurBuySellChange} onButtonClick={() => {setBuySell(null)}} /></div>
+        <div className="inputFiltreXY"><p>viole de la strategie</p><CaseRadio titre="Viole de la strategie" nomOption1="oui" nomOption2="non" selectedCaseOption={violeStrat} onChange={valeurVioleStratChange} onButtonClick={() => {setVioleStrat(null)}}/></div>
+        <div className="inputFiltreXY"><p>sortie sur décision</p><CaseRadio titre="Sortie sur décision" nomOption1="technique" nomOption2="émotion" selectedCaseOption={sortie} onChange={valeurSortieChange} onButtonClick={() => {setSortie(null)}}/></div>
+        <div className="inputFiltreXY"><p>trade TJS</p><CaseRadio titre="Trade TJS" nomOption1="positif" nomOption2="négatif" selectedCaseOption={TJS} onChange={TJSChange} onButtonClick={() => {setTJS(null)}}/></div>
+        <div className="filtre">
+          <div className="inputFiltreXY"><p>trade durant une annonce economique</p><CaseRadio titre="Trade durant une annonce économique" nomOption1="oui" nomOption2="non" selectedCaseOption={AnnEco} onChange={valeurAnnEcoChange} onButtonClick={() => {setAnnEco(null)}}/></div>
+          <div className="inputFiltreXY"><p>position</p><CaseRadio titre="Position" nomOption1="signal" nomOption2="influence" selectedCaseOption={positionSignInfl} onChange={valeurpositionSignInflChange} onButtonClick={() => {setpositionSignInfl(null)}}/></div>
+          <div className="inputFiltreXY"><p>type d'ordre</p><CaseRadio titre="Type d'ordre" nomOption1="market" nomOption2="conditionnel" selectedCaseOption={typeOrdre} onChange={valeurtypeOrdreChange} onButtonClick={() => {settypeOrdre(null)}}/></div>
+          <div className="inputFiltreXY"><p>strategie</p><Selector options={strategieOptions} defaultValue="" value={strategieSelectedOption} onChange={(selected) => setStrategieSelectedOption(selected)} /></div>
+          <div className="inputFiltreXY"><p>etat psychologique</p><Selector options={psychologieOptions} value={psychologieSelectedOption} onChange={(selected) => setPsychologieSelectedOption(selected)} /></div>
+          <div className="inputFiltreXY"><p>indicateur 1</p><Selector options={indicateurOptions} value={indicateur1Values} onChange={(selected) => setIndicateur1Values(selected)} /></div>
+          <div className="inputFiltreXY"><p>indicateur 2</p><Selector options={indicateurOptions} value={indicateur2Values} onChange={(selected) => setIndicateur2Values(selected)} /></div>
+          <div className="inputFiltreXY"><p>indicateur 3</p><Selector options={indicateurOptions} value={indicateur3Values} onChange={(selected) => setIndicateur3Values(selected)} /></div>
+          <div className="inputFiltreXY"><p>time frame entrée</p><Selector options={timeFrameOptions} value={timeEntreeValues} onChange={(selected) => timeEntreeOptionChange(selected)}/></div>
+          <div className="inputFiltreXY"><p>time frame setup</p><Selector options={timeFrameOptions} value={timeSetupValues} onChange={(selected) => timeSetupOptionChange(selected)}/></div>
         </div>
-      ) : null }
-      {forexActionIndiceValues === "forex" ? (
-        <div>
-          <p>Forex</p>
-          <Selector options={forexOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
-        </div>
-      ) : null }
-      {forexActionIndiceValues === "action" ? (
-        <div>
-          <p>Action</p>
-          <Selector options={actionOptions} value={indiceSelectedOption} onChange={(selected) => setIndiceSelectedOption(selected)} />
-        </div>
-      ) : null }
-      <div className="inputFiltreXY"><p>take profit</p><CaseRadio titre="Take profit" nomOption1="Atteint" nomOption2="Dépassé" nomOption3="Non atteint" selectedCaseOption={takeProfit} onChange={valeurTakeProfitChange} /></div>
-      <div className="inputFiltreXY"><p>stop loss</p><CaseRadio titre="Stop loss" nomOption1="Atteint" nomOption2="Partiel" selectedCaseOption={stopLoss} onChange={valeurStopLossChange} /></div>
-      <div className="inputFiltreXY"><p>BE</p><CaseRadio titre="-0.5RR < BE < 0.5RR" nomOption1=" " selectedCaseOption={rrRange} onChange={valeurRrRangeChange} /></div>
-      <div className="inputFiltreXY"><p>sortie manuelle</p><CaseRadio titre="Sortie manuelle" nomOption1="succès" nomOption2="échec" selectedCaseOption={sortieManuelle} onChange={valeurSortieManuelleChange} /></div>
-      <div className="inputFiltreXY"><p>journée de tilt</p><CaseRadio titre="Journée de tilt" nomOption1="oui" nomOption2="non" selectedCaseOption={tilt} onChange={valeurTiltChange} /></div>
-      <div className="inputFiltreXY"><p>type d'ordre</p><CaseRadio titre="Type d'ordre" nomOption1="Sell" nomOption2="Buy" selectedCaseOption={buySell} onChange={valeurBuySellChange} /></div>
-      <div className="inputFiltreXY"><p>viole de la strategie</p><CaseRadio titre="Viole de la strategie" nomOption1="oui" nomOption2="non" selectedCaseOption={violeStrat} onChange={valeurVioleStratChange} /></div>
-      <div className="inputFiltreXY"><p>sortie sur décision</p><CaseRadio titre="Sortie sur décision" nomOption1="technique" nomOption2="émotion" selectedCaseOption={sortie} onChange={valeurSortieChange} /></div>
-      <div className="inputFiltreXY"><p>trade TJS</p><CaseRadio titre="Trade TJS" nomOption1="positif" nomOption2="négatif" selectedCaseOption={TJS} onChange={TJSChange} /></div>
-      <div className="filtre">
-        <div className="inputFiltreXY"><p>trade durant une annonce economique</p><CaseRadio titre="Trade durant une annonce économique" nomOption1="oui" nomOption2="non" selectedCaseOption={AnnEco} onChange={valeurAnnEcoChange} /></div>
-        <div className="inputFiltreXY"><p>position</p><CaseRadio titre="Position" nomOption1="signal" nomOption2="influence" selectedCaseOption={positionSignInfl} onChange={valeurpositionSignInflChange} /></div>
-        <div className="inputFiltreXY"><p>type d'ordre</p><CaseRadio titre="Type d'ordre" nomOption1="market" nomOption2="conditionnel" selectedCaseOption={typeOrdre} onChange={valeurtypeOrdreChange} /></div>
-        <div className="inputFiltreXY"><p>strategie</p><Selector options={strategieOptions} defaultValue="" value={strategieSelectedOption} onChange={(selected) => setStrategieSelectedOption(selected)} /></div>
-        <div className="inputFiltreXY"><p>etat psychologique</p><Selector options={psychologieOptions} value={psychologieSelectedOption} onChange={(selected) => setPsychologieSelectedOption(selected)} /></div>
-        <div className="inputFiltreXY"><p>indicateur 1</p><Selector options={indicateurOptions} value={indicateur1Values} onChange={(selected) => setIndicateur1Values(selected)} /></div>
-        <div className="inputFiltreXY"><p>indicateur 2</p><Selector options={indicateurOptions} value={indicateur2Values} onChange={(selected) => setIndicateur2Values(selected)} /></div>
-        <div className="inputFiltreXY"><p>indicateur 3</p><Selector options={indicateurOptions} value={indicateur3Values} onChange={(selected) => setIndicateur3Values(selected)} /></div>
-        <div className="inputFiltreXY"><p>time frame entrée</p><Selector options={timeFrameOptions} value={timeEntreeValues} onChange={(selected) => timeEntreeOptionChange(selected)}/></div>
-        <div className="inputFiltreXY"><p>time frame setup</p><Selector options={timeFrameOptions} value={timeSetupValues} onChange={(selected) => timeSetupOptionChange(selected)}/></div>
-      </div>
       <Button label="chercher" onClick={handleClick} />
       <Meilleur collection={collectionValues}/>
     </div>

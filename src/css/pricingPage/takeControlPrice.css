@@ -1,5 +1,5 @@
-.takeControlConteneur {
-    background-color: #bbcaff55;
+.takeControlConteneurPrice {
+    background-color: white;
     background-image: url('../../Assets/fondQuadrillage.svg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -10,21 +10,21 @@
     height: 100vh;
 }
 
-.takeControlConteneur .secondConteneur {
+.takeControlConteneurPrice .secondConteneur {
     width: 100%;
 }
 
-.takeControlConteneur .secondConteneur .titre {
+.takeControlConteneurPrice .secondConteneur .titre {
     max-width: 500px;
     margin-bottom: 50px;
 }
 
-.takeControlConteneur .secondConteneur h3 {
+.takeControlConteneurPrice .secondConteneur h3 {
     font-size: 4rem;
     color: white;
 }
 
-.takeControlConteneur .secondConteneur .boutonCommencer {
+.takeControlConteneurPrice .secondConteneur .boutonCommencer {
     background-color: white;
     color: black;
     font-family: 'Roboto', sans-serif;

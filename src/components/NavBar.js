@@ -13,7 +13,7 @@ const NavBar = () => {
       <Link className='onglet simple' to="/"><img src={logo} alt="" /></Link>
       <div className="navigation">
         <Link className='onglet simple' to="/">Home</Link>
-        <Link className='onglet simple' to="/">Pricing</Link>
+        <Link className='onglet simple' to="/pricing">Pricing</Link>
         <Link className='onglet simple' to="/">Blog</Link>
         <Link className='onglet simple' to="/">Support</Link>
         {!isAuthenticated && (
