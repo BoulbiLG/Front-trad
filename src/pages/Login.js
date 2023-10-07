@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <div className="loginConteneur">
-      <img src={logo} alt="" className='logo'/>
+      <Link to="/"><img src={logo} alt="" className='logo'/></Link>
       <div className="secondConteneur">
         <div className='gauche'>
           <div className="contenu-form">
