@@ -22,7 +22,7 @@
 
 .registerContenu .paragraphe p {
     color: #767f98;
-    margin: 1vh 0;
+    margin: 3vh 0;
 }
 
 .registerContenu .droite {
@@ -30,7 +30,7 @@
 }
 
 .registerContenu .contenu-form {
-    margin: 5vh 0;
+    margin: 10vh 0;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -170,8 +170,8 @@
 }
 
 .registerContenu .logo {
-    position: fixed;
-    padding: 30px;
+    position: absolute;
+    padding: 5vh;
 }
 
 @media screen and (max-width: 1200px) {
