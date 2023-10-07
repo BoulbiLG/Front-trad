@@ -170,7 +170,7 @@
 }
 
 .loginConteneur .logo {
-    position: fixed;
+    position: absolute;
     padding: 30px;
 }
 

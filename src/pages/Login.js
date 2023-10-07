@@ -49,7 +49,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="email">Enter your mail</label>
-                <input type="email" name="email" onChange={handleChange} placeholder="votreadresseemail@gmail.com" required id='email' />
+                <input type="email" name="email" onChange={handleChange} placeholder="Enter your Email.com" required id='email' />
               </div>
               <div>
                 <label htmlFor="password">Password</label>
