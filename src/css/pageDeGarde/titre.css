@@ -31,6 +31,16 @@
     padding: 2vh;
 }
 
+.titreConteneur span img {
+    max-width: 100%;
+    height: auto;
+}
+
+.titreConteneur span {
+    max-width: 100%;
+    height: auto;
+}
+
 .titreConteneur .bordureVideo {
     width: 100%;
     height: 100%;
@@ -78,7 +88,7 @@
 
 
 .titreConteneur .centralisation {
-    padding: 25px 10vw;
+    padding: 25px 0;
 }
 
 .titreConteneur .paragraphe {
@@ -103,7 +113,7 @@
 .titreConteneur .boutonCommencerDiv {
     display: flex;
     justify-content: center;
-    margin: 2vh 0;
+    margin: 2vh 10vw;
 }
 
 .titreConteneur .boutonCommencer {
@@ -131,5 +141,23 @@
 @media screen and (max-width: 1000px) {
     .titreConteneur::after {
         bottom: -3vh;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .titreConteneur .boutonCommencer {
+        font-family: 'Roboto', sans-serif;
+        letter-spacing: 1px;
+        padding: 1.7vh 2vw;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 4px;
+        border: none;
+        background-color: rgb(8, 0, 255);
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+        transition: all 0.2s;
+        width: 100%;
+        text-align: center;
     }
 }

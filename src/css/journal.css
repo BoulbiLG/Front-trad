@@ -40,9 +40,6 @@ padding: 8px;
 text-align: left;
 }
 
-.donnee-table th {
-}
-
 .donnee {
     display: flex;
 }
@@ -204,10 +201,6 @@ text-align: left;
 .boutonAction {
     display: flex;
     justify-content: space-between;
-}
-
-.tradConteneur .image {
-
 }
 
 .img1 {

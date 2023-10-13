@@ -22,9 +22,11 @@ const Presentation = () => {
                     <div className="paragraphe">
                         
                         <h1>In-depth trader data analysis</h1>
-                        <p>Our platform offers advanced data analysis, going far beyond what is currently available on the market.</p>
-                        <p>We provide our users with detailed and relevant information on their trading performance, enabling them to
-                        make more informed decisions to improve their strategy.</p>
+                        <div className="sousParagraphe">
+                            <p>Our platform offers advanced data analysis, going far beyond what is currently available on the market.</p>
+                            <p>We provide our users with detailed and relevant information on their trading performance, enabling them to
+                            make more informed decisions to improve their strategy.</p>
+                        </div>
                         <div className="boutonCommencerDiv">
                             <Link className='boutonCommencer' to="/login">Start Journaling</Link>
                         </div>
@@ -44,10 +46,12 @@ const Presentation = () => {
                             <img src={statBouton} alt="" />
                         </div>
                         <h1>Automated trading log</h1>
-                        <p>With Tradementis, the tracking of your <br />
-                        transactions is fully automated.</p>
-                        <p>All data is collected and analyzed in real time, allowing our users to concentrate on their trading
-                        without worrying about manual data management.</p>
+                        <div className="sousParagraphe">
+                            <p>With Tradementis, the tracking of your <br />
+                            transactions is fully automated.</p>
+                            <p>All data is collected and analyzed in real time, allowing our users to concentrate on their trading
+                            without worrying about manual data management.</p>
+                        </div>
                         <div className="boutonCommencerDiv">
                             <Link className='boutonCommencer' to="/login">Start Journaling</Link>
                         </div>
@@ -61,9 +65,11 @@ const Presentation = () => {
                             <img src={cloche} alt="" />
                         </div>
                         <h1>Push notifications for assistance</h1>
-                        <p>We understand that trading can be both psychologically and technically challenging.</p>
-                        <p>That&#39;s why we offer live push notifications to support our users during their trades. From best
-                        practice reminders to real-time advice, we&#39;re here to help every step of the way.</p>
+                        <div className="sousParagraphe">
+                            <p>We understand that trading can be both psychologically and technically challenging.</p>
+                            <p>That&#39;s why we offer live push notifications to support our users during their trades. From best
+                            practice reminders to real-time advice, we&#39;re here to help every step of the way.</p>
+                        </div>
                         <div className="boutonCommencerDiv">
                             <Link className='boutonCommencer' to="/login">Start Journaling</Link>
                         </div>
@@ -83,10 +89,12 @@ const Presentation = () => {
                             <img src={copy} alt="" />
                         </div>
                         <h1>Copy Trading</h1>
-                        <p>We offer our users the opportunity to take advantage of copy trading, a powerful feature that allows
-                        them to link their different trading accounts and copy their trades live.</p>
-                        <p>All data is collected and analyzed in real time, allowing our users to concentrate on their trading
-                        They can also change their risk management according to the account they use.</p>
+                        <div className="sousParagraphe">
+                            <p>We offer our users the opportunity to take advantage of copy trading, a powerful feature that allows
+                            them to link their different trading accounts and copy their trades live.</p>
+                            <p>All data is collected and analyzed in real time, allowing our users to concentrate on their trading
+                            They can also change their risk management according to the account they use.</p>
+                        </div>
                         <div className="boutonCommencerDiv">
                             <Link className='boutonCommencer' to="/login">Start Journaling</Link>
                         </div>

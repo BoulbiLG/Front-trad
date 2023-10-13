@@ -1,10 +1,14 @@
 .presentationConteneur {
-    width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.presentationConteneur img, .presentationConteneur .videoConteneur {
+.presentationConteneur img {
+    max-width: 100%;
+    height: auto;
+}
+
+.presentationConteneur .videoConteneur {
     max-width: 100%;
     height: auto;
 }
@@ -30,7 +34,6 @@
 
 .presentationConteneur .section1 {
     display: flex;
-    padding: 0 10vw;
 }
 
 .presentationConteneur .section1 .case1 .paragraphe {
@@ -51,12 +54,28 @@
     color: #767f98;
 }
 
-.presentationConteneur .section1 .case2 {
+.presentationConteneur .loupe {
+    margin: 0 10vw;
 }
 
-.presentationConteneur .section1 .boutonCommencerDiv {
-    display: flex;
-    justify-content: start;
+.presentationConteneur .paragraphe {
+    margin: 0 10vw;
+}
+
+.presentationConteneur .case2 {
+    margin: 0 10vw;
+}
+
+@media screen and (min-width: 1400px) {
+    
+    .presentationConteneur .section1 .boutonCommencerDiv {
+        flex-direction: column;
+    }
+
+    .presentationConteneur .sousParagraphe {
+        max-width: 600px;
+    }
+
 }
 
 @media screen and (max-width: 1400px) {
@@ -65,6 +84,51 @@
         flex-direction: column;
     }
 
+    .presentationConteneur .case1 {
+        margin: 5vh 10vw;
+    }
+    
+    .presentationConteneur .case2 {
+        margin: 5vh 10vw;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+
+    .presentationConteneur {
+        justify-content: start;
+    }
+
+    .presentationConteneur .section1 .boutonCommencerDiv {
+        display: flex;
+        justify-content: start;
+    }
+
+    .presentationConteneur .section1 h1 {
+        margin-right: 0;
+    }
+
+    .presentationConteneur .sousParagraphe {
+       width: 100%;
+    }
+    
+    .presentationConteneur .section1 {
+        flex-direction: column;
+    }
+
     .presentationConteneur .paragraphe {
+        text-align: center;
+    }
+
+    .presentationConteneur .boutonCommencerDiv {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .presentationConteneur .loupe {
+        display: flex;
+        justify-content: start;
     }
 }
