@@ -5,27 +5,16 @@ import '../../../../css/statistique/generale/winrate.css';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend)
 
-const options = {
-    animation: {
-        duration: 0
-    },
-    scales: {
-        y: {
-            beginAtZero: true,
-            max: 100,
-        }
-    }
-};
+let options = {};
 
 let data = {}
 
-const Winrate = ({ reponseAPI, filtreDeBase, filtreAnnexe }) => {
+const RR = ({ reponseAPI, filtreDeBase, filtreAnnexe }) => {
 
     const [aucuneDonnee, setAucuneDonnee] = useState('false');
 
     const [chartData, setChartData] = useState(null);
 
-    console.log(filtreDeBase);
     console.log(filtreAnnexe);
 
     useEffect(() => {
@@ -37,7 +26,7 @@ const Winrate = ({ reponseAPI, filtreDeBase, filtreAnnexe }) => {
 
             const reponseSansTest = reponseAPIArray.filter(({ cle }) => cle !== 'typeEnregistrement');
 
-            const cleBrut = reponseSansTest.map(({ cle }) => cle);
+            let cleBrut = reponseSansTest.map(({ cle }) => cle);
 
             const valeur = reponseSansTest.map(({ value }) => parseInt(value, 10));
 
@@ -46,6 +35,55 @@ const Winrate = ({ reponseAPI, filtreDeBase, filtreAnnexe }) => {
             let cle;
 
             cle = cleBrut;
+
+            // ==================== CREATION ECHELLE + ==================== //
+
+            let maxNumericValue = -Infinity;
+            let foundNumericValue = false;
+
+            for (const key in reponseAPI) {
+                if (typeof reponseAPI[key] === "number") {
+                    if (!foundNumericValue || reponseAPI[key] > maxNumericValue) {
+                        maxNumericValue = reponseAPI[key];
+                        foundNumericValue = true;
+                    }
+                }
+            }
+
+            if (maxNumericValue < 5) {
+                maxNumericValue = 5;
+            }
+
+            if (foundNumericValue) {
+                console.log("La valeur numérique la plus élevée est : " + maxNumericValue);
+            } else {
+                console.log("Aucune valeur numérique trouvée dans l'objet reponseAPI.");
+            }
+
+            // ==================== CREATION ECHELLE - ==================== //
+
+            let minNumericValue = Infinity;
+
+            for (const key in reponseAPI) {
+                if (typeof reponseAPI[key] === "number") {
+                    if (!foundNumericValue || reponseAPI[key] < minNumericValue) {
+                        minNumericValue = reponseAPI[key];
+                        foundNumericValue = true;
+                    }
+                }
+            }
+
+            if (minNumericValue > -5) {
+                minNumericValue = -5;
+            }
+
+            if (foundNumericValue) {
+                console.log("La valeur numérique la plus basse est : " + minNumericValue);
+            } else {
+                console.log("Aucune valeur numérique trouvée dans l'objet reponseAPI.");
+            }
+
+            // ==================== CONVERSION TEXTE ==================== //
 
             if (filtreAnnexe == "limit") {
                 cle = cleBrut.map((cle) => {if (cle === "True") {return "Limit";} else if (cle === "False") {return "Market";} else {return cle;}});
@@ -83,11 +121,26 @@ const Winrate = ({ reponseAPI, filtreDeBase, filtreAnnexe }) => {
                 });
             }
 
+            // ==================== OPTION DATA ==================== //
+
+            options = {
+                animation: {
+                    duration: 0
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: minNumericValue,
+                        max: maxNumericValue,
+                    }
+                }
+            };
+
             data = {
                 labels: cle,
                 datasets: [
                     {
-                        label: 'Winrate',
+                        label: 'RR',
                         data: valeur,
                         backgroundColor: 'aqua',
                         borderWidth: 0,
@@ -100,7 +153,7 @@ const Winrate = ({ reponseAPI, filtreDeBase, filtreAnnexe }) => {
         } else {
             setAucuneDonnee('true');
         }
-    }, [reponseAPI, filtreAnnexe]);
+    }, [reponseAPI]);
 
     return (
         <div className='ConteneurWinrate' >
@@ -116,4 +169,4 @@ const Winrate = ({ reponseAPI, filtreDeBase, filtreAnnexe }) => {
     )
 }
 
-export default Winrate;
+export default RR;

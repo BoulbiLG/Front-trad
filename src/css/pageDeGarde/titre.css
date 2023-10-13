@@ -24,10 +24,11 @@
 
 .titreConteneur .videoConteneur {
     margin: 2vh 10vw;
-    height: 50vh;
+    max-width: 100%;
+    height: auto;
     border-radius: 50px;
     background-color: #bbcaff55;
-    padding: 30px;
+    padding: 2vh;
 }
 
 .titreConteneur .bordureVideo {

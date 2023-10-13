@@ -1,7 +1,9 @@
 import { generiqueAjoutFiltre, generiqueAjoutFiltreAnnexe, generiqueAjoutFiltreFusion, generiqueAjoutFiltreDate } from "../Fonction";
 
 // VERIFICATION STANDARD OPTION
-export const PsychologieVerificationStandardOption = (selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue) => {
+export const PsychologieVerificationStandardOption = (selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, 
+    tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
+    ) => {
     const optionChoisi = selectedValue;
     setStandardValue(optionChoisi);
     setTableauFiltreValue([]);
@@ -14,15 +16,17 @@ export const PsychologieVerificationStandardOption = (selectedValue, setStandard
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreFusion("psychologie", "symbol", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'symbol';
 
-    // DATE
     } else if (optionChoisi === "option3") {
         tableauFiltre = [
             {filtre: "filtreAnnexe", type: "date", value: null},
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreDate("psychologie", tableauFiltreValue, setTableauFiltreValue);
-        console.log(tableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'date';
 
     // LIMIT
     } else if (optionChoisi === "option4") {
@@ -31,6 +35,8 @@ export const PsychologieVerificationStandardOption = (selectedValue, setStandard
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreFusion("psychologie", "limit", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'limit';
 
     // STRATEGIE
     } else if (optionChoisi === "option5") {
@@ -39,6 +45,8 @@ export const PsychologieVerificationStandardOption = (selectedValue, setStandard
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreFusion("psychologie", "strategie", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'strategie';
 
     // PERCENT
     } else if (optionChoisi === "option6") {
@@ -47,6 +55,8 @@ export const PsychologieVerificationStandardOption = (selectedValue, setStandard
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreFusion("psychologie", "Percent", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'Percent';
 
     // DURATION
     } else if (optionChoisi === "option7") {
@@ -55,6 +65,8 @@ export const PsychologieVerificationStandardOption = (selectedValue, setStandard
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreFusion("psychologie", "duration", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'duration';
     
     // ANNONCE ECONOMIQUE
     } else if (optionChoisi === "option8") {
@@ -63,6 +75,8 @@ export const PsychologieVerificationStandardOption = (selectedValue, setStandard
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreFusion("psychologie", "annonceEconomique", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'annonceEconomique';
     
     // ORDERTYPE
     } else if (optionChoisi === "option9") {
@@ -71,6 +85,8 @@ export const PsychologieVerificationStandardOption = (selectedValue, setStandard
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreFusion("psychologie", "orderType", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'orderType';
 
     // SESSION
     } else if (optionChoisi === "option10") {
@@ -79,6 +95,8 @@ export const PsychologieVerificationStandardOption = (selectedValue, setStandard
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreFusion("psychologie", "session", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'session';
 
     // MULTI
     } else if (optionChoisi === "option11") {
@@ -87,6 +105,8 @@ export const PsychologieVerificationStandardOption = (selectedValue, setStandard
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreFusion("psychologie", "Multi", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'Multi';
     }
 
     // TRADECOUNT
@@ -96,6 +116,10 @@ export const PsychologieVerificationStandardOption = (selectedValue, setStandard
             {filtre: "filtreAnnexe", type: "psychologie", value: null},
         ]
         generiqueAjoutFiltreFusion("psychologie", "tradecount", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'psychologie';
+        filtreAnnexe = 'tradecount';
     }
+    setFiltreDeBase(filtreDeBase);
+    setFiltreAnnexe(filtreAnnexe);
     setTableauFiltre(tableauFiltre);
 };

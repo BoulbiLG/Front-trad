@@ -16,7 +16,7 @@
     display: flex;
 }
 
-.ajoutFiltreConteneur .winrate {
+.ajoutFiltreConteneur .graphiqueCadre {
     flex: 1;
 }
 

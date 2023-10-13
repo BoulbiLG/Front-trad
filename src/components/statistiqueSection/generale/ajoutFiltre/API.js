@@ -4,10 +4,10 @@ import { formatISO } from 'date-fns';
 
 // http://localhost:1234
 // https://apipython2.onrender.com
-const apiUrl = 'https://apipython2.onrender.com';
+const apiUrl = 'http://localhost:1234';
 const username = sessionStorage.getItem('username');
 
-export const recuperationTradeParFiltreDate = async (tableauFiltreValue, collectionValues, startDate, endDate) => {
+export const recuperationTradeParFiltreDate = async (tableauFiltreValue, collectionValues, startDate, endDate, filtreDeBase, filtreAnnexe) => {
 
     const verificationDateValide = '1970-01-01T01:00:00.000Z';
 

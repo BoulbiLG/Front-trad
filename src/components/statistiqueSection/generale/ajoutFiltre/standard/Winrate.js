@@ -1,7 +1,8 @@
 import { generiqueAjoutFiltre, generiqueAjoutFiltreAnnexe, generiqueAjoutFiltreFusion, generiqueAjoutFiltreDate } from "../Fonction";
 
 // VERIFICATION STANDARD OPTION
-export const verificationStandardOption = (selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue) => {
+export const verificationStandardOption = (selectedValue, setStandardValue, setTableauFiltre, 
+    setTableauFiltreValue, tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe) => {
     const optionChoisi = selectedValue;
     setStandardValue(optionChoisi);
     setTableauFiltreValue([]);
@@ -14,6 +15,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "psychologie", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'psychologie';
 
     // SYMBOL
     } else if (optionChoisi === "option2") {
@@ -22,6 +25,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "symbol", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'symbol';
 
     // DATE
     } else if (optionChoisi === "option3") {
@@ -30,6 +35,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreDate("winrate", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'date';
         console.log(tableauFiltreValue);
 
     // LIMIT
@@ -39,6 +46,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "limit", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'limit';
 
     // STRATEGIE
     } else if (optionChoisi === "option5") {
@@ -47,6 +56,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "strategie", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'strategie';
 
     // PERCENT
     } else if (optionChoisi === "option6") {
@@ -55,6 +66,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "Percent", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'Percent';
 
     // DURATION
     } else if (optionChoisi === "option7") {
@@ -63,6 +76,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "duration", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'duration';
     
     // ANNONCE ECONOMIQUE
     } else if (optionChoisi === "option8") {
@@ -71,6 +86,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "annonceEconomique", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'annonceEconomique';
     
     // ORDERTYPE
     } else if (optionChoisi === "option9") {
@@ -79,6 +96,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "orderType", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'orderType';
 
     // SESSION
     } else if (optionChoisi === "option10") {
@@ -87,6 +106,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "session", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'session';
 
     // MULTI
     } else if (optionChoisi === "option11") {
@@ -95,6 +116,8 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "Multi", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'Multi';
     }
 
     // TRADECOUNT
@@ -104,6 +127,10 @@ export const verificationStandardOption = (selectedValue, setStandardValue, setT
             {filtre: "filtreAnnexe", type: "winrate", value: null},
         ]
         generiqueAjoutFiltreFusion("winrate", "tradecount", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'winrate';
+        filtreAnnexe = 'tradecount';
     }
+    setFiltreDeBase(filtreDeBase);
+    setFiltreAnnexe(filtreAnnexe);
     setTableauFiltre(tableauFiltre);
 };

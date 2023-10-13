@@ -9,6 +9,13 @@ import Input from '../inputComposant/Input';
 import '../../../../css/statistique/generale/ajoutFiltre.css';
 
 import Winrate from '../graphique/Winrate';
+import RR from '../graphique/RR';
+import SLR from '../graphique/SLR';
+import TPR from '../graphique/TPR';
+import DD from '../graphique/DD';
+import Psychologie from '../graphique/Psychologie';
+import TailleDeLot from '../graphique/TailleDeLot';
+import TypeOrdre from '../graphique/TypeOrdre';
 
 import { filtreOptions, recuperationNomRemplissageFiltre, winrateOptions, fetchCollectionOptions, fetchStrategieOptions, typeCalculOptions,
 riskRewardOptions, SLROptions, TPROptions, DDOptions, psychologieOptions, capitaleRiskOptions, typeOrdreOptions } from './Options';
@@ -40,6 +47,8 @@ const AjouteFiltre = () => {
 
     const [typeCalculValue, setTypeCalculValue] = useState('');
     const [standardValue, setStandardValue] = useState('');
+    const [filtreDeBase, setFiltreDeBase] = useState('');
+    const [filtreAnnexe, setFiltreAnnexe] = useState('');
     //const [standardOptions, setStandardOptions] = useState([]);
 
     const [nomRemplissageValue, setNomRemplissageValue] = useState('');
@@ -78,8 +87,7 @@ const AjouteFiltre = () => {
         const fetchFiltreData = async () => {
             console.log(tableauFiltreValue);
             if (tableauFiltreValue.length > 1) {
-                console.log('brisé');
-                const recuperationData = await recuperationTradeParFiltre(tableauFiltreValue, collectionValues);
+                const recuperationData = await recuperationTradeParFiltre(tableauFiltreValue, collectionValues, filtreDeBase, filtreAnnexe);
                 setFiltreData(recuperationData);
             }
         };
@@ -91,7 +99,7 @@ const AjouteFiltre = () => {
     useEffect(() => {
         const fetchFiltreDataDate = async () => {
             console.log(tableauFiltreValue);
-            const recuperationData = await recuperationTradeParFiltreDate(tableauFiltreValue, collectionValues, startDateValue, endDateValue);
+            const recuperationData = await recuperationTradeParFiltreDate(tableauFiltreValue, collectionValues, startDateValue, endDateValue, filtreDeBase, filtreAnnexe);
             setFiltreData(recuperationData);
         };
         fetchFiltreDataDate();
@@ -181,108 +189,65 @@ const AjouteFiltre = () => {
                             { typeCalculValue == 'winrate' ? (
                                 <><p>par</p>
                                 <Selector options={winrateOptions} value={standardValue} onChange={(selectedValue) => {verificationStandardOption(
-                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, 
+                                    tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
                                 )}}/></>
                             ) : null }
                             { typeCalculValue == 'riskReward' ? (
                                 <><p>par</p>
                                 <Selector options={riskRewardOptions} value={standardValue} onChange={(selectedValue) => {RRverificationStandardOption(
-                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, 
+                                    tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
                                 )}}/></>
                             ) : null }
                             { typeCalculValue == 'TPR' ? (
                                 <><p>par</p>
                                 <Selector options={TPROptions} value={standardValue} onChange={(selectedValue) => {TPRverificationStandardOption(
-                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, 
+                                    tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
                                 )}}/></>
                             ) : null }
                             { typeCalculValue == 'SLR' ? (
                                 <><p>par</p>
                                 <Selector options={SLROptions} value={standardValue} onChange={(selectedValue) => {SLRverificationStandardOption(
-                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, 
+                                    tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
                                 )}}/></>
                             ) : null }
                             { typeCalculValue == 'DD' ? (
                                 <><p>par</p>
                                 <Selector options={DDOptions} value={standardValue} onChange={(selectedValue) => {DDverificationStandardOption(
-                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, 
+                                    tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
                                 )}}/></>
                             ) : null }
                             { typeCalculValue == 'psychologie' ? (
                                 <><p>par</p>
                                 <Selector options={psychologieOptions} value={standardValue} onChange={(selectedValue) => {PsychologieVerificationStandardOption(
-                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, 
+                                    tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
                                 )}}/></>
                             ) : null }
                             { typeCalculValue == 'capitalRisk' ? (
                                 <><p>par</p>
                                 <Selector options={capitaleRiskOptions} value={standardValue} onChange={(selectedValue) => {TailleLotVerificationStandardOption(
-                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, 
+                                    tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
                                 )}}/></>
                             ) : null }
                             { typeCalculValue == 'typeOrdre' ? (
                                 <><p>par</p>
                                 <Selector options={typeOrdreOptions} value={standardValue} onChange={(selectedValue) => {TypeOrdreVerificationStandardOption(
-                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue
+                                    selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, 
+                                    tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
                                 )}}/></>
                             ) : null }
                         </div>
                     </div>
                     <div className="filtre">
                         <div className="tableauFiltre">
-                            <div className="fitlreDeBase">
-                                {tableauFiltre.map((filtre, index) => (
-                                    <div>
-                                        {filtre.type === "winrate" ? (
-                                            <div className='carteFiltre'>
-                                                <p>Winrate</p>
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                ))}
-                            </div>
                             {tableauFiltre.map((filtre, index) => (
                                 <div className='autreFiltre' key={index}>
-                                    {filtre.type === "typeOfTransaction" ? (
-                                        <div className='carteFiltre'>
-                                            <p>Type of transaction</p>
-                                        </div>
-                                    ) : null}
-                                    {filtre.type === "symbol" ? (
-                                        <div className='carteFiltre'>
-                                            <p>Symbol</p>
-                                        </div>
-                                    ) : null}
-                                    {filtre.type === "psychologie" ? (
-                                        <div className='carteFiltre'>
-                                            <p>Psychologie</p>
-                                        </div>
-                                    ) : null}
-                                    {filtre.type === "balance" ? (
-                                        <div className='carteFiltre'>
-                                            <p>Draw down</p>
-                                        </div>
-                                    ) : null}
-                                    {filtre.type === "RR" ? (
-                                        <div className='carteFiltre'>
-                                            <p>Risk reward</p>
-                                        </div>
-                                    ) : null}
-                                    {filtre.type === "strategie" ? (
-                                        <div className='carteFiltre'>
-                                            <p>Strategie</p>
-                                        </div>
-                                    ) : null}
-                                    {filtre.type === 'capitalrisk' ? (
-                                        <div className='carteFiltre'>
-                                            <p>Capital risk</p>
-                                        </div>
-                                    ) : null}
-                                    {filtre.type === 'orderType' ? (
-                                        <div className='carteFiltre'>
-                                            <p>Order type</p>
-                                        </div>
-                                    ) : null}
                                     {filtre.type === 'date' ? (
                                         <div className='filtreDate carteFiltre'>
                                             <div className="datePicker">
@@ -304,9 +269,57 @@ const AjouteFiltre = () => {
                 </div>
             </div>
             <div className="graphique">
-                <div className="winrate">
-                    <Winrate reponseAPI={filtreData}/>
-                </div>
+                {filtreData != null ? (
+                    <>
+                        {filtreDeBase === "winrate" ? (
+                        <div className="graphiqueCadre">
+                                <Winrate reponseAPI={filtreData} filtreDeBase={filtreDeBase} filtreAnnexe={filtreAnnexe} />
+                        </div>
+                        ) : null }
+                        
+                        {filtreDeBase === "RR" ? (
+                        <div className="graphiqueCadre">
+                            <RR reponseAPI={filtreData} filtreDeBase={filtreDeBase} filtreAnnexe={filtreAnnexe} />
+                        </div>
+                        ) : null }
+
+                        {filtreDeBase === "SLR" ? (
+                        <div className="graphiqueCadre">
+                            <SLR reponseAPI={filtreData} filtreDeBase={filtreDeBase} filtreAnnexe={filtreAnnexe} />
+                        </div>
+                        ) : null }
+
+                        {filtreDeBase === "TPR" ? (
+                        <div className="graphiqueCadre">
+                            <TPR reponseAPI={filtreData} filtreDeBase={filtreDeBase} filtreAnnexe={filtreAnnexe} />
+                        </div>
+                        ) : null }
+
+                        {filtreDeBase === "DD" ? (
+                        <div className="graphiqueCadre">
+                                <DD reponseAPI={filtreData} filtreDeBase={filtreDeBase} filtreAnnexe={filtreAnnexe} />
+                        </div>
+                        ) : null }
+
+                        {filtreDeBase === "psychologie" ? (
+                        <div className="graphiqueCadre">
+                            <Psychologie reponseAPI={filtreData} filtreDeBase={filtreDeBase} filtreAnnexe={filtreAnnexe} />
+                        </div>
+                        ) : null }
+
+                        {filtreDeBase === "tailleLot" ? (
+                        <div className="graphiqueCadre">
+                            <TailleDeLot reponseAPI={filtreData} filtreDeBase={filtreDeBase} filtreAnnexe={filtreAnnexe} />
+                        </div>
+                        ) : null }
+
+                        {filtreDeBase === "typeOrdre" ? (
+                        <div className="graphiqueCadre">
+                            <TypeOrdre reponseAPI={filtreData} filtreDeBase={filtreDeBase} filtreAnnexe={filtreAnnexe} />
+                        </div>
+                        ) : null }
+                    </>
+                ) : null }
                 <div className="reste"></div>
             </div>
         </div>

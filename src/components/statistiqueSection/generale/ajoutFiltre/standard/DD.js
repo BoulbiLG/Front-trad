@@ -1,7 +1,9 @@
 import { generiqueAjoutFiltre, generiqueAjoutFiltreAnnexe, generiqueAjoutFiltreFusion, generiqueAjoutFiltreDate } from "../Fonction";
 
 // VERIFICATION STANDARD OPTION
-export const DDverificationStandardOption = (selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue) => {
+export const DDverificationStandardOption = (selectedValue, setStandardValue, setTableauFiltre, 
+    setTableauFiltreValue, tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
+    ) => {
     const optionChoisi = selectedValue;
     setStandardValue(optionChoisi);
     setTableauFiltreValue([]);
@@ -14,6 +16,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "psychologie", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'psychologie';
 
     // SYMBOL
     } else if (optionChoisi === "option2") {
@@ -22,6 +26,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "symbol", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'symbol';
 
     // DATE
     } else if (optionChoisi === "option3") {
@@ -30,7 +36,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreDate("maxprofit_minloss", tableauFiltreValue, setTableauFiltreValue);
-        console.log(tableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'date';
 
     // LIMIT
     } else if (optionChoisi === "option4") {
@@ -39,6 +46,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "limit", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'limit';
 
     // STRATEGIE
     } else if (optionChoisi === "option5") {
@@ -47,6 +56,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "strategie", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'strategie';
 
     // PERCENT
     } else if (optionChoisi === "option6") {
@@ -55,6 +66,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "Percent", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'Percent';
 
     // DURATION
     } else if (optionChoisi === "option7") {
@@ -63,6 +76,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "duration", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'duration';
     
     // ANNONCE ECONOMIQUE
     } else if (optionChoisi === "option8") {
@@ -71,6 +86,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "annonceEconomique", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'annonceEconomique';
     
     // ORDERTYPE
     } else if (optionChoisi === "option9") {
@@ -79,6 +96,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "orderType", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'orderType';
 
     // SESSION
     } else if (optionChoisi === "option10") {
@@ -87,6 +106,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "session", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'session';
 
     // MULTI
     } else if (optionChoisi === "option11") {
@@ -95,6 +116,8 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "Multi", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'Multi';
     }
 
     // TRADECOUNT
@@ -104,6 +127,12 @@ export const DDverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "maxprofit_minloss", value: null},
         ]
         generiqueAjoutFiltreFusion("maxprofit_minloss", "tradecount", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'DD';
+        filtreAnnexe = 'tradecount';
     }
+    setFiltreDeBase(filtreDeBase);
+    setFiltreAnnexe(filtreAnnexe);
     setTableauFiltre(tableauFiltre);
+
+    console.log("filtreAnnexe : ", filtreAnnexe);
 };

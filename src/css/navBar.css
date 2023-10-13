@@ -6,11 +6,15 @@
     outline: none;
 }
 
-nav {
- display: flex;
- align-items: center;
- justify-content: space-between;
- padding: 5vh;
+nav .navBar2 {
+    display: none;
+}
+
+nav .navBar1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5vh;
 }
 
 .homePageTout .logo {
@@ -67,4 +71,58 @@ nav {
     background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+@media screen and (max-width: 800px) {
+
+    nav {
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        width: 100vw;
+    }
+
+    nav .menuCache {
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5vh;
+    }
+
+    nav .navBar2 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav .navBar2 .navigation {
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(-180deg, rgb(8, 0, 255), rgba(8, 0, 255, 0));
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        padding: 10vh 0 10vh 0;
+    }
+
+    nav .navBar2 .boutonMenu {
+        z-index: 1;
+        position: fixed;
+        top: 5vh;
+        right: 5vh;
+    }
+
+    nav .navBar2 .surNav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav .onglet {
+        margin: 1vh 0;
+        color: white;
+    }
+
+    nav .navBar1 {
+        display: none;
+    }
 }

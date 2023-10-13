@@ -1,7 +1,8 @@
 import { generiqueAjoutFiltre, generiqueAjoutFiltreAnnexe, generiqueAjoutFiltreFusion, generiqueAjoutFiltreDate } from "../Fonction";
 
 // VERIFICATION STANDARD OPTION
-export const TailleLotVerificationStandardOption = (selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue) => {
+export const TailleLotVerificationStandardOption = (selectedValue, setStandardValue, setTableauFiltre, 
+    setTableauFiltreValue, tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe) => {
     const optionChoisi = selectedValue;
     setStandardValue(optionChoisi);
     setTableauFiltreValue([]);
@@ -14,6 +15,8 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreFusion("Capitalrisk", "psychologie", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'psychologie';
 
     // SYMBOL
     } else if (optionChoisi === "option2") {
@@ -22,6 +25,8 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreFusion("Capitalrisk", "symbol", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'symbol';
 
     // DATE
     } else if (optionChoisi === "option3") {
@@ -30,6 +35,8 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreDate("Capitalrisk", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'date';
         console.log(tableauFiltreValue);
 
     // LIMIT
@@ -39,6 +46,8 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreFusion("Capitalrisk", "limit", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'limit';
 
     // STRATEGIE
     } else if (optionChoisi === "option5") {
@@ -47,6 +56,8 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreFusion("Capitalrisk", "strategie", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'strategie';
 
     // DURATION
     } else if (optionChoisi === "option7") {
@@ -55,6 +66,8 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreFusion("Capitalrisk", "duration", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'duration';
     
     // ANNONCE ECONOMIQUE
     } else if (optionChoisi === "option8") {
@@ -63,6 +76,8 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreFusion("Capitalrisk", "annonceEconomique", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'annonceEconomique';
     
     // ORDERTYPE
     } else if (optionChoisi === "option9") {
@@ -71,6 +86,8 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreFusion("Capitalrisk", "orderType", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'orderType';
 
     // SESSION
     } else if (optionChoisi === "option10") {
@@ -79,6 +96,8 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreFusion("Capitalrisk", "session", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'session';
 
     // MULTI
     } else if (optionChoisi === "option11") {
@@ -87,6 +106,8 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreFusion("Capitalrisk", "Multi", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'Multi';
     }
 
     // TRADECOUNT
@@ -96,6 +117,10 @@ export const TailleLotVerificationStandardOption = (selectedValue, setStandardVa
             {filtre: "filtreAnnexe", type: "Capitalrisk", value: null},
         ]
         generiqueAjoutFiltreFusion("Capitalrisk", "tradecount", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'Capitalrisk';
+        filtreAnnexe = 'tradecount';
     }
+    setFiltreDeBase(filtreDeBase);
+    setFiltreAnnexe(filtreAnnexe);
     setTableauFiltre(tableauFiltre);
 };

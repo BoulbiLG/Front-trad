@@ -1,7 +1,9 @@
 import { generiqueAjoutFiltre, generiqueAjoutFiltreAnnexe, generiqueAjoutFiltreFusion, generiqueAjoutFiltreDate } from "../Fonction";
 
 // VERIFICATION STANDARD OPTION
-export const RRverificationStandardOption = (selectedValue, setStandardValue, setTableauFiltre, setTableauFiltreValue, tableauFiltreValue, setWinrateValue) => {
+export const RRverificationStandardOption = (selectedValue, setStandardValue, setTableauFiltre, 
+    setTableauFiltreValue, tableauFiltreValue, setWinrateValue, filtreDeBase, filtreAnnexe, setFiltreDeBase, setFiltreAnnexe
+    ) => {
     const optionChoisi = selectedValue;
     setStandardValue(optionChoisi);
     setTableauFiltreValue([]);
@@ -14,6 +16,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "psychologie", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'psychologie';
 
     // SYMBOL
     } else if (optionChoisi === "option2") {
@@ -22,6 +26,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "symbol", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'symbol';
 
     // DATE
     } else if (optionChoisi === "option3") {
@@ -30,6 +36,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreDate("RR", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'date';
         console.log(tableauFiltreValue);
 
     // LIMIT
@@ -39,6 +47,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "limit", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'limit';
 
     // STRATEGIE
     } else if (optionChoisi === "option5") {
@@ -47,6 +57,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "strategie", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'strategie';
 
     // PERCENT
     } else if (optionChoisi === "option6") {
@@ -55,6 +67,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "Percent", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'Percent';
 
     // DURATION
     } else if (optionChoisi === "option7") {
@@ -63,6 +77,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "duration", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'duration';
     
     // ANNONCE ECONOMIQUE
     } else if (optionChoisi === "option8") {
@@ -71,6 +87,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "annonceEconomique", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'annonceEconomique';
     
     // ORDERTYPE
     } else if (optionChoisi === "option9") {
@@ -79,6 +97,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "orderType", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'orderType';
 
     // SESSION
     } else if (optionChoisi === "option10") {
@@ -87,6 +107,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "session", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'session';
 
     // MULTI
     } else if (optionChoisi === "option11") {
@@ -95,6 +117,8 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "Multi", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'Multi';
     }
 
     // TRADECOUNT
@@ -104,6 +128,10 @@ export const RRverificationStandardOption = (selectedValue, setStandardValue, se
             {filtre: "filtreAnnexe", type: "RR", value: null},
         ]
         generiqueAjoutFiltreFusion("RR", "tradecount", tableauFiltreValue, setTableauFiltreValue);
+        filtreDeBase = 'RR';
+        filtreAnnexe = 'tradecount';
     }
+    setFiltreDeBase(filtreDeBase);
+    setFiltreAnnexe(filtreAnnexe);
     setTableauFiltre(tableauFiltre);
 };
