@@ -9,7 +9,7 @@ import Strategie from '../components/strategie/Strategie';
 import Journal from '../components/journalSection/journal/Journal';
 import Consultation from '../components/journalSection/consultation/Consultation';
 import AjouteFiltre from '../components/statistiqueSection/generale/ajoutFiltre/AjouteFiltre';
-import Test from '../components/statistiqueSection/generale/graphique/Test';
+import TerminalTime from '../components/timeWorld/TerminalTime';
 
 const Profil = () => {
   const navigate = useNavigate();
@@ -43,14 +43,27 @@ const Profil = () => {
         <NavBar />
         <div className="contenu-global">
           <div className="cadre-infos">
-            <h1>{username}</h1>
-            <p>{email}</p>
+
+            {/* ==================== Barre latérale ==================== */}
+
             <div className="sectionProfil">
-              <Button backgroundColor="#d51f1f" className='deconnexion' label='deconnexion' onClick={deconnexion} />
+              <Button label="Morning meeting" onClick={() => {setAffichageFenetre('timeWorld')}} />
               <Button label="Dashboard" onClick={() => {setAffichageFenetre('dashboard')}} />
               <Button label="Journal" onClick={() => {setAffichageFenetre('journal')}} />
               <Button label="Statistiques" onClick={() => {setAffichageFenetre('stat')}} />
+
+              {/* ==================== DECONNEXION ==================== */}
+
+              <div className="deconnexionDiv">
+                <h1>{username}</h1>
+                <p>{email}</p>
+                <Button backgroundColor="#d51f1f" className='deconnexion' label='deconnexion' onClick={deconnexion} />
+              </div>
+
             </div>
+
+            {/* ==================== Contenu ==================== */}
+
             <div className="selecteur">
               <div className='toutesLesCoches'>
                 {affichageFenetre === "stat" ? (
@@ -69,6 +82,11 @@ const Profil = () => {
                         </div>
                       ) : null}
                     </div>
+                  </div>
+                ) : null}
+                {affichageFenetre === "timeWorld" ? (
+                  <div className="timeWorld">
+                    <TerminalTime />
                   </div>
                 ) : null}
                 {affichageFenetre === "dashboard" ? (
@@ -97,6 +115,7 @@ const Profil = () => {
                 ) : null}
               </div>
             </div>
+
           </div>
         </div>
       </div>

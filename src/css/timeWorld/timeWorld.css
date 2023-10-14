@@ -1,0 +1,44 @@
+.conteneurTimeWorld {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1000px;
+}
+
+.conteneurTimeWorld .london {
+    flex: 1;
+    margin: 3vh ;
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.conteneurTimeWorld .titre {
+    flex: 1;
+}
+
+.conteneurTimeWorld .titre p {
+    font-weight: 800;
+}
+
+.conteneurTimeWorld .imageDiv {
+    text-align: center;
+    width: 100%;
+    flex: 3;
+}
+
+.conteneurTimeWorld .time {
+    align-items: center;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.conteneurTimeWorld .timeDonnee {
+    margin: 0 1vh;
+    border: 1px solid rgb(188, 188, 188);
+    border-radius: 1vh;
+    padding: 1vh;
+}

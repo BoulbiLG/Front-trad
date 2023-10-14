@@ -1,0 +1,4 @@
+.conteneurTerminalTime {
+    display: flex;
+    flex-direction: column;
+}
