@@ -4,7 +4,7 @@ import { formatISO } from 'date-fns';
 
 // http://localhost:1234
 // https://apipython2.onrender.com
-const apiUrl = 'http://localhost:1234';
+const apiUrl = 'https://apipython2.onrender.com';
 const username = sessionStorage.getItem('username');
 
 export const recuperationTradeParFiltreDate = async (tableauFiltreValue, collectionValues, startDate, endDate, filtreDeBase, filtreAnnexe) => {
