@@ -25,80 +25,109 @@ const Winrate = ({ reponseAPI, filtreDeBase, filtreAnnexe }) => {
 
     const [chartData, setChartData] = useState(null);
 
-    console.log(filtreDeBase);
     console.log(filtreAnnexe);
 
     useEffect(() => {
-        if (reponseAPI && reponseAPI != null && Object.keys(reponseAPI).length > 0) {
-            const reponseAPIArray = Object.entries(reponseAPI).map(([cle, value]) => ({
-                cle,
-                value
-            }));
 
-            const reponseSansTest = reponseAPIArray.filter(({ cle }) => cle !== 'typeEnregistrement');
+        // ========== PERCENT ==========//
 
-            const cleBrut = reponseSansTest.map(({ cle }) => cle);
+        if(filtreAnnexe == 'Percent') {
 
-            const valeur = reponseSansTest.map(({ value }) => parseInt(value, 10));
-
-            let cleArrondies;
-
-            let cle;
-
-            cle = cleBrut;
-
-            if (filtreAnnexe == "limit") {
-                cle = cleBrut.map((cle) => {if (cle === "True") {return "Limit";} else if (cle === "False") {return "Market";} else {return cle;}});
-            }
-            if (filtreAnnexe == "Percent") {
-                cleArrondies = cleBrut.map((valeur) => {
-                    const nombre = parseFloat(valeur);
-                    if (!isNaN(nombre) && isFinite(nombre)) { return parseFloat(nombre.toFixed(3));} return valeur;
-                });
-                cle = cleArrondies;
-                console.log("cleArrondies : ", cleArrondies)
-            }
-            if (filtreAnnexe == "annonceEconomique") {
-                cle = cleBrut.map((cle) => {if (cle === "True") {return "Lors d'une annonce économique";} else if (cle === "False") {return "Sans annonce économique";} else {return cle;}});
-            }
-            if (filtreAnnexe == "orderType") {
-                cle = cleBrut.map((cle) => {if (cle === "BUY") {return "Achat";} else if (cle === "SELL") {return "Vente";} else {return cle;}});
-            }
-            if (filtreAnnexe == "session") {
-                cle = cleBrut.map((cle) => {
-                    if (cle === "AS") {return "Asie";} 
-                    else if (cle === "EURSD") {return "";}
-                    else if (cle === "NY") {return "New York";}
-                    else if (cle === "LD") {return "London";}
-                    else if (cle === "EURSD") {return "Europe";}
-                    else if (cle === "ND") {return "Hors session";}
-                    else {return cle;}
-                });
-            }
-            if (filtreAnnexe == "Multi") {
-                cle = cleBrut.map((cle) => {
-                    if (cle === "True") {return "Oui";} 
-                    else if (cle === "False") {return "Non";} 
-                    else {return cle;}
-                });
-            }
+            const convertedData = Object.entries(reponseAPI).map(([key, value]) => ({ key, value }));
+            const keys = convertedData.map(item => item.key);
+            const values = convertedData.map(item => item.value.winrate_value);
 
             data = {
-                labels: cle,
+                labels: keys,
                 datasets: [
                     {
                         label: 'Winrate',
-                        data: valeur,
+                        data: values,
                         backgroundColor: 'aqua',
                         borderWidth: 0,
                         borderRadius: 0
                     }
                 ]
             }
+
             setAucuneDonnee('false');
             setChartData(data);
+
+        // ========== AUTRE ==========//
+
         } else {
-            setAucuneDonnee('true');
+            if (reponseAPI && reponseAPI != null && Object.keys(reponseAPI).length > 0) {
+
+                const reponseAPIArray = Object.entries(reponseAPI).map(([cle, value]) => ({
+                    cle,
+                    value
+                }));
+    
+                const reponseSansTest = reponseAPIArray.filter(({ cle }) => cle !== 'typeEnregistrement');
+    
+                const cleBrut = reponseSansTest.map(({ cle }) => cle);
+    
+                const valeur = reponseSansTest.map(({ value }) => parseInt(value, 10));
+    
+                let cleArrondies;
+    
+                let cle;
+    
+                cle = cleBrut;
+    
+                if (filtreAnnexe == "limit") {
+                    cle = cleBrut.map((cle) => {if (cle === "True") {return "Limit";} else if (cle === "False") {return "Market";} else {return cle;}});
+                }
+                if (filtreAnnexe == "Percent") {
+                    cleArrondies = cleBrut.map((valeur) => {
+                        const nombre = parseFloat(valeur);
+                        if (!isNaN(nombre) && isFinite(nombre)) { return parseFloat(nombre.toFixed(3));} return valeur;
+                    });
+                    cle = cleArrondies;
+                    console.log("cleArrondies : ", cleArrondies)
+                }
+                if (filtreAnnexe == "annonceEconomique") {
+                    cle = cleBrut.map((cle) => {if (cle === "True") {return "Lors d'une annonce économique";} else if (cle === "False") {return "Sans annonce économique";} else {return cle;}});
+                }
+                if (filtreAnnexe == "orderType") {
+                    cle = cleBrut.map((cle) => {if (cle === "BUY") {return "Achat";} else if (cle === "SELL") {return "Vente";} else {return cle;}});
+                }
+                if (filtreAnnexe == "session") {
+                    cle = cleBrut.map((cle) => {
+                        if (cle === "AS") {return "Asie";} 
+                        else if (cle === "EURSD") {return "";}
+                        else if (cle === "NY") {return "New York";}
+                        else if (cle === "LD") {return "London";}
+                        else if (cle === "EURSD") {return "Europe";}
+                        else if (cle === "ND") {return "Hors session";}
+                        else {return cle;}
+                    });
+                }
+                if (filtreAnnexe == "Multi") {
+                    cle = cleBrut.map((cle) => {
+                        if (cle === "True") {return "Oui";} 
+                        else if (cle === "False") {return "Non";} 
+                        else {return cle;}
+                    });
+                }
+    
+                data = {
+                    labels: cle,
+                    datasets: [
+                        {
+                            label: 'Winrate',
+                            data: valeur,
+                            backgroundColor: 'aqua',
+                            borderWidth: 0,
+                            borderRadius: 0
+                        }
+                    ]
+                }
+                setAucuneDonnee('false');
+                setChartData(data);
+            } else {
+                setAucuneDonnee('true');
+            }
         }
     }, [reponseAPI, filtreAnnexe]);
 
@@ -117,3 +146,4 @@ const Winrate = ({ reponseAPI, filtreDeBase, filtreAnnexe }) => {
 }
 
 export default Winrate;
+
