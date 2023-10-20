@@ -4,6 +4,7 @@ import { formatISO } from 'date-fns';
 
 // http://localhost:1234
 // https://apipython2.onrender.com
+const apiUrlLocal = 'http://localhost:1234';
 const apiUrl = 'https://apipython2.onrender.com';
 const username = sessionStorage.getItem('username');
 
@@ -14,6 +15,7 @@ export const recuperationTradeParFiltreDate = async (tableauFiltreValue, collect
     const dateDebutBrut = new Date(startDate);
     const dateDebut = format(dateDebutBrut, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     const dateDebutString = dateDebut.toLocaleString();
+    console.log(tableauFiltreValue);
     console.log(dateDebut);
 
     const dateFinBrut = new Date(endDate);
@@ -32,7 +34,7 @@ export const recuperationTradeParFiltreDate = async (tableauFiltreValue, collect
             const filtreDeBase = tableauFiltreValue[0].filtreDeBase;
             tableauFiltreValue.shift();
             console.log(tableauFiltreValue);
-            console.log(`${apiUrl}/${filtreDeBase}`);
+            console.log(`${apiUrlLocal}/${filtreDeBase}`);
             const ok = JSON.stringify(tableauFiltreValue);
             const params = {
                 dateDebut: dateDebut,
@@ -40,6 +42,7 @@ export const recuperationTradeParFiltreDate = async (tableauFiltreValue, collect
                 collection: collectionValues,
                 username: username,
                 filtreDeBase: filtreDeBase,
+                tableauFiltreValue: ok
             }
             if (filtreDeBase) {
                 if (tableauFiltreValue) {
@@ -48,13 +51,13 @@ export const recuperationTradeParFiltreDate = async (tableauFiltreValue, collect
                     try {
                         if(filtreDeBase == "Capitalrisk" || filtreDeBase == "psychologie" || filtreDeBase == "typeOrdre") {
                             console.log("vérification accomplie")
-                            const response = await axios.get(`${apiUrl}/${filtreDeBase}`, { params });
+                            const response = await axios.get(`${apiUrlLocal}/filtreAnnexe`, { params });
                             console.log(response.data);
                             return response.data;
                         }
                         else {
                             console.log("vérification rejetée")
-                            const response = await axios.get(`${apiUrl}/filtreAnnexe`, { params });
+                            const response = await axios.get(`${apiUrlLocal}/${filtreDeBase}`, { params });
                             console.log(response.data);
                             return response.data;
                         }

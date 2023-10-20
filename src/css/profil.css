@@ -1,22 +1,19 @@
-.toutProfil {
-    background-color: rgb(255, 255, 255);
+.conteneurProfil {
+    box-sizing: border-box;
+    padding: 0 5vh 5vh 5vh;
+    display: flex;
+    flex-direction: column;
     height: 100vh;
 }
-.contenu-global {
+
+.conteneurProfil .secondConteneur {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    height: 100%;
 }
 
-.cadre-infos {
+.conteneurProfil .droite {
     width: 100%;
-    height: 100vh;
-    position: relative;
-    display: flex;
-    padding: 50px;
-}
-
-.cadre-infos h1 {
-    font-size: 3rem;
 }
 
 .deconnexion {
@@ -36,16 +33,7 @@
     scale: 105%;
 }
 
-.selecteur {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 30px 0;
-}
-
 .sectionProfil {
-    flex: 1;
     display: flex;
     flex-direction: column;
 }
@@ -58,4 +46,72 @@
 .journalStatistique {
     display: flex;
     align-items: center;
+    box-sizing: border-box;
+}
+
+.conteneurProfil .barreLateral {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 2vh 0 0;
+}
+
+.conteneurProfil .barreLateral .interieurButton button {
+    width: 100%;
+    margin: 1vh 0;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    padding: 1.7vh 2vw;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 0.7vw;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.conteneurProfil .barreLateral .selected-button {
+    background-color: rgb(8, 0, 255);
+    color: rgb(255, 255, 255);
+}
+
+.conteneurProfil .barreLateral .normal-button {
+    color: black;
+    background-color: rgb(179, 255, 0);
+}
+
+.conteneurProfil .barreLateral .hautButton button {
+    width: 100%;
+    margin: 0 0 1vh 0;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    padding: 1.7vh 2vw;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 0.7vw;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.conteneurProfil .barreLateral .basButton button {
+    width: 100%;
+    margin: 1vh 0 0 0;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    padding: 1.7vh 2vw;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 0.7vw;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* ========== DROITE ==========*/
+
+.conteneurProfil .droite {
+    box-sizing: border-box;
+    padding: 0 0 0 2vh;
 }

@@ -7,6 +7,7 @@ const TerminalTime = () => {
   return (
     <div className='conteneurTerminalTime'>
         <TimeWorld />
+        <Citation />
     </div>
   )
 }

@@ -1,11 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../css/timeWorld/timeWorld.css';
+import { fetchDataFromAPI } from './RecuperationAnnonce';
 
 const TimeWorld = () => {
     const [londonTime, setLondonTime] = useState('');
     const [newYorkTime, setNewYorkTime] = useState('');
     const [tokyoTime, setTokyoTime] = useState('');
+
+    useEffect(() => {
+        const apiKey = 'CVSEHWQ4JVGJM60U '; // Remplacez par votre propre clé API Alpha Vantage
+        const symbol = 'IBM';
+        const apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${apiKey}`;
+    
+        axios
+          .get(apiUrl)
+          .then((response) => {
+            // Vérifiez si la réponse est réussie (statut 200)
+            if (response.status === 200) {
+              const data = response.data;
+              console.log(data); // Vous pouvez traiter les données ici
+            } else {
+              console.log('Erreur de réponse:', response.status);
+            }
+          })
+          .catch((error) => {
+            console.error('Erreur lors de la requête:', error);
+          });
+      }, []); 
   
     const extractTime = (datetime) => {
         const [datePart, timePart] = datetime.split('T');
@@ -47,6 +69,31 @@ const TimeWorld = () => {
     return (
         <div className='conteneurTimeWorld'>
 
+<iframe
+  src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=110,17,25,34,32,6,37,26,5,22,39,93,14,48,10,35,105,43,38,4,36,12,72&calType=week&timeZone=58&lang=5"
+  width="650"
+  height="467"
+  frameborder="0"
+  allowtransparency="true"
+  marginwidth="0"
+  marginheight="0"
+  style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+></iframe>
+<div className="poweredBy">
+  <span style={{ fontSize: '11px', color: '#333333', textDecoration: 'none' }}>
+    Calendrier économique fourni par{' '}
+    <a
+      href="https://fr.investing.com/"
+      rel="nofollow"
+      target="_blank"
+      style={{ fontSize: '11px', color: '#06529D', fontWeight: 'bold' }}
+      className="underline_link"
+    >
+      Investing.com France
+    </a>
+    , portail leader de la bourse.
+  </span>
+</div>
             {/* ==================== LONDON ==================== */}
 
             <div className="london">
