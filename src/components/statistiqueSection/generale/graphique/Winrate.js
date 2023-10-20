@@ -146,3 +146,4 @@ const Winrate = ({ reponseAPI, filtreDeBase, filtreAnnexe }) => {
 }
 
 export default Winrate;
+
