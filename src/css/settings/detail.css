@@ -1,0 +1,36 @@
+.conteneurDetail {
+    display: flex;
+    max-width: 800px;
+}
+
+.conteneurDetail .gauche {
+    flex: 1;
+}
+
+.conteneurDetail .droite {
+    flex: 1;
+}
+
+.conteneurDetail p.titreSecond {
+    color: #2e4857;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 7vh;
+    margin-bottom: 3vh;
+}
+
+.conteneurDetail .carte {
+    margin: 2vh 2vh 2vh 0;
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+}
+
+.conteneurDetail p.titre {
+    color: #767f98;
+}
+
+.conteneurDetail p.detail {
+    font-size: 1.5rem;
+    font-weight: 600;
+}

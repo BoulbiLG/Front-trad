@@ -1,0 +1,141 @@
+.conteneurPortfolio {
+    display: flex;
+}
+
+/*========== SECTION 1 ==========*/
+
+.conteneurPortfolio .section1 {
+    margin-right: 2vh;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.conteneurPortfolio .graphique1 {
+    border-radius: 1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    width: 100%;
+    flex: 1;
+    max-height: 500px;
+    margin-bottom: 2vh;
+}
+
+.conteneurPortfolio .graphique2 {
+    border-radius: 1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    width: 100%;
+    flex: 1;
+    max-height: 500px;
+}
+
+/*========== SECTION 2 ==========*/
+
+/* VALUATION */
+
+.conteneurPortfolio .section2 {
+    flex: 1;
+}
+
+.conteneurPortfolio .valuation {
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+    margin-bottom: 2vh;
+}
+
+.conteneurPortfolio .valuation p.portfolioValuation {
+    color: #767f98;
+    margin-bottom: 1vh;
+}
+
+.conteneurPortfolio .valuation .detail {
+    margin-top: 1vh;
+    display: flex;
+    align-items: center;
+}
+
+.conteneurPortfolio .valuation .detail p.nombre {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-right: 1vh;
+}
+
+.conteneurPortfolio .valuation .detail p.pourcentage {
+    color: #00c957;
+}
+
+/* ALLOCATION */
+
+.conteneurPortfolio .allocation {
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+}
+
+.conteneurPortfolio .allocation p.assetAllocation {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 5vh;
+}
+
+.conteneurPortfolio .allocation .sectionCamembert {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5vh;
+}
+
+.conteneurPortfolio .allocation .camembert {
+    height: 20vh;
+    width: 20vh;
+    background-color: rgb(2, 220, 64);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.conteneurPortfolio .listeIndex {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.conteneurPortfolio .carteIndex {
+    margin: 1vh 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.conteneurPortfolio .gauche {
+    display: flex;
+    align-items: center;
+}
+
+.conteneurPortfolio .droite {
+    display: flex;
+    justify-content: end;
+}
+
+.conteneurPortfolio .rectangle {
+    width: 4vh;
+    height: 2vh;
+    background-color: #00c957
+}
+
+.conteneurPortfolio .gauche p.pourcentage {
+    margin-left: 1vh;
+    font-weight: 600;
+}
+
+.conteneurPortfolio p.detail {
+    margin-left: 1vh;
+    color: #767f98;
+}

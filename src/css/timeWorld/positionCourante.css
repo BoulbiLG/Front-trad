@@ -1,0 +1,24 @@
+.conteneurPositionCourante {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.conteneurPositionCourante .current {
+    color: #2e4857;
+}
+
+.conteneurPositionCourante .donnee {
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.conteneurPositionCourante .detail {
+    color: #00c957;
+}

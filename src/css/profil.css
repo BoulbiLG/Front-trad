@@ -1,36 +1,54 @@
 .conteneurProfil {
     box-sizing: border-box;
-    padding: 0 5vh 5vh 5vh;
+    padding: 5vh 5vh 5vh 5vh;
     display: flex;
     flex-direction: column;
     height: 100vh;
+}
+
+.conteneurProfil .secondConteneur img {
+    margin: 1vh 0 5vh 0;
 }
 
 .conteneurProfil .secondConteneur {
     display: flex;
     flex-direction: row;
     height: 100%;
+    box-sizing: border-box;
 }
 
 .conteneurProfil .droite {
     width: 100%;
+    box-sizing: border-box;
+    flex: 5;
 }
 
-.deconnexion {
+.conteneurProfil .gauche {
+    width: 100%;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.conteneurProfil .deconnexionDiv {
+    background-color: white;
+    box-shadow: 1vh 1vh 50px rgb(200, 200, 200);
+    padding: 2vh;
+    border-radius: 2vh;
+}
+
+.conteneurProfil .deconnexionDiv p {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.conteneurProfil .deconnexionDiv button {
+    font-size: 1.2rem;
+    cursor: pointer;
     transition: all 0.3s;
-    color: rgb(255, 255, 255);
-    background-color: rgb(222, 21, 21);
     border: none;
     outline: none;
-    border-radius: 5px;
-    padding: 1.5vh 2vw;
-    margin-top: 20px;
-    cursor: pointer;
-}
-
-.deconnexion:hover {
-    filter: brightness(110%);
-    scale: 105%;
+    background-color: white;
+    color: #2e4857;
 }
 
 .sectionProfil {
@@ -62,31 +80,23 @@
     margin: 1vh 0;
     font-family: 'Roboto', sans-serif;
     letter-spacing: 1px;
-    padding: 1.7vh 2vw;
+    padding: 2vh;
     font-size: 16px;
     font-weight: bold;
     border-radius: 0.7vw;
     border: none;
     cursor: pointer;
     transition: all 0.2s;
-}
-
-.conteneurProfil .barreLateral .selected-button {
-    background-color: rgb(8, 0, 255);
-    color: rgb(255, 255, 255);
-}
-
-.conteneurProfil .barreLateral .normal-button {
-    color: black;
-    background-color: rgb(179, 255, 0);
+    text-align: start;
 }
 
 .conteneurProfil .barreLateral .hautButton button {
     width: 100%;
     margin: 0 0 1vh 0;
     font-family: 'Roboto', sans-serif;
+    text-align: start;
     letter-spacing: 1px;
-    padding: 1.7vh 2vw;
+    padding: 2vh;
     font-size: 16px;
     font-weight: bold;
     border-radius: 0.7vw;
@@ -100,13 +110,24 @@
     margin: 1vh 0 0 0;
     font-family: 'Roboto', sans-serif;
     letter-spacing: 1px;
-    padding: 1.7vh 2vw;
+    padding: 2vh;
     font-size: 16px;
     font-weight: bold;
     border-radius: 0.7vw;
     border: none;
     cursor: pointer;
     transition: all 0.2s;
+    text-align: start;
+}
+
+.conteneurProfil .barreLateral .selected-button {
+    background-color: rgb(8, 0, 255);
+    color: rgb(255, 255, 255);
+}
+
+.conteneurProfil .barreLateral .normal-button {
+    color: black;
+    background-color: rgb(179, 255, 0);
 }
 
 /* ========== DROITE ==========*/

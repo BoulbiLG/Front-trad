@@ -1,0 +1,26 @@
+.conteneurSettings {
+
+}
+
+.conteneurSettings p.customer {
+    color: #2e4857;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 3vh;
+}
+
+.conteneurSettings .multipleSection {
+    display: flex;
+}
+
+.conteneurSettings .multipleSection button {
+    margin-right: 2vh;
+    width: 100%;
+    padding: 1vh 1vw;
+    border-radius: 2vh;
+    border: 1px solid #2e4857;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: white;
+    color: #2e4857;
+}

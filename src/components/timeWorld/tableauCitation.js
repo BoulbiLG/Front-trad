@@ -1,7 +1,3 @@
 export const citation = [
-    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-    'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-    'rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr',
-    'tttttttttttttttttttttttttttttttttt',
-    'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'
+    '"Every trade is an opportunity, and with discipline, determination, and a clear strategy"',
 ]

@@ -1,0 +1,42 @@
+.conteneurAnnonceEconomique {
+    height: 100%;
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.conteneurAnnonceEconomique .haut {
+    
+}
+
+.conteneurAnnonceEconomique .haut p.heure {
+    font-weight: 600;
+    margin-bottom: 1vh;
+}
+
+.conteneurAnnonceEconomique .haut p.detail {
+    color: #2e4857;
+    margin-bottom: 1vh;
+}
+
+
+.conteneurAnnonceEconomique .milieu {
+    
+}
+
+.conteneurAnnonceEconomique .milieu p {
+    margin: 1vh 0;
+}
+
+.conteneurAnnonceEconomique .bas {
+
+}
+
+.conteneurAnnonceEconomique hr {
+    margin: 0;
+    color: #2e4857;
+}

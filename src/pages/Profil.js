@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import '../css/profil.css';
 import NavBar from '../components/NavBar';
 import Button from '../components/inputComposant/Button';
+import logo from '../Assets/logo.png';
+import { Link } from 'react-router-dom';
 
 import Statistique1 from '../components/statistiqueSection/precise/Statistique1';
 import Strategie from '../components/strategie/Strategie';
@@ -10,8 +12,11 @@ import Journal from '../components/journalSection/journal/Journal';
 import Consultation from '../components/journalSection/consultation/Consultation';
 import AjouteFiltre from '../components/statistiqueSection/generale/ajoutFiltre/AjouteFiltre';
 import TimeWorld from '../components/timeWorld/TimeWorld';
-import Citation from '../components/timeWorld/Citation';
 import Note from '../components/note/Note';
+import DailyJournal from '../components/dailyJournal/DailyJournal';
+import Portfolio from '../components/portfolio/Portfolio';
+import CopyTrading from '../components/CopyTrading/CopyTrading';
+import Settings from '../components/settings/Settings';
 
 const Profil = () => {
   const navigate = useNavigate();
@@ -50,7 +55,6 @@ const Profil = () => {
 
   return (
       <div className='conteneurProfil'>
-        <NavBar />
         <div className="secondConteneur">
           <div className="gauche">
 
@@ -58,13 +62,17 @@ const Profil = () => {
 
             <div className="barreLateral">
               <div className="toutButton">
+                <Link className='' to="/"><img src={logo} alt="" /></Link>
                 <div className="hautButton">
                   <Button label="Morning meeting" onClick={() => handleButtonClick('timeWorld')} className={getButtonClass('timeWorld')} />
                 </div>
                 <div className="interieurButton">
-                  <Button label="Dashboard" onClick={() => handleButtonClick('dashboard')} className={getButtonClass('dashboard')} />
+                  <Button label="Daily journal" onClick={() => handleButtonClick('dailyJournal')} className={getButtonClass('dailyJournal')} />
                   <Button label="Journal" onClick={() => handleButtonClick('journal')} className={getButtonClass('journal')} />
                   <Button label="Statistiques" onClick={() => handleButtonClick('stat')} className={getButtonClass('stat')} />
+                  <Button label="Portfolio" onClick={() => handleButtonClick('portfolio')} className={getButtonClass('portfolio')} />
+                  <Button label="Copy trading" onClick={() => handleButtonClick('copyTrading')} className={getButtonClass('copyTrading')} />
+                  <Button label="Settings" onClick={() => handleButtonClick('settings')} className={getButtonClass('settings')} />
                 </div>
                 <div className="basButton">
                   <Button label="Note" onClick={() => handleButtonClick('note')} className={getButtonClass('note')} />
@@ -74,9 +82,8 @@ const Profil = () => {
               {/* ==================== DECONNEXION ==================== */}
 
               <div className="deconnexionDiv">
-                <h1>{username}</h1>
-                <p>{email}</p>
-                <Button backgroundColor="#d51f1f" className='deconnexion' label='deconnexion' onClick={deconnexion} />
+                <p>{username}</p>
+                <Button  className='deconnexion' label='Logout' onClick={deconnexion} />
               </div>
 
             </div>
@@ -106,7 +113,6 @@ const Profil = () => {
               {affichageFenetre === "timeWorld" ? (
                 <div className="timeWorld">
                   <TimeWorld />
-                  <Citation />
                 </div>
               ) : null}
               {affichageFenetre === "note" ? (
@@ -114,10 +120,24 @@ const Profil = () => {
                   <Note />
                 </div>
               ) : null}
-              {affichageFenetre === "dashboard" ? (
-                <div className="dashboard">
-                  <h3>Dashboard</h3>
-                  <p>Rien pour le moment</p>
+              {affichageFenetre === "dailyJournal" ? (
+                <div className="dailyJournal">
+                  <DailyJournal />
+                </div>
+              ) : null}
+              {affichageFenetre === "settings" ? (
+                <div className="settings">
+                  <Settings />
+                </div>
+              ) : null}
+              {affichageFenetre === "portfolio" ? (
+                <div className="portfolio">
+                  <Portfolio />
+                </div>
+              ) : null}
+              {affichageFenetre === "copyTrading" ? (
+                <div className="copyTrading">
+                  <CopyTrading />
                 </div>
               ) : null}
               {affichageFenetre === "journal" ? (

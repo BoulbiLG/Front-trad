@@ -1,13 +1,39 @@
-/*
+
 .conteneurTimeWorld {
     display: flex;
-    justify-content: space-between;
-    max-width: 1000px;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
 .conteneurTimeWorld .london {
+    margin-right: 1vh;
     flex: 1;
-    margin: 3vh ;
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.conteneurTimeWorld .NY {
+    margin: 0 1vh;
+    flex: 1;
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.conteneurTimeWorld .ville .imageDiv {
+    margin: 5vh 0;
+}
+
+.conteneurTimeWorld .tokyo {
+    margin-left: 1vh;
+    flex: 1;
     box-shadow: 0 0 10px rgb(233, 233, 233);
     border-radius: 1vh;
     padding: 3vh;
@@ -42,4 +68,63 @@
     border-radius: 1vh;
     padding: 1vh;
 }
-*/
+
+.conteneurTimeWorld .secondConteneur {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1vh 0;
+}
+
+.conteneurTimeWorld .bas {
+    max-width: 700px;
+}
+
+/*========== SECTION 3 ==========*/
+
+.conteneurTimeWorld .section3 {
+    margin: 1vh 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.conteneurTimeWorld .section3 .sectionPositionCourante {
+    flex: 1;
+    margin-right: 1vh;
+    width: 100%;
+}
+
+.conteneurTimeWorld .section3 .conteneurCitation {
+    flex: 2;
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+    margin-left: 1vh;
+}
+
+.conteneurTimeWorld .section3 .conteneurCitation .haut p {
+    color: #2e4857;
+}
+
+.conteneurTimeWorld .section3 .conteneurCitation .bas p {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/*========== SECTION 4 ==========*/
+
+.conteneurTimeWorld .section4 {
+    margin: 1vh 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.conteneurTimeWorld .section4 .sectionMorningRoutine {
+    flex: 1;
+    margin-right: 1vh;
+}
+
+.conteneurTimeWorld .section4 .sectionAnnonceEconomique {
+    flex: 1;
+    margin-left: 1vh;
+}

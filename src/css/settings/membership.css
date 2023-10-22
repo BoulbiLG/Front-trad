@@ -1,0 +1,105 @@
+.conteneurMembership {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10vh;
+}
+
+.conteneurMembership .sectionPlan {
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+    margin: 0 1vh;
+}
+
+.conteneurMembership .plan {
+    color: #2e4857;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 2vh;
+}
+
+.conteneurMembership p.price {
+    color: #2e4857;
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 2vh;
+}
+
+.conteneurMembership span {
+    color: #2e4857;
+    font-size: 1rem;
+    color: #767f98;
+}
+
+.conteneurMembership .detail {
+    font-size: 1rem;
+    color: #767f98;
+    margin-bottom: 2vh;
+}
+
+.conteneurMembership .current button {
+    margin-right: 2vh;
+    font-size: 1rem;
+    width: 100%;
+    padding: 1.5vh 2vw;
+    border-radius: 1vh;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: #2e4857;
+    color: white;
+}
+
+.conteneurMembership .upgrade button {
+    margin-right: 2vh;
+    font-size: 1rem;
+    width: 100%;
+    padding: 1.5vh 2vw;
+    border-radius: 1vh;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: linear-gradient(90deg, rgb(3, 25, 194), rgb(188, 0, 246));
+    color: white;
+}
+
+.conteneurMembership .cancel {
+    display: flex;
+    justify-content: end;
+}
+
+.conteneurMembership .cancel button {
+    padding: 0.5vh;
+    margin: 1vh 0 2vh 0;
+    background-color: rgb(255, 217, 217);
+    color: rgb(255, 124, 124);
+    border-radius: 0.5vh;
+    max-width: 7.5vw;
+    outline: none;
+    border: none;
+}
+
+.conteneurMembership .features {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 2vh;
+}
+
+.conteneurMembership .carte {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vh;
+}
+
+.conteneurMembership .carte .rond {
+    margin-right: 2vh;
+    height: 3vh;
+    width: 3vh;
+    border: 1px solid rgb(6, 195, 12);
+    border-radius: 50%;
+}
+
+.conteneurMembership p.avantage {
+    color: #767f98;
+}

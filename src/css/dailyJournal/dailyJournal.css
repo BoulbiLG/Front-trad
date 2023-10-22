@@ -1,0 +1,54 @@
+.conteneurDailyJournal {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+}
+
+.conteneurDailyJournal .carte {
+    flex: 1;
+    box-shadow: 1vh 1vh 50px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+}
+
+.conteneurDailyJournal .carte .haut {
+    text-align: center;
+}
+
+.conteneurDailyJournal .carte .haut p {
+    font-weight: 600;
+    color: #2e4857;
+    font-size: 1.2rem;
+}
+
+.conteneurDailyJournal .carte .milieu {
+    margin: 20vh 0;
+    text-align: center;
+}
+
+.conteneurDailyJournal .carte .basDaily {
+    box-sizing: border-box;
+    color: white;
+    text-align: center;
+    width: 100%;
+    margin: 1vh 0 0 0;
+    padding: 1.7vh 2vw;
+    border-radius: 0.7vw;
+    background-color: rgb(8, 0, 255);
+}
+
+.conteneurDailyJournal .carte .nombre {
+    font-weight: 600;
+}
+
+.conteneurDailyJournal .carte1 {
+    margin-right: 1vh;
+}
+
+.conteneurDailyJournal .carte2 {
+    margin: 0 1vh;
+}
+
+.conteneurDailyJournal .carte3 {
+    margin-left: 1vh;
+}

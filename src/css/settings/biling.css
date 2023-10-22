@@ -1,0 +1,78 @@
+.conteneurBiling {
+    display: flex;
+}
+
+.conteneurBiling .gauche {
+    flex: 1;
+}
+
+.conteneurBiling .droite {
+    flex: 1;
+}
+
+.conteneurBiling .titreSecond {
+    margin: 3vh 0;
+    color: #2e4857;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.conteneurBiling .sectionCarte {
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+}
+
+.conteneurBiling p.titre {
+    color: #767f98;
+    margin-bottom: 0.5vh;
+}
+
+.conteneurBiling p.detail {
+    color: #2e4857;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.conteneurBiling p.numeroCarte {
+    margin: 5vh 0;
+    color: #2e4857;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.conteneurBiling p.suppression {
+    padding: 1vh;
+    background-color: rgb(255, 217, 217);
+    color: rgb(255, 124, 124);
+    border-radius: 1vh;
+    max-width: 7.5vw;
+}
+
+.conteneurBiling button {
+    margin-right: 2vh;
+    width: 100%;
+    padding: 2vh;
+    border-radius: 1vh;
+    border: none;
+    font-size: 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: white;
+    color: #000000;
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    margin-top: 2vh;
+}
+
+.conteneurBiling .droite .carte {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+    border-radius: 1vh;
+    padding: 3vh;
+    color: #767f98;
+    margin-bottom: 2vh;
+}

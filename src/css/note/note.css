@@ -1,6 +1,6 @@
 .noteConteneur {
     width: 100%;
-    padding: 0 3vh 3vh 3vh;
+    padding:  3vh;
     box-sizing: border-box;
     color: #2e4857;
 }
@@ -26,7 +26,7 @@
     transition: all 0.2s;
 }
 
-.noteConteneur .haut {
+.noteConteneuvhr .haut {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -82,7 +82,7 @@
 
 .noteConteneur .secondConteneur input {
     width: 100%;
-    padding: 10px 0 10px 10px;
+    padding: 10px  10px 10px;
 }
 
 .noteConteneur .bas {
